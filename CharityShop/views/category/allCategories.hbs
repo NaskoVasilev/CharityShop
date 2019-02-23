@@ -1,0 +1,16 @@
+<section id="all-categories">
+    <table>
+        <tr>
+            <th>Category Name</th>
+            <th>Buttons</th>
+        </tr>
+        {{#each categories}}
+            <tr>
+                <td>{{name}}</td>
+                <td>
+                    <a href="/category/edit/{{_id}}" class="genric-btn warning circle">Edit</a>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+</section>

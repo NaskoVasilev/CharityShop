@@ -1,0 +1,17 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Edit event</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="text" class="fadeIn second" name="name" value="{{name}}">
+            <textarea type="text" class="fadeIn third" name="description">{{description}}</textarea>
+            <input type="number" class="fadeIn third" name="placesCount" value="{{placesCount}}" step="1" min="0">
+            <input type="date" class="fadeIn third" name="date" value="{{date}}">
+            <input type="text" class="fadeIn third" name="address" value="{{address}}">
+            <input type="text" class="fadeIn third" name="town" value="{{town}}">
+            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" >
+            <label for="file" class="fadeIn third">Choose photo</label>
+            <input type="submit" class="fadeIn fourth" value="Edit event">
+        </form>
+    </div>
+</div>

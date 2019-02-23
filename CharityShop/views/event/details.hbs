@@ -1,0 +1,62 @@
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0"
+             data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Events Details</h2>
+                <p>Platea nullam nostra laoreet potenti hendrerit laoreet enim nisl</p>
+                <h3>{{occupiedPlaces}}/{{placesCount}}</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Home Banner Area =================-->
+
+<!--================ Start Recent Event Area =================-->
+<section class="condition-area event-details-area section_gap">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="condition-left">
+                    <img class="img-fluid" src="{{image}}" alt="Event image comes here">
+                </div>
+            </div>
+            <div class="offset-lg-1 col-lg-5">
+                <div class="condition-right">
+                    <h2 class="mb-20">{{name}}</h2>
+                    <p>{{description}}</p>
+                    <ul>
+                        <li>{{time}}</li>
+                        <li>{{address}}</li>
+                        <li>{{town}}</li>
+                    </ul>
+                </div>
+            </div>
+            {{#if isAdmin}}
+                <div class="col-lg-12">
+                    <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">edit</a>
+                    <a href="/event/delete/{{_id}}" class="primary_btn">delete</a>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</section>
+<!--================ End Recent Event Area =================-->
+
+<!--================ Start CTA Area =================-->
+<div class="cta-area section_gap overlay">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <h1>Become a volunteer</h1>
+                <p>You can take part in this event by registering for it</p>
+                {{#if currentUserIsRegistered}}
+                    <a href="/event/unregister/{{_id}}" class="primary_btn yellow_btn rounded">Unregister</a>
+                {{else}}
+                    <a href="/event/register/{{_id}}" class="primary_btn yellow_btn rounded">Register</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<section class="product-details">
+    <div class="row align-items-center">
+        <div class="col-lg-6 col-md-6">
+            <figure>
+                <img id="product-img" class="img-fluid w-100" src="{{product.image}}" alt="">
+            </figure>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="content_wrapper">
+                <h3 class="title">{{product.name}}</h3>
+                <p>{{product.description}}</p>
+                <h5 class="title">Price: {{product.price}} lv</h5>
+                <a href="/product/edit/{{product._id}}" class="primary_btn">Edit</a>
+                <a href="/product/delete/{{product._id}}" class="primary_btn danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,11 @@
+extends ../layout.hbs
+
+block content
+  h1.head-title Your products!
+  .cards
+    each product in products
+      .product-card
+        img.product-img(src=`${product.image}`)
+        h2=product.name
+        h2=product.price
+        p=product.description

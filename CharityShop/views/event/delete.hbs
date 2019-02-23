@@ -1,0 +1,15 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Are you sure you want to delete this event</h2>
+
+        <form method="post">
+            <input type="text" class="fadeIn second" name="name" value="{{name}}" disabled>
+            <textarea type="text" class="fadeIn third" name="description" disabled>{{description}}</textarea>
+            <input type="number" class="fadeIn third" name="placesCount" value="{{placesCount}}" step="1" min="0" disabled>
+            <input type="date" class="fadeIn third" name="date" value="{{date}}" disabled>
+            <input type="text" class="fadeIn third" name="address" value="{{address}}" disabled>
+            <input type="text" class="fadeIn third" name="town" value="{{town}}" disabled>
+            <input type="submit" class="fadeIn fourth" value="Delete event">
+        </form>
+    </div>
+</div>

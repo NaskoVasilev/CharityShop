@@ -1,0 +1,311 @@
+.main_menu {
+    background-color: #2D3135;
+}
+
+.nav li, #ul-nav {
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    padding: 0px;
+    padding-top: 80px;
+}
+
+/*Login from*/
+
+#login-form{
+    background-color: #56baed;;
+}
+#login-form a {
+    color: #92badd;
+    display:inline-block;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+#login-form h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    margin: 40px 8px 10px 8px;
+    color: #cccccc;
+}
+
+ .wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+}
+
+#formContent {
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+#formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    padding: 25px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+#login-form h2.inactive {
+    color: #cccccc;
+}
+
+#login-form h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+}
+
+input[type=button], input[type=submit], input[type=reset]  {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    border-radius: 5px 5px 5px 5px;
+    margin: 5px 20px 40px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-color: #39ace7;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    transform: scale(0.95);
+}
+
+input[type=text],textarea, select, input[type=file], input[type=password], input[type=number] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px 5px 5px 5px;
+}
+
+input[type=text]:focus,textarea:focus, select:focus, input[type=file]:focus,
+input[type=password]:focus, input[type=number]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+}
+
+input[type=text]::placeholder, input[type=password]::placeholder, input[type=number]::placeholder
+,textarea::placeholder, select::placeholder, input[type=file]::placeholder{
+    color: rgba(43, 39, 40, 0.96);
+}
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+    opacity:0;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:1s;
+}
+
+.fadeIn.first {
+    animation-delay: 0.4s;
+}
+
+.fadeIn.second {
+    animation-delay: 0.6s;
+}
+
+.fadeIn.third {
+    animation-delay: 0.8s;
+}
+
+.fadeIn.fourth {
+    animation-delay: 1s;
+}
+/* Simple CSS3 Fade-in Animation */
+.underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+}
+
+.underlineHover:hover {
+    color: #0d0d0d;
+}
+
+.underlineHover:hover:after{
+    width: 100%;
+}
+
+#login-form *:focus {
+    outline: none;
+}
+
+#icon {
+    width:60%;
+}
+
+#login-form * {
+    box-sizing: border-box;
+}
+
+.yellow_btn{
+    margin-right: 20px;
+}
+
+/*Add product form*/
+input[type=file]{
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -10;
+}
+
+input[type = file] + label{
+    color: white;
+    background-color: #3BACE7;
+    display: inline-block;
+    padding: 15px 40px;
+    margin: 5px 0;
+    width: 57%;
+    border-radius: 5px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+input[type = file]:focus + label,
+input[type = file] + label:hover {
+    background-color: red;
+}
+
+#products{
+    padding-top: 50px;
+}
+
+#products figure img{
+    height: 220px;
+}
+
+a.primary-btn.blue{
+    background-color: deepskyblue;
+    padding: 5.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+a.primary-btn.blue:hover{
+    background: #6aff49;
+    color: black;
+}
+
+section.product-details {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/*Admin buttons*/
+div.admin-buttons{
+    padding-top: 40px;
+}
+
+/*Category Table*/
+#all-categories{
+    margin-top: 20px;
+}
+
+#all-categories th{
+    background: #5bf2ff;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+#all-categories table{
+    margin: 0 auto;
+    color: black;
+    font-weight: bold;
+}
+
+#all-categories *{
+    border: 1px solid black;
+}
+
+#all-categories td{
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+#all-categories tr:nth-child(even){
+    background: lightgray;
+}
+
+#all-categories tr:nth-child(odd){
+    background: #d3cf85;
+}

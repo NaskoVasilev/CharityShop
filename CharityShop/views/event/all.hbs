@@ -1,0 +1,83 @@
+<!--================ Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0"
+             data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Events</h2>
+                <p>Platea nullam nostra laoreet potenti hendrerit laoreet enim nisl</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Home Banner Area =================-->
+
+<!--================ Start Recent Event Area =================-->
+<section class="event_area section_gap_top">
+    <div class="container">
+        <div class="main_title">
+            <h2>Upcoming events</h2>
+            <p>Creepeth called face upon face yielding midst is after moveth </p>
+        </div>
+
+        <div class="row">
+            {{#each events}}
+                <div class="col-lg-6">
+                    <div class="single_event">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <figure>
+                                    <img class="img-fluid w-100" src="{{image}}" alt="">
+                                    <div class="img-overlay"></div>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="content_wrapper">
+                                    <h3 class="title">
+                                        <a href="/event/details/{{_id}}">{{name}}</a>
+                                    </h3>
+                                    <p>{{description}}</p>
+                                    <div id="eventEndDate{{@index}}" style="display: none;">{{date}}</div>
+                                    <div class="d-flex count_time" id="eventClock{{@index}}">
+                                        <div class="mr-25">
+                                            <h4 class="days"></h4>
+                                            <p>Days</p>
+                                        </div>
+                                        <div class="mr-25">
+                                            <h4 class="hours"></h4>
+                                            <p>Hours</p>
+                                        </div>
+                                        <div class="mr-25">
+                                            <h4 class="minutes"></h4>
+                                            <p>Minutes</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="seconds"></h4>
+                                            <p>Seconds</p>
+                                        </div>
+                                    </div>
+                                    <a href="/event/details/{{_id}}" class="primary_btn">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+<!--================ End Recent Event Area =================-->
+<script src="../../content/js/countdown.js"></script>
+<script src="../../content/js/jquery-3.2.1.min.js"></script>
+
+<script>
+    let evenetsCount = document.getElementsByClassName('days').length
+
+    $(function () {
+        for (let i = 0; i <evenetsCount; i++) {
+            let dateString = document.getElementById('eventEndDate' + i).innerHTML
+            initializeClock('eventClock' + i, dateString)
+        }
+    })
+</script>

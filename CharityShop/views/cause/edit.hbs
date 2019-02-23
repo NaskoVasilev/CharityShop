@@ -1,0 +1,14 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Edit cause</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="text" class="fadeIn second" name="name" value="{{cause.name}}">
+            <textarea type="text" class="fadeIn third" name="description">{{cause.description}}</textarea>
+            <input type="number" class="fadeIn third" name="goal" value="{{cause.goal}}">
+            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" >
+            <label for="file" class="fadeIn third">Choose photo</label>
+            <input type="submit" class="fadeIn fourth" value="Edit cause">
+        </form>
+    </div>
+</div>

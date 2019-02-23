@@ -1,0 +1,10 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Edit category</h2>
+
+        <form method="post" action="/category/edit/{{category._id}}">
+            <input type="text" class="fadeIn second" name="name" value="{{category.name}}">
+            <input type="submit" class="fadeIn third" value="Edit category">
+        </form>
+    </div>
+</div>

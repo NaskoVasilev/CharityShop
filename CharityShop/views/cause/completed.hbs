@@ -1,0 +1,47 @@
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0"
+             data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Completed Causes</h2>
+                <p>This are our completed causes</p>
+                <p>With the help of our donors we managed to make a lot of people happy!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features_causes">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                {{#each causes}}
+                    <div class="card">
+                        <div class="card-body">
+                            <figure>
+                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Cause image">
+                            </figure>
+                            <div class="card_inner_body">
+                                <h4 class="card-title">{{name}}</h4>
+                                <p class="card-text">{{description}}</p>
+                                <div class="d-flex justify-content-between raised_goal">
+                                    <p>Raised: {{raised}} lv</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between donation align-items-center">
+                                {{#if ../isAdmin}}
+                                    <a href="/cause/delete/{{this._id}}" class="primary_btn">delete</a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div>
+            <a href="/cause/all" class="primary_btn">Current causes</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,145 @@
+<section class="home_banner_area">
+    <div class="banner_inner">
+        <div class="container">
+            <div class="banner_content">
+                <p class="upper_text">Give a hand</p>
+                <h2>to make the better world</h2>
+                <p>
+                    That don't lights. Blessed land spirit creature divide our made two
+                    itself upon you'll dominion waters man second good you they're divided upon winged were replenish
+                    night
+                </p>
+                <a class="primary_btn mr-20" href="/product/add">Donate Product</a>
+                <a class="primary_btn yellow_btn text-white" href="/cause/all">See Causes</a>
+                <a class="primary_btn mr-20" href="/products">Buy Product</a>
+            </div>
+            {{#if isAdmin}}
+                <div class="banner_content">
+                    <div class="admin-buttons">
+                        <a class="primary_btn mr-20" href="/category/add">Add Category</a>
+                        <a class="primary_btn mr-20 yellow_btn" href="/category/all">All Categories</a>
+                        <a class="primary_btn mr-20 yellow_btn" href="/cause/add">Add Cause</a>
+                    </div>
+                </div>
+                <div class="banner_content">
+                    <div class="admin-buttons">
+                        <a class="primary_btn mr-20" href="/event/add">Add Event</a>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+<!--Latest causes section-->
+<section class="features_causes">
+    <div class="container">
+        <div class="main_title">
+            <h2>Our latest causes</h2>
+            <p>This are our latest clause. You can choose one of them and help!</p>
+            <div class="text-center">
+                <a href="/cause/all" class="primary_btn">View more causes</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                {{#each causes}}
+                    <div class="card">
+                        <div class="card-body">
+                            <figure>
+                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Cause image">
+                            </figure>
+                            <div class="card_inner_body">
+                                <h4 class="card-title">{{this.name}}</h4>
+                                <p class="card-text">{{this.description}}</p>
+                                <div class="d-flex justify-content-between raised_goal">
+                                    <p>Raised: {{this.raised}} lv</p>
+                                    <p><span>Goal: {{this.goal}} lv</span></p>
+                                </div>
+                                <div class="d-flex justify-content-between donation align-items-center">
+                                    <a href="#" class="primary_btn">donate</a>
+                                    {{#if ../isAdmin}}
+                                        <a href="/cause/delete/{{this._id}}" class="primary_btn">delete</a>
+                                        <a href="/cause/edit/{{this._id}}" class="primary_btn">edit</a>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Upcoming events-->
+<section class="event_area section_gap_custom">
+    <div class="container">
+        <div class="main_title">
+            <h2>Upcoming events</h2>
+            <p>Creepeth called face upon face yielding midst is after moveth </p>
+            <div class="text-center">
+                <a href="/event/all" class="primary_btn">View all events</a>
+            </div>
+        </div>
+
+        <div class="row">
+            {{#each events}}
+                <div class="col-lg-6">
+                    <div class="single_event">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <figure>
+                                    <img class="img-fluid w-100" src="{{image}}">
+                                    <div class="img-overlay"></div>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="content_wrapper">
+                                    <h3 class="title">
+                                        <a href="/event/details/{{_id}}">{{name}}</a>
+                                    </h3>
+                                    <div id="endDate{{@index}}" style="display: none;">{{date}}</div>
+                                    <p>{{description}}</p>
+                                    <div id="clock{{@index}}" class="d-flex count_time">
+                                        <div class="mr-25">
+                                            <h4 class="days"></h4>
+                                            <p>Days</p>
+                                        </div>
+                                        <div class="mr-25">
+                                            <h4 class="hours"></h4>
+                                            <p>Hours</p>
+                                        </div>
+                                        <div class="mr-25">
+                                            <h4 class="minutes"></h4>
+                                            <p>Minutes</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="seconds"></h4>
+                                            <p>Seconds</p>
+                                        </div>
+                                    </div>
+                                    <a href="/event/details/{{_id}}" class="primary_btn">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+<script src="../../content/js/countdown.js"></script>
+<script src="../../content/js/jquery-3.2.1.min.js"></script>
+
+<script>
+    let evenetsCount = document.getElementsByClassName('days').length
+
+    $(function () {
+        for (let i = 0; i < evenetsCount; i++) {
+            let dateString = document.getElementById('endDate' + i).innerHTML
+            initializeClock('clock' + i, dateString)
+        }
+    })
+</script>
