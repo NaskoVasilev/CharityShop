@@ -1,31 +1,13 @@
-<!--extends ../layout.hbs-->
-
-<!--block content-->
-  <!--form.form.center-form(method='post', enctype='multipart/form-data', action='/product/delete/'+product.id)-->
-    <!--h2 Delete Product-->
-    <!--.form-group-->
-      <!--label-->
-      <!--.product-card-->
-        <!--img.product-img(src=`${product.image}`)-->
-    <!--.form-group-->
-      <!--label(for='name') Name-->
-      <!--input#name.input-field(name='name', type='text', value=product.name disabled )-->
-    <!--.form-group-->
-      <!--label(for='description') Description-->
-      <!--textarea#description.input-field(name='description', type='text' disabled )= product.description-->
-    <!--.form-group-->
-      <!--input.form-btn.btn.btn-danger(type='submit', value='Delete')-->
-
 <div class="wrapper fadeInDown" id="add-product-from">
     <div id="formContent">
-        <h2 class="active">Delete product!</h2>
+        <h2 class="active">Изтриване на продукт!</h2>
 
         <form method="post" enctype="multipart/form-data">
             <input type="text" class="fadeIn second" name="name" value="{{product.name}}" disabled>
             <img src="{{product.image}}" alt="Product image">
             <textarea type="text" class="fadeIn third" name="description">{{product.description}} disabled</textarea>
             <input type="number" class="fadeIn third" name="price" value="{{product.price}}" disabled step="0.1" min="0">
-            <input type="submit" class="fadeIn fourth" value="Delete">
+            <input type="submit" class="fadeIn fourth" value="Изтрий">
         </form>
     </div>
 </div>

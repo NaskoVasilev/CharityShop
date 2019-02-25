@@ -26,6 +26,8 @@ module.exports.deleteGet = (req, res) => {
     let id = req.params.id
 
     Event.findById(id).then(event => {
+        let date = event.date.toDateString();
+        event.formatedDate = date;
         res.render('event/delete', event)
     }).catch(err => {
         console.log(err.message)
@@ -73,17 +75,17 @@ module.exports.editPost = (req, res) => {
 }
 
 module.exports.getDetails = (req, res) => {
-    let id = req.params.id
+    let id = req.params.id;
 
     Event.findById(id).then(event => {
         event.occupiedPlaces = event.users.length
         event.time = event.date.toDateString()
         if (req.user) {
-            console.log('there is user')
-            event.currentUserIsRegistered = event.users.includes(req.user.id.toString())
-            console.log(event.currentUserIsRegistered)
-            console.log(req.user.id.toString())
-            console.log(event.users)
+            for (const userId of event.users) {
+                if(userId.toString() === req.user.id.toString()){
+                    event.currentUserIsRegistered = true
+                }
+            }
         }else{
             event.currentUserIsRegistered = false
         }
@@ -100,8 +102,8 @@ module.exports.getAllEvents = (req, res) => {
 }
 
 module.exports.registerForEvent = (req, res) => {
-    let userId = req.user.id
-    let eventId = req.params.id
+    let userId = req.user.id;
+    let eventId = req.params.id;
 
     Event.findById(eventId).then(event => {
         if (event.users.includes(userId.toString())) {
@@ -120,8 +122,8 @@ module.exports.registerForEvent = (req, res) => {
 }
 
 module.exports.unregisterFromEvent = (req, res) => {
-    let eventId = req.params.id
-    let userId = req.user.id
+    let eventId = req.params.id;
+    let userId = req.user.id;
 
     Event.findById(eventId).then(event => {
         let index = event.users.indexOf(userId)

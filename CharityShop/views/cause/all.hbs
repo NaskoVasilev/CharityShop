@@ -4,9 +4,13 @@
              data-background=""></div>
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Causes</h2>
-                <p>These are our causes. If you want to help you can add product and the profit will be used in cause
-                    which you choose.</p>
+                <h2>Каузи</h2>
+                <p>
+                    Това са нашите каузи ,по които работим в момента. <br>
+                    Ако искаш да помогнеш,
+                    можеш да дариш или да купиш продукт. <br>
+                    Печалбата от продажбата на продукта ще бъде използвана в посочената от теб кауза.
+                </p>
             </div>
         </div>
     </div>
@@ -15,8 +19,15 @@
 <section class="features_causes">
     <div class="container">
         <div class="main_title">
-            <h2>Featured causes</h2>
-            <p>You can help now. Please make it!</p>
+            <h2>Настоящи каузи</h2>
+            <p>
+                Вие можете да помогнете сега. <br>
+                Просто дарете или купете избраният от вас продукт.
+            </p>
+            <div class="text-center">
+                <a href="/cause/completed" class="primary_btn">Изпълнени каузи</a>
+            </div>
+
         </div>
 
         <div class="row">
@@ -25,20 +36,20 @@
                     <div class="card">
                         <div class="card-body">
                             <figure>
-                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Cause image">
+                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Снимка на каузата">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>
                                 <p class="card-text">{{description}}</p>
                                 <div class="d-flex justify-content-between raised_goal">
-                                    <p>Raised: {{raised}} lv</p>
-                                    <p><span>Goal: {{goal}} lv</span></p>
+                                    <p>Събрани: {{raised}} лв</p>
+                                    <p><span>Нужни: {{goal}} лв</span></p>
                                 </div>
                                 <div class="d-flex justify-content-between donation align-items-center">
-                                    <a href="#" class="primary_btn">donate</a>
+                                    <a href="/cause/donate/{{_id}}" class="primary_btn">дари</a>
                                     {{#if ../isAdmin}}
-                                        <a href="/cause/delete/{{_id}}" class="primary_btn">delete</a>
-                                        <a href="/cause/edit/{{_id}}" class="primary_btn">edit</a>
+                                        <a href="/cause/delete/{{_id}}" class="primary_btn">изтрий</a>
+                                        <a href="/cause/edit/{{_id}}" class="primary_btn">редактирай</a>
                                     {{/if}}
                                 </div>
                             </div>
@@ -46,10 +57,6 @@
                     </div>
                 {{/each}}
             </div>
-        </div>
-
-        <div>
-            <a href="/cause/completed" class="primary_btn">View completed causes</a>
         </div>
     </div>
 </section>

@@ -4,9 +4,9 @@
              data-background=""></div>
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Events Details</h2>
-                <p>Platea nullam nostra laoreet potenti hendrerit laoreet enim nisl</p>
-                <h3>{{occupiedPlaces}}/{{placesCount}}</h3>
+                <h2>Детайли за събитие</h2>
+                <p>Заети места / Свободни места</p>
+                <h3>{{occupiedPlaces}} / {{placesCount}}</h3>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="condition-left">
-                    <img class="img-fluid" src="{{image}}" alt="Event image comes here">
+                    <img class="img-fluid" src="{{image}}" alt="Снимка за събитието">
                 </div>
             </div>
             <div class="offset-lg-1 col-lg-5">
@@ -35,8 +35,8 @@
             </div>
             {{#if isAdmin}}
                 <div class="col-lg-12">
-                    <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">edit</a>
-                    <a href="/event/delete/{{_id}}" class="primary_btn">delete</a>
+                    <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">Редактирай</a>
+                    <a href="/event/delete/{{_id}}" class="primary_btn">Изтрий</a>
                 </div>
             {{/if}}
         </div>
@@ -49,12 +49,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7">
-                <h1>Become a volunteer</h1>
-                <p>You can take part in this event by registering for it</p>
+                <h1>Стани част от това събитие</h1>
+                <p>Можеш да се включиш в събитието и да си запазиш място като натиснеш бутона долу.</p>
                 {{#if currentUserIsRegistered}}
-                    <a href="/event/unregister/{{_id}}" class="primary_btn yellow_btn rounded">Unregister</a>
+                    <a href="/event/unregister/{{_id}}" class="primary_btn yellow_btn rounded">Отписване</a>
                 {{else}}
-                    <a href="/event/register/{{_id}}" class="primary_btn yellow_btn rounded">Register</a>
+                    <a href="/event/register/{{_id}}" class="primary_btn yellow_btn rounded">Записване</a>
                 {{/if}}
             </div>
         </div>

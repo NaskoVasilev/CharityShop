@@ -18,6 +18,7 @@ module.exports = (app) => {
     app.post('/cause/delete/:id', auth.isInRole('Admin'), handlers.cause.deletePost)
     app.get('/cause/edit/:id', auth.isInRole('Admin'), handlers.cause.editGet)
     app.get('/cause/edit/:id', upload.single('image'), auth.isInRole('Admin'), handlers.cause.editPost)
+    app.get('/cause/donate/:id', handlers.cause.viewProducts)
 
     app.get('/event/add', auth.isInRole('Admin'), handlers.event.addGet)
     app.post('/event/add', auth.isInRole('Admin'), upload.single('image'), handlers.event.addPost)
@@ -63,4 +64,6 @@ module.exports = (app) => {
     app.get('/user/product/details/:id',auth.isAuthenticated, handlers.user.getUserProductDetails)
     app.get('/user/boughtProducts', auth.isAuthenticated, handlers.user.getBoughtProducts)
 
+    app.post('/product/search', handlers.product.search)
+    app.get('/product/search', handlers.product.search)
 }

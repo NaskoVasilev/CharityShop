@@ -1,22 +1,32 @@
 <section class="features_causes" id="products">
     <div class="container">
+        <div id="search-container">
+            <form action="/product/search" method="post">
+                <input type="text" name="productName" placeholder="Име на продукт">
+                <select class="fadeIn third" name="category" id="category">
+                    {{#each categories}}
+                        <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <input type="submit" value="Търси">
+            </form>
+        </div>
         <div class="row">
-
             {{#each products}}
                 <div class="col-lg-4 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <figure>
-                                <img class="card-img-top img-fluid" src="{{image}}" alt="Product image">
+                                <img class="card-img-top img-fluid" src="{{image}}" alt="Снимка на продукта">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>
                                 <div class="d-flex justify-content-between raised_goal">
-                                    <p><span>Price: {{price}}lv</span></p>
+                                    <p><span>Цена: {{price}} лв</span></p>
                                 </div>
                                 <div class="d-flex justify-content-between donation align-items-center">
-                                    <a href="/product/buy/{{_id}}" class="primary_btn">Buy</a>
-                                    <a href="/product/details/{{_id}}" class="primary-btn blue">Details</a>
+                                    <a href="/product/buy/{{_id}}" class="primary_btn">Купи</a>
+                                    <a href="/product/details/{{_id}}" class="primary-btn blue">Детайли</a>
                                 </div>
                             </div>
                         </div>

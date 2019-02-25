@@ -101,7 +101,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text],textarea, select, input[type=file], input[type=password], input[type=number] {
+input[type=text],textarea, select, input[type=file], input[type=date], input[type=password], input[type=number] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -291,6 +291,7 @@ div.admin-buttons{
     margin: 0 auto;
     color: black;
     font-weight: bold;
+    text-align: center;
 }
 
 #all-categories *{
@@ -303,9 +304,43 @@ div.admin-buttons{
 }
 
 #all-categories tr:nth-child(even){
-    background: lightgray;
+    background: #eff0e2;
 }
 
 #all-categories tr:nth-child(odd){
-    background: #d3cf85;
+    background: #cdcdbb;
+}
+
+/*search form*/
+#products .container #search-container input[type=text], #products .container #search-container select{
+    width: 30%;
+    padding: 3px;
+    display:  inline-block;
+    background-color: #fcfcfc;
+    border: 1px solid lightgray;
+}
+
+#products .container #search-container select{
+    padding: 6px;
+}
+
+#products .container #search-container input[type=submit]{
+    padding: 3px 10px;
+}
+
+#products div#search-container{
+    text-align: center;
+    background-color: lightgreen;
+    padding: 20px 40px;
+    margin-bottom: 30px;
+}
+
+#products #search-container form{
+    padding: 0;
+    height: 45px;
+}
+
+#bought-products{
+    text-align: center;
+    padding-bottom: 30px;
 }

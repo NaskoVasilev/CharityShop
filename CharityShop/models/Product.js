@@ -13,6 +13,7 @@ let productSchema = mongoose.Schema({
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     buyer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    cause: { type: mongoose.Schema.Types.ObjectId, ref: 'Cause', required: true }
 })
 
 module.exports = mongoose.model('Product', productSchema)

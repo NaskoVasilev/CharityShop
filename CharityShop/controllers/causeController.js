@@ -1,4 +1,5 @@
 const Cause = require('../models/Cause')
+const Product = require('../models/Product')
 const fs = require('fs')
 const path = require('path')
 
@@ -75,4 +76,12 @@ module.exports.editPost = (req, res) => {
         console.log(err.message)
     })
 }
+
+module.exports.viewProducts = async(req, res)=>{
+    let causeId = req.params.id;
+
+    let products = await Product.find({cause: causeId})
+    res.render('product/products', {products: products})
+}
+
 

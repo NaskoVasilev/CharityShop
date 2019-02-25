@@ -1,19 +1,22 @@
 const Product = require('../models/Product')
 const Category = require('../models/Category')
+const Cause = require('../models/Cause')
 const fs = require('fs')
 const path = require('path')
 
 module.exports.addGet = (req, res) => {
-    Category.find()
-        .then((categories) => {
-            res.render('product/add', {categories: categories})
-        })
+    let categoriesPromise = Category.find();
+    let causesPromise = Cause.find().select('name')
+    Promise.all([categoriesPromise, causesPromise])
+        .then(([categories, causes]) => {
+            res.render('product/add', {categories: categories, causes: causes})
+        });
 }
 
 module.exports.addPost = (req, res) => {
-    let productObj = req.body
-    productObj.image = '\\' + req.file.path
-    productObj.creator = req.user._id
+    let productObj = req.body;
+    productObj.image = '\\' + req.file.path;
+    productObj.creator = req.user._id;
 
     Product.create(productObj)
         .then(product => {
@@ -158,44 +161,49 @@ module.exports.deletePost = (req, res) => {
 }
 
 module.exports.buyGet = (req, res) => {
-    let id = req.params.id
-    Product.findById(id)
+    let id = req.params.id;
+    Product.findById(id).populate('cause')
         .then((product) => {
             if (!product) {
                 res.statusCode(404)
                 return
             }
+            if(req.user && product.creator === req.user._id){
+                console.log("The creator of the product cannot buy it")
+                res.redirect('/products');
+                return;
+            }
             res.render('product/buy', {product: product})
         })
 }
 
-module.exports.buyPost = (req, res) => {
+module.exports.buyPost = async (req, res) => {
     let productId = req.params.id
 
-    Product.findById(productId)
-        .then(product => {
-            if (product.buyer) {
-                let error = `error=${encodeURIComponent('Product was already bought!')}`
-                res.redirect(`/?${error}`)
-                return
-            }
+    let product = await Product.findById(productId).populate('cause');
+    if(product.buyer){
+        console.log('The product has been already bought')
+        return;
+    }
 
-            product.buyer = req.user._id
-            product.save()
-                .then(() => {
-                    req.user.boughtProducts.push(productId)
-                    req.user.save()
-                        .then(() => {
-                            res.redirect('/')
-                        })
-                })
-        })
+    product.buyer = req.user.id;
+    product.cause.raised += product.price;
+    await product.save();
+    await product.cause.save();
+
+    req.user.boughtProducts.push(product.id)
+    req.user.save();
+
+    res.redirect('/products')
 }
 
-module.exports.getAllProducts = (req, res) => {
-    Product.find({buyer: {$exists: false}}).sort({$natural: -1}).limit(21)
+module.exports.getAllProducts = async (req, res) => {
+    let categories = await Category.find();
+    categories.unshift({_id: '', name: ''})
+
+    Product.find({buyer: {$exists: false}}).sort({$natural: -1})
         .then(products => {
-            res.render('product/products', {products: products})
+            res.render('product/products', {products: products, categories: categories})
         })
 }
 
@@ -204,8 +212,41 @@ module.exports.getProductDetails = (req, res) => {
 
     Product.findById(productId)
         .then(product => {
+            if(req.user){
+                product.isAuthorOrAdmin = isAuthorOrAdmin(req, product);
+            }
+
             res.render('product/details', {product: product})
         })
+}
+
+module.exports.search = async (req, res)=>{
+    let productName = req.body.productName;
+    let category = req.body.category;
+    let products = [];
+    console.log(productName)
+    console.log(category)
+    let categories = await Category.find();
+    categories.unshift({_id: '', name: ''})
+
+    if(category){
+        products = await Product.find({category: category})
+    }
+    else if(productName){
+        products = await Product.find();
+        products = products.filter(x => x.name.toLowerCase()
+            .includes(productName.toLowerCase()))
+    }
+
+    console.log(products)
+
+    if(category && productName){
+        products = products.filter(x => x.name.toLowerCase()
+            .includes(productName.toLowerCase()))
+    }
+
+    res.render('product/products', {products: products, categories: categories})
+
 }
 
 function isAuthorOrAdmin(req, product) {
