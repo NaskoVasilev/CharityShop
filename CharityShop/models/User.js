@@ -71,5 +71,25 @@ module.exports.seedAdminUser = () => {
             })
         }
     })
+	
+	User.find({ username: 'naskoAdmin' }).then(users => {
+        if (users.length === 0) {
+            let salt = encryption.generateSalt()
+            let hashedPass = encryption.generateHashedPassword(salt, 'naskoAdmin')
+            User.create({
+                username: 'naskoAdmin',
+                firstName: 'Atanas',
+                lastName: 'Vasilev',
+                salt: salt,
+                password: hashedPass,
+                age: 17,
+                roles: ['Admin']
+            }).then(()=>{
+                console.log('Admin user created!')   
+            }).catch(err=>{
+                console.log(err)   
+            })
+        }
+    })
 }
 

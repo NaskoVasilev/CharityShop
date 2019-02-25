@@ -1,4 +1,4 @@
-const port = 8000
+const port = process.env.PORT || 8000
 const express = require('express')
 const environment = process.env.NODE_environment || 'development'
 const config = require('./config/config')

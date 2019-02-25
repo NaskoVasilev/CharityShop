@@ -94,7 +94,8 @@ module.exports.getDetails = (req, res) => {
 }
 
 module.exports.getAllEvents = (req, res) => {
-    Event.find().then(events => {
+    let startDate = Date.now();
+    Event.find({"date": {"$gte": startDate}}).then(events => {
         res.render('event/all', {events: events})
     }).catch((err) => {
         console.log(err.message)

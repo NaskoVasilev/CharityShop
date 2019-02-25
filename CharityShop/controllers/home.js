@@ -8,7 +8,10 @@ module.exports.index = (req, res) => {
 
     let causePromise = Cause.find({isCompleted: false})
         .sort([['_id', -1]]).limit(3);
-    let eventPromise = Event.find().sort([['_id', -1]]).limit(4)
+
+    let startDate = Date.now();
+    let eventPromise = Event.find({"date": {"$gte": startDate}})
+        .sort([['_id', -1]]).limit(4)
 
     Promise.all([causePromise, eventPromise]).then((values)=>{
         let causes = values[0]
