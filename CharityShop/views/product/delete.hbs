@@ -4,7 +4,7 @@
 
         <form method="post" enctype="multipart/form-data">
             <input type="text" class="fadeIn second" name="name" value="{{product.name}}" disabled>
-            <img src="{{product.image}}" alt="Product image">
+            <img src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="Product image">
             <textarea type="text" class="fadeIn third" name="description">{{product.description}} disabled</textarea>
             <input type="number" class="fadeIn third" name="price" value="{{product.price}}" disabled step="0.1" min="0">
             <input type="submit" class="fadeIn fourth" value="Изтрий">

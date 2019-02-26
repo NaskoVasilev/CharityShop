@@ -40,12 +40,14 @@
                             <li class="nav-item active"><a class="nav-link" href="/">Начало</a></li>
                             <!--<li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>-->
                             {{#if user}}
-                                <li class="nav-item"><a class="nav-link" href="/user/myProducts">Дарени продукти</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/user/myProducts">Дарени продукти</a>
+                                </li>
                                 <li class="nav-item"><a class="nav-link" href="/user/boughtProducts">Купени</a></li>
                                 <li class="nav-item"><span class="nav-link">Дебре дошъл, {{user.username}}!</span></li>
                                 <form id="logout-from" action="/user/logout" method="post">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="javascript:document.getElementById('logout-from').submit()">Изход</a>
+                                        <a class="nav-link"
+                                           href="javascript:document.getElementById('logout-from').submit()">Изход</a>
                                     </li>
                                 </form>
                             {{else}}
@@ -75,8 +77,12 @@
             </nav>
         </div>
     </div>
+
 </header>
 <main>
+    {{#if error}}
+        <div id="errorBox">{{error}}</div>
+    {{/if}}
     {{{body}}}
 </main>
 </html>

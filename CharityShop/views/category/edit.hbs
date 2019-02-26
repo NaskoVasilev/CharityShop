@@ -3,7 +3,7 @@
         <h2 class="active">Редактиране на категория</h2>
 
         <form method="post" action="/category/edit/{{category._id}}">
-            <input type="text" class="fadeIn second" name="name" value="{{category.name}}">
+            <input type="text" class="fadeIn second" name="name" value="{{category.name}}" required>
             <input type="submit" class="fadeIn third" value="Редактиране">
         </form>
     </div>

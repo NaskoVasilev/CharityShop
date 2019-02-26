@@ -3,13 +3,13 @@
         <h2 class="active">Редактиране на стбитие</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" value="{{name}}">
+            <input type="text" class="fadeIn second" name="name" value="{{name}}" required>
             <textarea type="text" class="fadeIn third" name="description">{{description}}</textarea>
-            <input type="number" class="fadeIn third" name="placesCount" value="{{placesCount}}" step="1" min="0">
-            <input type="date" class="fadeIn third" name="date" value="{{date}}">
-            <input type="text" class="fadeIn third" name="address" value="{{address}}">
-            <input type="text" class="fadeIn third" name="town" value="{{town}}">
-            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" >
+            <input type="number" class="fadeIn third" name="placesCount" required value="{{placesCount}}" step="1" min="0">
+            <input type="date" class="fadeIn third" name="date" value="{{date}}" required>
+            <input type="text" class="fadeIn third" name="address" value="{{address}}" required>
+            <input type="text" class="fadeIn third" name="town" value="{{town}}" required>
+            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
             <label for="file" class="fadeIn third">Изберете снимка</label>
             <input type="submit" class="fadeIn fourth" value="Редактирай">
         </form>

@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const Product = require('../models/Product')
 const encryption = require('../utilities/encryption')
+const entityHelper = require('../utilities/entityHelper')
 
 module.exports.registerGet = (req, res) => {
     res.render('user/register')
@@ -10,7 +11,7 @@ module.exports.registerPost = (req, res) => {
     let user = req.body
 
     if (user.password && user.password !== user.confirmedPassword) {
-        user.error = 'Passwords do not match!'
+        user.error = 'Паролите трябва да съвпадат!'
         res.render('user/register', user)
         return
     }
@@ -27,14 +28,13 @@ module.exports.registerPost = (req, res) => {
         .then(user => {
             req.logIn(user, (error, user) => {
                 if (error) {
-                    res.render('user/register', { error: 'Authentication failed!' })
+                    res.render('user/register', { error: 'Не успяхте да влезнете моля опитайте пак!' })
                     return
                 }
                 res.redirect('/')
             })
         }).catch(err => {
-            user.error = err
-            console.log(err)
+            user.error = 'Трябва да полълните задължителните полета!'
             res.render('user/register', user)
         })
 }
@@ -49,11 +49,11 @@ module.exports.loginPost = (req, res) => {
     User.findOne({ username: userToLogin.username })
         .then(user => {
             if (!user || !user.authenticate(userToLogin.password)) {
-                res.render('user/login', { error: 'Invalid credentials!' })
+                res.render('user/login', { error: 'Вашата парола или потербителско име са грешни!' })
             } else {
                 req.logIn(user, (error, user) => {
                     if (error) {
-                        res.render('user/login', { error: 'Authentication is not working!' })
+                        res.render('user/login', { error: 'Вашата парола или потербителско име са грешни!' })
                         return
                     }
                     res.redirect('/')
@@ -70,6 +70,7 @@ module.exports.logout = (req, res) => {
 module.exports.getMyProducts = (req, res) => {
     User.findOne({ _id: req.user._id }).populate('createdProducts')
         .then(user => {
+            entityHelper.addImagesToEntities(user.createdProducts)
             res.render('user/myProducts', { products: user.createdProducts })
         })
 }
@@ -77,6 +78,7 @@ module.exports.getMyProducts = (req, res) => {
 module.exports.getBoughtProducts = (req, res) => {
     User.findOne({ _id: req.user._id }).populate('boughtProducts')
         .then(user => {
+            entityHelper.addImagesToEntities(user.boughtProducts)
             res.render('user/boughtProducts', { products: user.boughtProducts })
         })
 }
@@ -86,6 +88,7 @@ module.exports.getUserProductDetails = (req, res) => {
 
     Product.findById(productId)
         .then(product => {
+            entityHelper.addImageToEntity(product);
             res.render('user/myProductDetails', {product:product})
         })
 }

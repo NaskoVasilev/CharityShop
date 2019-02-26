@@ -1,8 +1,9 @@
 const Product = require('../models/Product')
 const Category = require('../models/Category')
 const Cause = require('../models/Cause')
-const fs = require('fs')
-const path = require('path')
+const entityHelper = require('../utilities/entityHelper')
+let noChosenFileError = 'Трябва да добавите снимка!';
+let errorMessage = 'Възникна грешка! Моля опитайте пак!';
 
 module.exports.addGet = (req, res) => {
     let categoriesPromise = Category.find();
@@ -10,13 +11,21 @@ module.exports.addGet = (req, res) => {
     Promise.all([categoriesPromise, causesPromise])
         .then(([categories, causes]) => {
             res.render('product/add', {categories: categories, causes: causes})
-        });
+        }).catch(err => {
+        res.redirect('/');
+    });
 }
 
 module.exports.addPost = (req, res) => {
     let productObj = req.body;
-    productObj.image = '\\' + req.file.path;
     productObj.creator = req.user._id;
+
+    if (!req.file || !req.file.path) {
+        res.render('product/add', {error: noChosenFileError})
+        return;
+    }
+
+    entityHelper.addBinaryFileToEntity(req, productObj);
 
     Product.create(productObj)
         .then(product => {
@@ -27,12 +36,12 @@ module.exports.addPost = (req, res) => {
                     category.products.push(product._id)
                     category.save()
                 }).catch(err => {
-                console.log(err)
+                res.render('product/add', {error: errorMessage})
                 return
             })
             res.redirect('/')
         }).catch(err => {
-        console.log(err)
+        res.render('product/add', {error: errorMessage})
     })
 }
 
@@ -44,8 +53,7 @@ module.exports.editGet = (req, res) => {
     Promise.all([productPromise, categoriesPromise])
         .then(([product, categories]) => {
             if (!categories || !product) {
-                res.statusCode(404)
-                return
+                res.redirect('/')
             }
             if (isAuthorOrAdmin(req, product)) {
                 res.render('product/edit', {product: product, categories: categories})
@@ -64,17 +72,20 @@ module.exports.editPost = (req, res) => {
         .then(product => {
             if (isAuthorOrAdmin(req, product)) {
                 if (!product) {
-                    res.redirect(`/?error=${encodeURIComponent('error=Product was not found!')}`)
+                    res.redirect('/')
                     return
+                }
+
+                if (!req.file || !req.file.path) {
+                    res.render('product/add', {error: noChosenFileError})
+                    return;
                 }
 
                 product.name = editedProduct.name
                 product.description = editedProduct.description
                 product.price = editedProduct.price
+                entityHelper.addBinaryFileToEntity(req, product)
 
-                if (req.file) {
-                    product.image = '\\' + req.file.path
-                }
 
                 if (product.category.toString() !== editedProduct.category) {
                     let oldCategoryPromise = Category.findById(product.category.toString())
@@ -94,13 +105,13 @@ module.exports.editPost = (req, res) => {
                             product.category = editedProduct.category
                             product.save().then(() => {
                                 console.log('Saving')
-                                res.redirect('/?success=' + encodeURIComponent('Successfuly edited product!'))
+                                res.redirect('/')
                                 return
                             })
                         })
                 } else {
                     product.save().then(() => {
-                        res.redirect('/?success=' + encodeURIComponent('Successfuly edited product!'))
+                        res.redirect('/')
                     })
                 }
             }
@@ -108,8 +119,7 @@ module.exports.editPost = (req, res) => {
             return
 
         }).catch(err => {
-        console.log(err)
-        return
+        res.render('product/add', {error: errorMessage})
     })
 }
 
@@ -117,16 +127,19 @@ module.exports.deleteGet = (req, res) => {
     let id = req.params.id
     Product.findById(id)
         .then((product) => {
+            entityHelper.addImageToEntity(product)
             if (isAuthorOrAdmin(req, product)) {
                 if (!product) {
-                    res.statusCode(404)
+                    res.redirect('/');
                     return
                 }
                 res.render('product/delete', {product: product})
             } else {
                 redirectToIndex(res)
             }
-        })
+        }).catch(err => {
+        res.redirect('/');
+    })
 }
 
 module.exports.deletePost = (req, res) => {
@@ -136,52 +149,50 @@ module.exports.deletePost = (req, res) => {
             if (isAuthorOrAdmin(req, product)) {
                 Category.findById(product.category)
                     .then(category => {
-                        let index = category.products.indexOf(product._id)
-                        category.products.splice(index, 1)
+                        let productIndex = category.products.indexOf(product._id)
+                        category.products.splice(productIndex, 1)
                         category.save()
-                        fs.unlink(path.join(__dirname, '..' + product.image), (err) => {
-                            if (err) {
-                                console.log('Cannot delete image!')
-                            }
-                            let index = req.user.createdProducts.indexOf(product._id)
-                            if (index >= 0) {
-                                req.user.createdProducts.splice(index, 1)
-                                req.user.save()
-                            }
-                            product.remove()
-                                .then(() => {
-                                    res.redirect('/?success=' + encodeURIComponent('Successfuly deleted product!'))
-                                })
-                        })
+                        let index = req.user.createdProducts.indexOf(product._id)
+                        if (index >= 0) {
+                            req.user.createdProducts.splice(index, 1)
+                            req.user.save()
+                        }
+                        product.remove()
+                            .then(() => {
+                                res.redirect('/')
+                            })
                     })
             }
-            redirectToIndex(req, product)
-            return
-        })
+        });
+
+    res.redirect('/');
 }
 
 module.exports.buyGet = (req, res) => {
     let id = req.params.id;
     Product.findById(id).populate('cause')
         .then((product) => {
+            entityHelper.addImageToEntity(product)
             if (!product) {
-                res.statusCode(404)
+                res.redirect('/');
                 return
             }
-            if(req.user && product.creator === req.user._id){
+            if (req.user && product.creator === req.user._id) {
                 console.log("The creator of the product cannot buy it")
                 res.redirect('/products');
                 return;
             }
             res.render('product/buy', {product: product})
-        })
+        }).catch(() =>{
+            res.redirect('/');
+    })
 }
 
 module.exports.buyPost = async (req, res) => {
     let productId = req.params.id
 
     let product = await Product.findById(productId).populate('cause');
-    if(product.buyer){
+    if (product.buyer) {
         console.log('The product has been already bought')
         return;
     }
@@ -203,6 +214,7 @@ module.exports.getAllProducts = async (req, res) => {
 
     Product.find({buyer: {$exists: false}}).sort({$natural: -1})
         .then(products => {
+            entityHelper.addImagesToEntities(products);
             res.render('product/products', {products: products, categories: categories})
         })
 }
@@ -212,39 +224,40 @@ module.exports.getProductDetails = (req, res) => {
 
     Product.findById(productId)
         .then(product => {
-            if(req.user){
+            entityHelper.addImageToEntity(product);
+            if (req.user) {
                 product.isAuthorOrAdmin = isAuthorOrAdmin(req, product);
             }
 
             res.render('product/details', {product: product})
-        })
+        }).catch(() =>{
+            res.redirect('/');
+    })
 }
 
-module.exports.search = async (req, res)=>{
+module.exports.search = async (req, res) => {
     let productName = req.body.productName;
     let category = req.body.category;
     let products = [];
-    console.log(productName)
-    console.log(category)
+
     let categories = await Category.find();
     categories.unshift({_id: '', name: ''})
 
-    if(category){
+    if (category) {
         products = await Product.find({category: category})
     }
-    else if(productName){
+    else if (productName) {
         products = await Product.find();
         products = products.filter(x => x.name.toLowerCase()
             .includes(productName.toLowerCase()))
     }
 
-    console.log(products)
 
-    if(category && productName){
+    if (category && productName) {
         products = products.filter(x => x.name.toLowerCase()
             .includes(productName.toLowerCase()))
     }
-
+    entityHelper.addImagesToEntities(products);
     res.render('product/products', {products: products, categories: categories})
 
 }
@@ -255,7 +268,7 @@ function isAuthorOrAdmin(req, product) {
 }
 
 function redirectToIndex(res) {
-    let error = `error=${encodeURIComponent('You are not creator of the product!')}`
+    let error = `error=${encodeURIComponent('Не сте собственик на продукта!')}`
     res.redirect(`/?${error}`)
 }
 

@@ -3,10 +3,10 @@
         <h2 class="active">Добавяане на кауза</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" placeholder="Име на кауза">
-            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание"></textarea>
-            <input type="number" class="fadeIn third" name="goal" placeholder="Нужи пари" step="1" min="0">
-            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" >
+            <input type="text" class="fadeIn second" name="name" placeholder="Име на кауза" required>
+            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание" required></textarea>
+            <input type="number" class="fadeIn third" name="goal" placeholder="Нужи пари" step="1" min="0" required>
+            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
             <label for="file" class="fadeIn third">Избери снимка</label>
             <input type="submit" class="fadeIn fourth" value="Добави">
         </form>

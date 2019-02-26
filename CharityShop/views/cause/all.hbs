@@ -31,16 +31,16 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                {{#each causes}}
+            {{#each causes}}
+                <div class="col-lg-4 col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <figure>
-                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Снимка на каузата">
+                            <figure class="fix-size-image">
+                                <img class="card-img-top img-fluid"
+                                     src="data:{{image.contentType}};base64,{{image.data}}" alt="Снимка на каузата">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>
-                                <p class="card-text">{{description}}</p>
                                 <div class="d-flex justify-content-between raised_goal">
                                     <p>Събрани: {{raised}} лв</p>
                                     <p><span>Нужни: {{goal}} лв</span></p>
@@ -55,8 +55,8 @@
                             </div>
                         </div>
                     </div>
-                {{/each}}
-            </div>
+                </div>
+            {{/each}}
         </div>
     </div>
 </section>

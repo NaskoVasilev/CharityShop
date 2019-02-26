@@ -344,3 +344,18 @@ div.admin-buttons{
     text-align: center;
     padding-bottom: 30px;
 }
+
+#errorBox{
+    background-color: #ee2f1b;
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.fix-size-image{
+    height: 220px;
+}

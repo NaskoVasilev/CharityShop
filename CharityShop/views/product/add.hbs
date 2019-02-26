@@ -3,20 +3,20 @@
         <h2 class="active">Добавяне на продукт за даряване!</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" placeholder="Име">
+            <input type="text" class="fadeIn second" name="name" placeholder="Име" required>
             <textarea type="text" class="fadeIn third" name="description" placeholder="Описание"></textarea>
-            <input type="number" class="fadeIn third" name="price" placeholder="Цена" step="0.1" min="0">
-            <select class="fadeIn third" name="category" id="category">
+            <input type="number" class="fadeIn third" name="price" placeholder="Цена" step="0.1" min="0" required>
+            <select class="fadeIn third" name="category" id="category" required>
                 {{#each categories}}
                     <option value="{{_id}}">{{name}}</option>
                 {{/each}}
             </select>
-            <select class="fadeIn third" name="cause" id="cause">
+            <select class="fadeIn third" name="cause" id="cause" required>
                 {{#each causes}}
                     <option value="{{_id}}">{{name}}</option>
                 {{/each}}
             </select>
-            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" >
+            <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
             <label for="file" class="fadeIn third">Изберете снимка</label>
             <input type="submit" class="fadeIn fourth" value="Добави">
         </form>

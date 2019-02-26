@@ -2,7 +2,7 @@
     <div class="row align-items-center">
         <div class="col-lg-6 col-md-6">
             <figure>
-                <img id="product-img" class="img-fluid w-100" src="{{product.image}}" alt="Снимка на продукта">
+                <img id="product-img" class="img-fluid w-100" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="Снимка на продукта">
             </figure>
         </div>
         <div class="col-lg-6 col-md-6">

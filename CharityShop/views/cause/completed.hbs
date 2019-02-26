@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-body">
                             <figure>
-                                <img class="card-img-top img-fluid" src="{{this.image}}" alt="Снимка на каузата">
+                                <img class="card-img-top img-fluid" src="data:{{this.image.contentType}};base64,{{this.image.data}}" alt="Снимка на каузата">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>

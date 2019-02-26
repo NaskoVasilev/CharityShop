@@ -9,7 +9,7 @@ let productSchema = mongoose.Schema({
         max: Number.MAX_VALUE,
         default: 0
     },
-    image: { type: mongoose.Schema.Types.String },
+    image: { data: mongoose.Schema.Types.Buffer, contentType: String },
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     buyer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -8,7 +8,7 @@ let causeSchema = mongoose.Schema({
         min: 0, default: 0
     },
     goal: {type: mongoose.Schema.Types.Number, min: 0},
-    image: { type: mongoose.Schema.Types.String },
+    image: { data: mongoose.Schema.Types.Buffer, contentType: String },
     isCompleted: {type: mongoose.Schema.Types.Boolean, default: false}
 })
 

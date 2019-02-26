@@ -2,7 +2,7 @@
     <h2 class="active">Купиуване на продукт!</h2>
     <div id="formContent">
         <figure>
-            <img src="{{product.image}}" alt="">
+            <img src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="">
             <p>Каузата, за която дарявате е: {{product.cause.name}}</p>
         </figure>
         <form method="post">
