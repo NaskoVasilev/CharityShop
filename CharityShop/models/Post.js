@@ -1,0 +1,14 @@
+const mongoose = require('mongoose')
+
+let postSchema = mongoose.Schema({
+    title: {type: mongoose.Schema.Types.String, required: true},
+    content: {type: mongoose.Schema.Types.String},
+    likes: {type: mongoose.Schema.Types.Number, default: 0 },
+    dislikes: {type: mongoose.Schema.Types.Number, default: 0 },
+    creationDate: {type: mongoose.Schema.Types.Date, default: Date.now },
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment', default:[]}],
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    category: {type: mongoose.Schema.Types.ObjectId, ref: 'PostCategory'}
+})
+
+module.exports = mongoose.model('Post', postSchema)

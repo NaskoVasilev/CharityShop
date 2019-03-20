@@ -1,0 +1,10 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Редактиране на категория на публикация</h2>
+
+        <form method="post" action="/blog/category/edit/{{postCategory._id}}">
+            <input type="text" class="fadeIn second" name="name" value="{{postCategory.name}}" required>
+            <input type="submit" class="fadeIn third" value="Редактиране">
+        </form>
+    </div>
+</div>

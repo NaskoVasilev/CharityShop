@@ -16,5 +16,6 @@ module.exports = function (config) {
 
     require('../models/Product')
     require('../models/Category')
+    require('../models/PostCategory')
     require('../models/User').seedAdminUser()
 }

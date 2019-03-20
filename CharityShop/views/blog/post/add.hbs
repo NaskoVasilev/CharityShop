@@ -1,0 +1,16 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Добавяане на публикация</h2>
+
+        <form method="post">
+            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие на публикацията" value="{{post.title}}" required>
+            <textarea type="text" class="fadeIn third" name="content" placeholder="Съдържание" required>{{post.content}}</textarea>
+            <select class="fadeIn third" name="category" id="category" required>
+                {{#each categories}}
+                    <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" class="fadeIn fourth" value="Добави">
+        </form>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<section id="all-categories">
+    <table>
+        <tr>
+            <th>Категория на пубикация</th>
+            <th>Бутони</th>
+        </tr>
+        {{#each postCategories}}
+            <tr>
+                <td>{{name}}</td>
+                <td>
+                    <a href="/blog/category/edit/{{_id}}" class="circle category-edit">Редактиране</a>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+</section>

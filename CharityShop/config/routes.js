@@ -66,4 +66,24 @@ module.exports = (app) => {
 
     app.post('/product/search', handlers.product.search)
     app.get('/product/search', handlers.product.search)
+
+    //Blog routes
+
+    //Category
+    app.get('/blog/category/add', auth.isInRole('Admin'), handlers.postCategory.addGet)
+    app.post('/blog/category/add', auth.isInRole('Admin'), handlers.postCategory.addPost)
+    app.get('/blog/category/edit/:id', auth.isInRole('Admin'), handlers.postCategory.editGet)
+    app.post('/blog/category/edit/:id', auth.isInRole('Admin'), handlers.postCategory.editPost)
+    app.get('/blog/category/all', auth.isInRole('Admin'), handlers.postCategory.getAll)
+
+    //Posts
+    app.get('/blog/post/add', auth.isAuthenticated, handlers.post.addGet)
+    app.post('/blog/post/add', auth.isAuthenticated, handlers.post.addPost)
+    app.get('/blog/post/like/:id', auth.isAuthenticated, handlers.post.likePost)
+    app.get('/blog/post/dislike/:id', auth.isAuthenticated, handlers.post.dislikePost)
+    app.get('/blog/post/all', handlers.post.getAll)
+    app.get('/blog/post/details/:id', handlers.post.getPostDetails)
+
+    //Commnets
+    app.post('/blog/comment/add/:id', auth.isAuthenticated, handlers.comment.addPost);
 }

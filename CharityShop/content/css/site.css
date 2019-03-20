@@ -408,3 +408,27 @@ div.admin-buttons{
     width: 180px;
 }
 
+.dropdown-menu{
+    background-color: #2D3135;
+}
+
+.dropdown-menu a{
+    color: #FFFFFF;
+}
+
+#blog-info{
+    margin-bottom: 20px;
+}
+
+#add-comment input{
+    display: inline;
+}
+
+#add-comment input[type=submit]{
+    padding: 5px 20px;
+    margin: 0;
+    width: unset;
+    text-transform: none;
+}
+
+

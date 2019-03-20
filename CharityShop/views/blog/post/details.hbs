@@ -1,0 +1,32 @@
+<article>
+    <h2>{{title}}</h2>
+    <p>{{content}}</p>
+    <div>
+        <a href="/blog/post/like/{{_id}}">
+            <i class="fas fa-thumbs-up"></i>
+        </a>
+        <a href="/blog/post/dislike/{{_id}}">
+            <i class="fas fa-thumbs-down"></i>
+        </a>
+        <a href="/blog/post/details/{{_id}}">Read more</a>
+        <h4>Category: {{category.name}}</h4>
+        <p>Author: {{creator}}</p>
+        <p>Creation date: {{date}}</p>
+        <div>
+            <span>Likes: {{likes}}</span>
+            <span>Dislikes: {{dislikes}}</span>
+        </div>
+        <form method="post" id="add-comment" action="/blog/comment/add/{{_id}}">
+            <input type="submit" value="Коментиране">
+            <input name="content" class="form-control" type="text" placeholder="Съдържание на коментара">
+        </form>
+    </div>
+</article>
+<div id="comments">
+    {{#each userComments}}
+        <article>
+            <p>{{content}}</p>
+            <span>Автор: {{authorName}}</span>
+        </article>
+    {{/each}}
+</div>
