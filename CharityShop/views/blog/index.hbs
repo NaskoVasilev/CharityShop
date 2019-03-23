@@ -1,0 +1,62 @@
+<script src="/frontend/controllers/postController.js"></script>
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0"
+             data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Блог</h2>
+                <p id="blog-info">
+                    Можеш да задаваш въпроси, да намериш интересни статии, <br>
+                    да предложиш събитие или кауза, да харесаш и коментираш статии!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="posts">
+    <div id="search-container">
+        <form action="/blog/post/search" method="post">
+            <input type="text" name="postName" placeholder="Име на публикация">
+            <select class="fadeIn third" name="category" id="category">
+                {{#each categories}}
+                    <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Търси">
+        </form>
+    </div>
+    {{#each posts}}
+        <article>
+            <h2>{{title}}</h2>
+            <p>{{content}}</p>
+            <div class="post-info">
+                {{#if ../user}}
+                    {{#if isLiked}}
+                        <button data-post="{{_id}}" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
+                            <i class="fas fa-thumbs-down"></i>
+                        </button>
+                        <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="like-{{@index}}" class="like">
+                            <i class="fas fa-thumbs-up"></i>
+                        </button>
+                    {{else}}
+                        <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
+                            <i class="fas fa-thumbs-down"></i>
+                        </button>
+                        <button data-post="{{_id}}" data-index="{{@index}}" id="like-{{@index}}" class="like">
+                            <i class="fas fa-thumbs-up"></i>
+                        </button>
+                    {{/if}}
+                {{/if}}
+
+                <h4>Category: {{category.name}}</h4>
+                <p>Author: {{creator}}</p>
+                <p>Creation date: {{date}}</p>
+                <p>Likes: <span id="likesCount-{{@index}}">{{likesCount}}</span></p>
+                <a href="/blog/post/details/{{_id}}">Read more</a>
+            </div>
+        </article>
+    {{/each}}
+</section>

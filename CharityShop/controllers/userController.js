@@ -92,3 +92,29 @@ module.exports.getUserProductDetails = (req, res) => {
             res.render('user/myProductDetails', {product:product})
         })
 }
+
+module.exports.getAddAdminView = (req, res) =>{
+    res.render('user/addAdmin');
+}
+
+module.exports.addAdminPost = async (req, res) =>{
+    let body = req.body;
+    let username = body.username;
+    let firstName = body.firstName;
+    let lastName = body.lastName;
+
+    let users = await User.find({
+        username: username,
+        firstName: firstName,
+        lastName: lastName
+    });
+
+    if(users.length === 0 || users.length > 1){
+        let error = 'Невалидно име, фамилия или потребителско име!';
+        res.render('user/addAdmin', {error: error});
+    }
+    user = users[0];
+    user.roles.push('Admin');
+    await user.save();
+    res.redirect('/');
+}

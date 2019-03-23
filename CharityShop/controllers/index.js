@@ -6,6 +6,7 @@ const causeController = require('./causeController')
 const eventController = require('./eventController')
 const postController = require('./postController')
 const commentController = require('./commentController')
+const blogController = require('./blogController')
 const postCategoryController = require('./postCategoryController')
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
     event: eventController,
     post: postController,
     comment: commentController,
+    blog: blogController,
     postCategory: postCategoryController
 }

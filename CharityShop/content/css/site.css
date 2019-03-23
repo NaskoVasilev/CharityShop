@@ -431,4 +431,24 @@ div.admin-buttons{
     text-transform: none;
 }
 
+#posts #search-container form{
+    width: 70%;
+    margin: 30px auto 0 auto;
+}
+
+#posts #search-container > form input{
+    width: 40%;
+    padding: 5px 10px;
+}
+
+#posts #search-container > form select{
+    width: 40%;
+    padding: 7px 10px;
+}
+
+#posts #search-container > form input[type=submit]{
+    width: 80px;
+}
+
+
 

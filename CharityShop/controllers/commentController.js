@@ -18,3 +18,8 @@ module.exports.addPost = async (req, res) =>{
     await post.save();
     res.redirect('/blog/post/details/' + postId);
 }
+
+module.exports.removeComment = async (req, res) =>{
+    let id = req.params.id;
+    await Comment.findByIdAndDelete(id);
+}

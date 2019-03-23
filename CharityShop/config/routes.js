@@ -64,11 +64,15 @@ module.exports = (app) => {
     app.get('/user/product/details/:id',auth.isAuthenticated, handlers.user.getUserProductDetails)
     app.get('/user/boughtProducts', auth.isAuthenticated, handlers.user.getBoughtProducts)
 
+    app.get('/user/add/admin', auth.isInRole('Admin'), handlers.user.getAddAdminView);
+    app.post('/user/add/admin', auth.isInRole('Admin'), handlers.user.addAdminPost);
+
     app.post('/product/search', handlers.product.search)
     app.get('/product/search', handlers.product.search)
 
     //Blog routes
-
+    app.get('/blog/index', handlers.blog.renderBlogIndex);
+    app.post('/blog/post/search', handlers.blog.search);
     //Category
     app.get('/blog/category/add', auth.isInRole('Admin'), handlers.postCategory.addGet)
     app.post('/blog/category/add', auth.isInRole('Admin'), handlers.postCategory.addPost)
@@ -82,8 +86,10 @@ module.exports = (app) => {
     app.get('/blog/post/like/:id', auth.isAuthenticated, handlers.post.likePost)
     app.get('/blog/post/dislike/:id', auth.isAuthenticated, handlers.post.dislikePost)
     app.get('/blog/post/all', handlers.post.getAll)
+    app.get('/blog/post/mostLiked', handlers.post.mostLiked)
     app.get('/blog/post/details/:id', handlers.post.getPostDetails)
 
     //Commnets
     app.post('/blog/comment/add/:id', auth.isAuthenticated, handlers.comment.addPost);
+    app.get('/blog/post/comment/remove/:id', auth.isAuthenticated, handlers.comment.removeComment)
 }
