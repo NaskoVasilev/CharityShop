@@ -1,0 +1,20 @@
+<div class="wrapper fadeInDown" id="add-product-from">
+    <div id="formContent">
+        <h2 class="active">Изтриване на публикация</h2>
+
+        <form method="post">
+            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие на публикацията" value="{{post.title}}" disabled>
+            <textarea type="text" class="fadeIn third" name="content" placeholder="Съдържание" disabled>{{post.content}}</textarea>
+            <select class="fadeIn third" name="category" id="category" disabled>
+                {{#each categories}}
+                    {{#if isSelected}}
+                        <option selected value="{{_id}}">{{name}}</option>
+                    {{else}}
+                        <option value="{{_id}}">{{name}}</option>
+                    {{/if}}
+                {{/each}}
+            </select>
+            <input type="submit" class="fadeIn fourth" value="Изтриване">
+        </form>
+    </div>
+</div>

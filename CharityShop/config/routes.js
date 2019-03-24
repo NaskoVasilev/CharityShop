@@ -83,6 +83,11 @@ module.exports = (app) => {
     //Posts
     app.get('/blog/post/add', auth.isAuthenticated, handlers.post.addGet)
     app.post('/blog/post/add', auth.isAuthenticated, handlers.post.addPost)
+    app.get('/blog/post/edit/:id', auth.isAuthenticated, handlers.post.editGet);
+    app.post('/blog/post/edit/:id', auth.isAuthenticated, handlers.post.editPost);
+    app.get('/blog/post/delete/:id', auth.isAuthenticated, handlers.post.deleteGet);
+    app.post('/blog/post/delete/:id', auth.isAuthenticated, handlers.post.deletePost);
+
     app.get('/blog/post/like/:id', auth.isAuthenticated, handlers.post.likePost)
     app.get('/blog/post/dislike/:id', auth.isAuthenticated, handlers.post.dislikePost)
     app.get('/blog/post/all', handlers.post.getAll)

@@ -460,13 +460,12 @@ div.admin-buttons{
     padding: 20px;
     vertical-align: top;
     box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
-    margin: 0 15px;
+    margin: 0 15px 30px 15px;
     height: 350px;
 }
 
 #posts{
     text-align: center;
-
 }
 
 .post-info{
@@ -477,5 +476,7 @@ div.admin-buttons{
     padding: 4px;
     margin: 0;
 }
+
+
 
 
