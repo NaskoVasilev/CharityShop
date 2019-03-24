@@ -450,5 +450,32 @@ div.admin-buttons{
     width: 80px;
 }
 
+.blog-details > h2{
+
+}
+
+#posts article{
+    display: inline-block;
+    width: 30%;
+    padding: 20px;
+    vertical-align: top;
+    box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
+    margin: 0 15px;
+    height: 350px;
+}
+
+#posts{
+    text-align: center;
+
+}
+
+.post-info{
+    text-align: left;
+}
+
+.post-info p{
+    padding: 4px;
+    margin: 0;
+}
 
 

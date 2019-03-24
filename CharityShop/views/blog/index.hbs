@@ -33,28 +33,31 @@
             <h2>{{title}}</h2>
             <p>{{content}}</p>
             <div class="post-info">
-                {{#if ../user}}
-                    {{#if isLiked}}
-                        <button data-post="{{_id}}" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
-                            <i class="fas fa-thumbs-down"></i>
-                        </button>
-                        <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="like-{{@index}}" class="like">
-                            <i class="fas fa-thumbs-up"></i>
-                        </button>
-                    {{else}}
-                        <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
-                            <i class="fas fa-thumbs-down"></i>
-                        </button>
-                        <button data-post="{{_id}}" data-index="{{@index}}" id="like-{{@index}}" class="like">
-                            <i class="fas fa-thumbs-up"></i>
-                        </button>
-                    {{/if}}
-                {{/if}}
 
-                <h4>Category: {{category.name}}</h4>
+                <p>Category: {{category.name}}</p>
                 <p>Author: {{creator}}</p>
                 <p>Creation date: {{date}}</p>
-                <p>Likes: <span id="likesCount-{{@index}}">{{likesCount}}</span></p>
+                <p>
+                    {{#if ../user}}
+                        {{#if isLiked}}
+                            <button data-post="{{_id}}" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
+                                <i class="fas fa-thumbs-down"></i>
+                            </button>
+                            <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="like-{{@index}}" class="like">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                        {{else}}
+                            <button data-post="{{_id}}" style="display: none;" data-index="{{@index}}" id="dislike-{{@index}}" class="dislike">
+                                <i class="fas fa-thumbs-down"></i>
+                            </button>
+                            <button data-post="{{_id}}" data-index="{{@index}}" id="like-{{@index}}" class="like">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                        {{/if}}
+                    {{/if}}
+
+                    Likes: <span id="likesCount-{{@index}}">{{likesCount}}</span>
+                </p>
                 <a href="/blog/post/details/{{_id}}">Read more</a>
             </div>
         </article>

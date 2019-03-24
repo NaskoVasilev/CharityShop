@@ -1,30 +1,30 @@
 <script src="/frontend/controllers/postController.js"></script>
 
-<article>
+<article class="blog-details">
     <h2>{{title}}</h2>
     <p>{{content}}</p>
     <div>
-        {{#if user}}
-            {{#if isLiked}}
-                <button data-post="{{_id}}" data-index="0" id="dislike-0" class="dislike">
-                    <i class="fas fa-thumbs-down"></i>
-                </button>
-                <button data-post="{{_id}}" style="display: none;" data-index="0" id="like-0" class="like">
-                    <i class="fas fa-thumbs-up"></i>
-                </button>
-            {{else}}
-                <button data-post="{{_id}}" style="display: none;" data-index="0" id="dislike-0" class="dislike">
-                    <i class="fas fa-thumbs-down"></i>
-                </button>
-                <button data-post="{{_id}}" data-index="0" id="like-0" class="like">
-                    <i class="fas fa-thumbs-up"></i>
-                </button>
-            {{/if}}
-        {{/if}}
         <h4>Category: {{category.name}}</h4>
         <p>Author: {{creator}}</p>
         <p>Creation date: {{date}}</p>
         <div>
+            {{#if user}}
+                {{#if isLiked}}
+                    <button data-post="{{_id}}" data-index="0" id="dislike-0" class="dislike">
+                        <i class="fas fa-thumbs-down"></i>
+                    </button>
+                    <button data-post="{{_id}}" style="display: none;" data-index="0" id="like-0" class="like">
+                        <i class="fas fa-thumbs-up"></i>
+                    </button>
+                {{else}}
+                    <button data-post="{{_id}}" style="display: none;" data-index="0" id="dislike-0" class="dislike">
+                        <i class="fas fa-thumbs-down"></i>
+                    </button>
+                    <button data-post="{{_id}}" data-index="0" id="like-0" class="like">
+                        <i class="fas fa-thumbs-up"></i>
+                    </button>
+                {{/if}}
+            {{/if}}
             Likes: <span data-index="0" id="likesCount-0" class="likesCount">{{likesCount}}</span>
         </div>
         <form method="post" id="add-comment" action="/blog/comment/add/{{_id}}">
