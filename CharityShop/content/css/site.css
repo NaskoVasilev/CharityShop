@@ -432,7 +432,7 @@ div.admin-buttons{
 }
 
 #posts #search-container form{
-    width: 70%;
+    width: 0%;
     margin: 30px auto 0 auto;
 }
 
@@ -450,10 +450,9 @@ div.admin-buttons{
     width: 80px;
 }
 
-.blog-details > h2{
-
+.blog-details > h2, p, h4{
+    text-align: center;
 }
-
 #posts article{
     display: inline-block;
     width: 30%;
@@ -469,7 +468,7 @@ div.admin-buttons{
 }
 
 .post-info{
-    text-align: left;
+    text-align: center;
 }
 
 .post-info p{
