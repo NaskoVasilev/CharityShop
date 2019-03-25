@@ -10,6 +10,12 @@ module.exports.registerGet = (req, res) => {
 module.exports.registerPost = (req, res) => {
     let user = req.body
 
+    if(!user.email){
+        user.error = 'Email адреса е задължителен!'
+        res.render('user/register', user)
+        return
+    }
+
     if (user.password && user.password !== user.confirmedPassword) {
         user.error = 'Паролите трябва да съвпадат!'
         res.render('user/register', user)

@@ -13,7 +13,7 @@ function normalizePosts(req, posts){
     for (const post of posts) {
         post.date = post.creationDate.toDateString();
         post.creator = post.author.firstName + ' ' + post.author.lastName;
-        post.content = post.content.substr(0, 200) + '...';
+        post.content = post.content.substr(0, 100) + '...';
         post.likesCount = post.likes.length || 0;
         checkPostIsLiked(req,post);
     }

@@ -7,6 +7,9 @@
                 <h2>Детайли за събитие</h2>
                 <p>Заети места / Свободни места</p>
                 <h3>{{occupiedPlaces}} / {{placesCount}}</h3>
+                {{#if isAdmin}}
+                    <a href="/event/registered/users/{{_id}}" class="btn btn-info">Регистрирани потребители</a>
+                {{/if}}
             </div>
         </div>
     </div>

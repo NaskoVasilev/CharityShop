@@ -76,16 +76,18 @@ module.exports.editPost = (req, res) => {
                     return
                 }
 
-                if (!req.file || !req.file.path) {
-                    res.render('product/add', {error: noChosenFileError})
-                    return;
-                }
+                // if (!req.file || !req.file.path) {
+                //     res.render('product/add', {error: noChosenFileError})
+                //     return;
+                // }
 
                 product.name = editedProduct.name
                 product.description = editedProduct.description
                 product.price = editedProduct.price
-                entityHelper.addBinaryFileToEntity(req, product)
 
+                if(req.file && req.file.path){
+                    entityHelper.addBinaryFileToEntity(req, product)
+                }
 
                 if (product.category.toString() !== editedProduct.category) {
                     let oldCategoryPromise = Category.findById(product.category.toString())
@@ -199,6 +201,12 @@ module.exports.buyPost = async (req, res) => {
 
     product.buyer = req.user.id;
     product.cause.raised += product.price;
+
+    if(product.cause.raised >= product.cause.goal){
+        product.cause.isCompleted = true;
+        await product.cause.save();
+    }
+
     await product.save();
     await product.cause.save();
 

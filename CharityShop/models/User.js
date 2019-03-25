@@ -8,6 +8,11 @@ let userSchema = mongoose.Schema({
         required: propertyIsRequired.replace('{0}', 'Username'),
         unique: true
     },
+    email: {
+        type: mongoose.Schema.Types.String,
+        required: propertyIsRequired.replace('{0}', 'Email'),
+        unique: true
+    },
     password: {
         type: mongoose.Schema.Types.String,
         required: propertyIsRequired.replace('{0}', 'Password')
@@ -63,6 +68,7 @@ module.exports.seedAdminUser = () => {
                 salt: salt,
                 password: hashedPass,
                 age: 17,
+                email: 'admin@admin.abv.bg',
                 roles: ['Admin']
             }).then(()=>{
                 console.log('Admin user created!')   
@@ -83,6 +89,7 @@ module.exports.seedAdminUser = () => {
                 salt: salt,
                 password: hashedPass,
                 age: 17,
+                email: 'admin@admin.yahoo.com',
                 roles: ['Admin']
             }).then(()=>{
                 console.log('Admin user created!')   

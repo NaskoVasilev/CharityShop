@@ -1,0 +1,18 @@
+<section id="all-categories">
+    <table>
+        <tr>
+            <th>Потребителско име</th>
+            <th>Име</th>
+            <th>фамилия</th>
+            <th>Email</th>
+        </tr>
+        {{#each users}}
+            <tr>
+                <td>{{username}}</td>
+                <td>{{firstName}}</td>
+                <td>{{lastName}}</td>
+                <td>{{email}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</section>

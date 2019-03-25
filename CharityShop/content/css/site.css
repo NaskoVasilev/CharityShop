@@ -102,9 +102,8 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text],textarea, select, input[type=file], input[type=date], input[type=password], input[type=number] {
+input[type=text],textarea, select, input[type=file],input[type=email], input[type=date], input[type=password], input[type=number] {
     background-color: #f6f6f6;
-    border: none;
     color: #0d0d0d;
     padding: 15px 32px;
     text-align: center;
@@ -118,13 +117,13 @@ input[type=text],textarea, select, input[type=file], input[type=date], input[typ
     border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus,textarea:focus, select:focus, input[type=file]:focus,
+input[type=text]:focus, input[type=email]:focus,textarea:focus, select:focus, input[type=file]:focus,
 input[type=password]:focus, input[type=number]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]::placeholder, input[type=password]::placeholder, input[type=number]::placeholder
+input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder, input[type=number]::placeholder
 ,textarea::placeholder, select::placeholder, input[type=file]::placeholder{
     color: rgba(43, 39, 40, 0.96);
 }
@@ -251,7 +250,13 @@ input[type = file] + label:hover {
 }
 
 #products figure img{
-    height: 220px;
+    height: 100%;
+    width: auto;
+}
+
+#products figure{
+    height: 300px;
+    text-align: center;
 }
 
 a.primary-btn.blue{
@@ -326,7 +331,18 @@ div.admin-buttons{
 }
 
 #products .container #search-container input[type=submit]{
-    padding: 3px 10px;
+    padding: 3px 0;
+    width: 70px;
+}
+
+.product-details figure{
+    height: 500px;
+    text-align: center;
+}
+
+.product-details figure img{
+    height: 100%;
+    width: auto;
 }
 
 #products div#search-container{
@@ -432,17 +448,21 @@ div.admin-buttons{
 }
 
 #posts #search-container form{
-    width: 0%;
-    margin: 30px auto 0 auto;
+    margin: 30px auto;
+    box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
+    width: 90%;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 #posts #search-container > form input{
     width: 40%;
     padding: 5px 10px;
+    margin: 0;
 }
 
 #posts #search-container > form select{
-    width: 40%;
+    width: 30%;
     padding: 7px 10px;
 }
 
@@ -460,7 +480,9 @@ div.admin-buttons{
     vertical-align: top;
     box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
     margin: 0 15px 30px 15px;
-    height: 350px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: 500;
 }
 
 #posts{
@@ -475,6 +497,15 @@ div.admin-buttons{
     padding: 4px;
     margin: 0;
 }
+
+#posts .blog-title{
+    color: #000;
+    font-size: 30px;
+}
+/*Product details css*/
+
+
+
 
 
 

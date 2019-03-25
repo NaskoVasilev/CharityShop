@@ -66,13 +66,15 @@ module.exports.editPost = (req, res) => {
     let id = req.params.id
     let event = req.body
 
-    if(!req.file || !req.file.path){
-        event.error = noChosenFileError;
-        res.render('event/edit', {event: event})
+    if(new Date(event.date) < Date.now()){
+        event.error = "Дата на събитието не може да бъде в миналото!";
+        res.render('event/edit', event);
         return;
     }
 
-    entityHelper.addBinaryFileToEntity(req, event);
+    if(req.file && req.file.path){
+        entityHelper.addBinaryFileToEntity(req, event);
+    }
 
     Event.findByIdAndUpdate(id, event).then(() => {
         res.redirect('/')
@@ -154,4 +156,13 @@ module.exports.unregisterFromEvent = (req, res) => {
             res.redirect('/event/details/' + eventId)
         })
     })
+}
+
+module.exports.getRegisteredUsers = async (req, res) => {
+    let id = req.params.id;
+
+    let event = await Event.findById(id)
+        .populate('users');
+
+    res.render('event/registeredUsers', { users: event.users });
 }

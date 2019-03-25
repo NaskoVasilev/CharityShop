@@ -4,9 +4,15 @@
     <h2>{{title}}</h2>
     <p>{{content}}</p>
     <div>
-        <h4>Category: {{category.name}}</h4>
-        <p>Author: {{creator}}</p>
-        <p>Creation date: {{date}}</p>
+        <h4><span>Category</span>: {{category.name}}</h4>
+        <p>
+            <i class="fas fa-user-circle"></i>
+            {{creator}}
+        </p>
+        <p>
+            <i class="fas fa-calendar-day"></i>
+            {{date}}
+        </p>
         <div>
             {{#if user}}
                 {{#if isLiked}}
@@ -25,11 +31,12 @@
                     </button>
                 {{/if}}
             {{/if}}
-            Likes: <span data-index="0" id="likesCount-0" class="likesCount">{{likesCount}}</span>
+            <span class="likes">Likes</span>:
+            <span data-index="0" id="likesCount-0" class="likesCount">{{likesCount}}</span>
         </div>
         <div id="author-buttons">
-            <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Edit</a>
-            <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Delete</a>
+            <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Редактиране</a>
+            <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Изтриване</a>
         </div>
         <form method="post" id="add-comment" action="/blog/comment/add/{{_id}}">
             <input type="submit" value="Коментиране">
@@ -41,7 +48,7 @@
     {{#each userComments}}
         <article>
             <p>{{content}}</p>
-            <span>Автор: {{authorName}}</span>
+            <span><i class="fas fa-user-circle"></i> {{authorName}}</span>
             {{#if isAuthor}}
                 <button class="remove-comment" data-id="{{id}}">
                     <i class="fas fa-trash-alt"></i>

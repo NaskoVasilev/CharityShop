@@ -30,6 +30,7 @@ module.exports = (app) => {
     app.get('/event/all', handlers.event.getAllEvents)
     app.get('/event/register/:id', auth.isAuthenticated, handlers.event.registerForEvent)
     app.get('/event/unregister/:id', auth.isAuthenticated, handlers.event.unregisterFromEvent)
+    app.get('/event/registered/users/:id', auth.isInRole('Admin'), handlers.event.getRegisteredUsers)
 
     app.get('/category/add', auth.isInRole('Admin'), handlers.category.addGet)
     app.post('/category/add', auth.isInRole('Admin'), handlers.category.addPost)

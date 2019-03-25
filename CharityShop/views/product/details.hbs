@@ -1,20 +1,14 @@
 <section class="product-details">
-    <div class="row align-items-center">
-        <div class="col-lg-6 col-md-6">
-            <figure>
-                <img id="product-img" class="img-fluid w-100" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="">
-            </figure>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="content_wrapper">
-                <h3 class="title">{{product.name}}</h3>
-                <p>{{product.description}}</p>
-                <h5 class="title">Цена: {{product.price}} лв</h5>
-                {{#if product.isAuthorOrAdmin}}
-                    <a href="/product/delete/{{product._id}}" class="primary_btn">Изтрий</a>
-                {{/if}}
-                <a href="/product/buy/{{product._id}}" class="primary_btn">Купи</a>
-            </div>
-        </div>
+    <figure>
+        <img id="product-img" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="">
+    </figure>
+    <div class="content_wrapper">
+        <h3 class="title">{{product.name}}</h3>
+        <p>Описание: {{product.description}}</p>
+        <h5 class="title">Цена: {{product.price}} лв</h5>
+        {{#if product.isAuthorOrAdmin}}
+            <a href="/product/delete/{{product._id}}" class="primary_btn">Изтрий</a>
+        {{/if}}
+        <a href="/product/buy/{{product._id}}" class="primary_btn">Купи</a>
     </div>
 </section>

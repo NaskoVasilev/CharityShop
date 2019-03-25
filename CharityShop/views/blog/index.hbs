@@ -30,13 +30,19 @@
     </div>
     {{#each posts}}
         <article>
-            <h2>{{title}}</h2>
+            <a class="blog-title" href="/blog/post/details/{{_id}}">{{title}}</a>
             <p>{{content}}</p>
             <div class="post-info">
 
-                <p>Category: {{category.name}}</p>
-                <p>Author: {{creator}}</p>
-                <p>Creation date: {{date}}</p>
+                <p><span>Category</span>: {{category.name}}</p>
+                <p>
+                    <i class="fas fa-user-circle"></i>
+                    {{creator}}
+                </p>
+                <p>
+                    <i class="fas fa-calendar-day"></i>
+                    {{date}}
+                </p>
                 <p>
                     {{#if ../user}}
                         {{#if isLiked}}
@@ -56,9 +62,10 @@
                         {{/if}}
                     {{/if}}
 
-                    Likes: <span id="likesCount-{{@index}}">{{likesCount}}</span>
+                    <span class="likes">Likes</span>:
+                    <span id="likesCount-{{@index}}">{{likesCount}}</span>
                 </p>
-                <a href="/blog/post/details/{{_id}}">Read more</a>
+                <a class="btn btn-info" href="/blog/post/details/{{_id}}">Read more</a>
             </div>
         </article>
     {{/each}}

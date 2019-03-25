@@ -71,13 +71,9 @@ module.exports.editPost = (req, res) => {
     let id = req.params.id
     let body = req.body
 
-    if(!req.file || !req.file.path){
-        body.error = noChosenFileError;
-        res.render('cause/edit', {cause: body})
-        return;
+    if(req.file && req.file.path){
+        entityHelper.addBinaryFileToEntity(req, body);
     }
-
-    entityHelper.addBinaryFileToEntity(req, body);
 
     Cause.findByIdAndUpdate(id, body).then(()=>{
         res.redirect('/')
