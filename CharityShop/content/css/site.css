@@ -473,9 +473,19 @@ div.admin-buttons{
 .blog-details > h2, p, h4{
     text-align: center;
 }
+.blog-details > div{
+    text-align: center;
+}
+.blog-details > div #author-buttons{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.blog-details #add-comment .form-control{
+    opacity: 0.5;
+} 
 #posts article{
     display: inline-block;
-    width: 30%;
+    width: auto;
     padding: 20px;
     vertical-align: top;
     box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
