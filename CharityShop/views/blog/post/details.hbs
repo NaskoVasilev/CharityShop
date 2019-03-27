@@ -1,9 +1,9 @@
 <script src="/frontend/controllers/postController.js"></script>
 
-<article class="blog-details">
+<article class="post-details">
     <h2>{{title}}</h2>
     <p>{{content}}</p>
-    <div>
+    <div class="post-info">
         <h4><span>Category</span>: {{category.name}}</h4>
         <p>
             <i class="fas fa-user-circle"></i>
@@ -47,8 +47,8 @@
 <div id="comments">
     {{#each userComments}}
         <article>
-            <p>{{content}}</p>
             <span><i class="fas fa-user-circle"></i> {{authorName}}</span>
+            <p>{{content}}</p>
             {{#if isAuthor}}
                 <button class="remove-comment" data-id="{{id}}">
                     <i class="fas fa-trash-alt"></i>

@@ -24,6 +24,14 @@ module.exports = (app, config) => {
     app.use(passport.initialize())
     app.use(passport.session())
 
+    //flash - messages configuration
+    app.use(require('connect-flash')());
+    app.use(function (req, res, next) {
+        res.locals.messages = require('express-messages')(req, res)();
+        console.log(res.locals.messages)
+        next();
+    });
+
     app.use((req, res, next) => {
         if (req.user) {
             res.locals.user = req.user

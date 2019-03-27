@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 const encryption = require('../utilities/encryption')
-const propertyIsRequired = '{0} is required.'
+const propertyIsRequired = 'Полето {0} е задължително.'
 
 let userSchema = mongoose.Schema({
     username: {
         type: mongoose.Schema.Types.String,
-        required: propertyIsRequired.replace('{0}', 'Username'),
+        required: propertyIsRequired.replace('{0}', 'Потребителско име'),
         unique: true
     },
     email: {
@@ -15,7 +15,7 @@ let userSchema = mongoose.Schema({
     },
     password: {
         type: mongoose.Schema.Types.String,
-        required: propertyIsRequired.replace('{0}', 'Password')
+        required: propertyIsRequired.replace('{0}', 'Парола')
     },
     salt: {
         type: mongoose.Schema.Types.String,
@@ -23,21 +23,20 @@ let userSchema = mongoose.Schema({
     },
     firstName: {
         type: mongoose.Schema.Types.String,
-        required: propertyIsRequired.replace('{0}', 'First name')
+        required: propertyIsRequired.replace('{0}', 'Име')
     },
     lastName: {
         type: mongoose.Schema.Types.String,
-        required: propertyIsRequired.replace('{0}', 'Last name')
+        required: propertyIsRequired.replace('{0}', 'Фамилия')
     },
     age: {
         type: mongoose.Schema.Types.Number,
-        min: [0, 'Age must be between 0 and 120'],
-        max: [120, 'Age must be between 0 and 120']
+        min: [10, 'Годините трябва да са от 10 до 90'],
+        max: [90, 'Годините трябва да са от 10 до 90']
     },
     roles: [{ type: mongoose.Schema.Types.String }],
     boughtProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-    createdProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-    createdCategories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
+    createdProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]
 })
 
 userSchema.method({

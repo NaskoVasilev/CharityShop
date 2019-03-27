@@ -7,10 +7,14 @@ module.exports.addGet = (req, res) => {
 module.exports.addPost = (req, res) => {
     let body = req.body;
 
-    if (body.name) {
+    if (!body.name) {
         console.log('Name is required!')
+        req.flash('error','Name is required!')
+
         res.redirect('/')
     }
+
+    req.flash('info', 'Category created successfully!')
 
     let category = {
         name: body.name

@@ -21,6 +21,7 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/frontend/request.js"></script>
+    <script src="/frontend/controllers/messageController.js"></script>
 
     <title>Charity Shop</title>
 </head>
@@ -87,35 +88,10 @@
                                            href="javascript:document.getElementById('logout-from').submit()">Изход</a>
                                     </li>
                                 </form>
-                                <!--<li class="nav-item" id="admin-menu">-->
-                                <!--<a class="nav-link">Admin</a>-->
-                                <!--<ul class="drop-down-menu">-->
-                                <!--<li><a class="primary_btn mr-20" href="/category/add">Добави категория</a></li>-->
-                                <!--<li><a class="primary_btn mr-20 yellow_btn" href="/category/all">Всички категории</a></li>-->
-                                <!--<li><a class="primary_btn mr-20" href="/cause/add">Добави кауза</a></li>-->
-                                <!--</ul>-->
-                                <!--</li>-->
                             {{else}}
                                 <li class="nav-item"><a class="nav-link" href="/user/login">Вход</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/user/register">Регистриране</a></li>
                             {{/if}}
-                            <!--<li class="nav-item"><a class="nav-link" href="causes.html">Causes</a>-->
-                            <!--<li class="nav-item submenu dropdown">-->
-                            <!--<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                            <!--<li class="nav-item"><a class="nav-link" href="events.html">Events</a>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="event-details.html">Event Details</a>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>-->
-                            <!--</ul>-->
-                            <!--</li>-->
-                            <!--<li class="nav-item submenu dropdown">-->
-                            <!--<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                            <!--<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>-->
-                            <!--</ul>-->
-                            <!--</li>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -125,9 +101,15 @@
 
 </header>
 <main>
-    {{#if error}}
-        <div id="errorBox">{{error}}</div>
-    {{/if}}
+    <div id="messageBox">
+        {{{messages}}}
+    </div>
+
+        {{#if error}}
+            <div id="errorBox">
+                {{error}}
+            </div>
+        {{/if}}
     {{{body}}}
 </main>
 </html>

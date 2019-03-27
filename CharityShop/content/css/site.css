@@ -362,17 +362,6 @@ div.admin-buttons{
     padding-bottom: 30px;
 }
 
-#errorBox{
-    background-color: #ee2f1b;
-    padding: 10px 20px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
 .fix-size-image{
     height: 220px;
 }
@@ -432,21 +421,6 @@ div.admin-buttons{
     color: #FFFFFF;
 }
 
-#blog-info{
-    margin-bottom: 20px;
-}
-
-#add-comment input{
-    display: inline;
-}
-
-#add-comment input[type=submit]{
-    padding: 5px 20px;
-    margin: 0;
-    width: unset;
-    text-transform: none;
-}
-
 #posts #search-container form{
     margin: 30px auto;
     box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
@@ -473,9 +447,82 @@ div.admin-buttons{
 .blog-details > h2, p, h4{
     text-align: center;
 }
+
+#posts article > p{
+    min-height: 50px;
+    margin-bottom: 5px;
+}
+
+@media(max-width: 850px){
+    body #posts > article{
+        display: block;
+        width: 90%;
+    }
+
+    body #posts article > p{
+        min-height: unset
+    }
+
+    body #comments{
+        width: 95%;
+    }
+
+    body #comments article{
+        vertical-align: top;
+    }
+
+    body .post-details{
+        width: 95%;
+    }
+
+    body .post-details > p{
+        text-align: left;
+    }
+
+
+    body #comments article p{
+        border: none;
+        width: calc(100% - 30px);
+        text-align: left;
+        margin-left: 0;
+    }
+
+    body #comments article span{
+        float: none;
+    }
+
+    body #comments article button{
+        float: right;
+    }
+}
+
+@media (max-width: 500px){
+    body #posts #search-container form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    body #posts #search-container form input[type=text],
+    body #posts #search-container form select{
+        width: 90%;
+    }
+
+    .post-details .post-info form input[type=text]{
+        display: block;
+        width: 100%;
+        margin: 5px auto;
+    }
+
+    .post-details .post-info form input[type=submit]{
+        width: 150px;
+    }
+}
+
 #posts article{
     display: inline-block;
-    width: 30%;
+    width: 45%;
     padding: 20px;
     vertical-align: top;
     box-shadow: -2px 3px 20px 6px rgb(217, 237, 223);
@@ -489,6 +536,12 @@ div.admin-buttons{
     text-align: center;
 }
 
+.post-info form input{
+    padding: 5px 0px;
+    width: 150px;
+    margin: 0 5px 0 0;
+}
+
 .post-info{
     text-align: center;
 }
@@ -496,14 +549,156 @@ div.admin-buttons{
 .post-info p{
     padding: 4px;
     margin: 0;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.post-info span{
+    font-weight: 700;
+}
+
+.post-info i{
+    color: #2D3135;
+}
+
+.post-info button{
+    border: none;
+    background-color: transparent;
+    margin-left: -5px;
+}
+
+.post-details{
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+    color: #000;
+}
+
+.post-details input[type=text]{
+    width: 50%;
+}
+
+body > main > article > div{
+    margin-top: 20px;
+}
+
+.post-details form{
+    padding-top: 20px;
+}
+
+.post-details i{
+    margin-right: 5px;
+    font-size: 15px;
+}
+
+.post-details p{
+    margin: 5px 0;
+    text-align: center;
+}
+
+.post-details h4 span{
+    font-weight: 600;
+}
+
+.post-details h4{
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.post-details #author-buttons{
+    margin-top: 20px;
+}
+
+#comments{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#comments article{
+    border-bottom: 1px solid rgb(116, 104, 104);
+    color: #000;
+    vertical-align: top;
+    text-align: left;
+    padding: 10px;
+}
+
+#comments article button{
+    background-color: transparent;
+    border: none;
+    float: right;
+}
+
+#comments article p{
+    display: inline-block;
+    border-left: 1px solid black;
+    margin-left: 10px;
+    padding-left: 20px;
+    margin-bottom: 0px;
+    width: calc(100% - 170px);
+}
+
+#comments article span{
+    float: left;
+    width: 125px;
 }
 
 #posts .blog-title{
     color: #000;
     font-size: 30px;
 }
+
 /*Product details css*/
 
+/*Messages css*/
+#messages{
+    position: absolute;
+    top: 80px;
+    right: 0;
+    display: block;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+#messages ul li{
+    list-style: none;
+    font-weight: 500;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+#messages .info{
+    background-color: #60BC0F;
+    padding: 15px 30px;
+    border-radius: 5px;
+}
+
+#messages .error{
+    background-color: #ff2d27;
+    padding: 15px 30px;
+    border-radius: 5px;
+}
+
+#errorBox{
+    position: absolute;
+    top: 80px;
+    right: 0;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #ff2d27;
+    z-index: 10;
+    padding: 15px 30px;
+}
+
+@media(max-width: 980px){
+    #errorBox, #messages{
+        top: 70px;
+    }
+}
 
 
 
