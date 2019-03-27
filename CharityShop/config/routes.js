@@ -32,6 +32,9 @@ module.exports = (app) => {
     app.get('/event/unregister/:id', auth.isAuthenticated, handlers.event.unregisterFromEvent)
     app.get('/event/registered/users/:id', auth.isInRole('Admin'), handlers.event.getRegisteredUsers)
 
+    app.get('/event/:id/send/emails', auth.isInRole('Admin'), handlers.event.renderEmailForm)
+    app.post('/event/:id/send/emails', auth.isInRole('Admin'), handlers.event.sendEmails)
+
     app.get('/category/add', auth.isInRole('Admin'), handlers.category.addGet)
     app.post('/category/add', auth.isInRole('Admin'), handlers.category.addPost)
     app.get('/category/all', auth.isInRole('Admin'), handlers.category.getAllCategories)

@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const passport = require('passport')
 const handlebars = require('express-handlebars')
-
+//const mailer = require('express-mailer');
+const charityShopMail = 'charityShopAppJS@gmail.com';
+const password = 'charity-js-app-secret';
 
 module.exports = (app, config) => {
     app.engine('.hbs', handlebars({
@@ -28,9 +30,21 @@ module.exports = (app, config) => {
     app.use(require('connect-flash')());
     app.use(function (req, res, next) {
         res.locals.messages = require('express-messages')(req, res)();
-        console.log(res.locals.messages)
         next();
     });
+
+    //send email configuration
+    // mailer.extend(app, {
+    //     from: charityShopMail,
+    //     host: 'smtp.gmail.com', // hostname
+    //     secureConnection: true, // use SSL
+    //     port: 465, // port for secure SMTP
+    //     transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+    //     auth: {
+    //         user: charityShopMail,
+    //         pass: password
+    //     }
+    // });
 
     app.use((req, res, next) => {
         if (req.user) {

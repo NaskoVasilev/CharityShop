@@ -10,14 +10,14 @@ module.exports.addGet = (req, res) => {
 module.exports.addPost = (req, res) => {
     let event = req.body
 
-    if(!req.file || !req.file.path){
+    if (!req.file || !req.file.path) {
         res.render('event/add', {error: noChosenFileError})
         return;
     }
 
     entityHelper.addBinaryFileToEntity(req, event);
 
-    if(new Date(event.date) < Date.now()){
+    if (new Date(event.date) < Date.now()) {
         res.render('event/add', {error: "Дата на събитието не може да бъде в миналото!"})
         return;
     }
@@ -25,7 +25,7 @@ module.exports.addPost = (req, res) => {
     Event.create(event).then(() => {
         res.redirect('/')
     }).catch(err => {
-        res.render('event/add', {error: errorMessage} )
+        res.render('event/add', {error: errorMessage})
     })
 }
 
@@ -66,13 +66,13 @@ module.exports.editPost = (req, res) => {
     let id = req.params.id
     let event = req.body
 
-    if(new Date(event.date) < Date.now()){
+    if (new Date(event.date) < Date.now()) {
         event.error = "Дата на събитието не може да бъде в миналото!";
         res.render('event/edit', event);
         return;
     }
 
-    if(req.file && req.file.path){
+    if (req.file && req.file.path) {
         entityHelper.addBinaryFileToEntity(req, event);
     }
 
@@ -88,20 +88,20 @@ module.exports.getDetails = (req, res) => {
 
     Event.findById(id)
         .then(event => {
-        event.occupiedPlaces = event.users.length
-        event.time = event.date.toDateString()
-        entityHelper.addImageToEntity(event);
-        if (req.user) {
-            for (const userId of event.users) {
-                if(userId.toString() === req.user.id.toString()){
-                    event.currentUserIsRegistered = true
+            event.occupiedPlaces = event.users.length
+            event.time = event.date.toDateString()
+            entityHelper.addImageToEntity(event);
+            if (req.user) {
+                for (const userId of event.users) {
+                    if (userId.toString() === req.user.id.toString()) {
+                        event.currentUserIsRegistered = true
+                    }
                 }
+            } else {
+                event.currentUserIsRegistered = false
             }
-        }else{
-            event.currentUserIsRegistered = false
-        }
-        res.render('event/details', event)
-    }).catch(err =>{
+            res.render('event/details', event)
+        }).catch(err => {
         res.redirect('/')
     })
 }
@@ -164,5 +164,45 @@ module.exports.getRegisteredUsers = async (req, res) => {
     let event = await Event.findById(id)
         .populate('users');
 
-    res.render('event/registeredUsers', { users: event.users });
+    res.render('event/registeredUsers', {users: event.users});
+}
+
+module.exports.renderEmailForm = (req, res) => {
+    res.render('event/emailForm');
+}
+
+module.exports.sendEmails = async (req, res) => {
+    let id = req.params.id;
+    let event = await Event.findById(id);
+
+    const environment = process.env.NODE_environment || 'development'
+    let url = require('../config/config.js')[environment].url;
+    const eventDetailsUrl = url + '/event/details/' + id;
+    let body = req.body;
+    body.address = event.address;
+    body.town = event.town;
+    body.description = event.description;
+    body.date = event.date;
+    body.eventDetailsUrl = eventDetailsUrl;
+
+    let html = require('../utilities/emailTemplates.js').getEventEmail(body);
+
+    let emailSender = require('../utilities/emailSender.js');
+    let smtpTrans = emailSender.setEmailSender();
+    let mailOptions = {
+        to: 'nasko01vasilev@gmail.com',
+        subject: 'Информазия за предстоящото събитие ' + event.name,
+        html: html
+    };
+
+    smtpTrans.sendMail(mailOptions, function (error, res) {
+        if (error) {
+            req.flash('error', 'Възникна грешка!');
+            res.redirect('/event/details/' + id)
+            return;
+        }
+    });
+
+    req.flash('info', 'Успешно бяха изпратени имейли на всички регистрирани потребители!')
+    res.redirect('/event/details/' + id)
 }
