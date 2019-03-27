@@ -520,18 +520,8 @@ div.admin-buttons{
     }
 }
 
-.blog-details > div{
-    text-align: center;
-}
-.blog-details > div #author-buttons{
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-.blog-details #add-comment .form-control{
-    opacity: 0.5;
-} 
 #posts article{
-	display: inline-block;
+    display: inline-block;
     width: 45%;
     padding: 20px;
     vertical-align: top;
