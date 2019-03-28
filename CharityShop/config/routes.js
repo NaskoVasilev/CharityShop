@@ -43,7 +43,6 @@ module.exports = (app) => {
     app.post('/category/edit/:id', auth.isInRole('Admin'), handlers.category.editPost)
 
 
-    app.get('/category/:category/products', handlers.category.productsByCategory)
     app.get('/products', handlers.product.getAllProducts)
 
     app.get('/product/edit/:id', auth.isAuthenticated, handlers.product.editGet)

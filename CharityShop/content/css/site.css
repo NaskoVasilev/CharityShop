@@ -444,10 +444,6 @@ div.admin-buttons{
     width: 80px;
 }
 
-.blog-details > h2, p, h4{
-    text-align: center;
-}
-
 #posts article > p{
     min-height: 50px;
     margin-bottom: 5px;
@@ -711,6 +707,19 @@ input#verify{
     color: #0d0d0d;
 }
 
+/*Responsive images*/
+.responsive-figure{
+    width: 100%;
+}
+
+.responsive-img{
+    width: auto;
+    height: 100%;
+}
+
+#event-figure{
+    height: 250px;
+}
 
 
 

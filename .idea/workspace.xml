@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="316f646f-18a2-4c99-b638-3b20eafa2a61" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/CharityShop/content/frontend/controllers/userController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CharityShop/config/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/config/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CharityShop/content/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/content/css/site.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharityShop/content/frontend/email/hideHeader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharityShop/content/frontend/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/content/frontend/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharityShop/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharityShop/utilities/emailTemplates.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/utilities/emailTemplates.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharityShop/views/user/register.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/views/user/register.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CharityShop/content/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/content/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CharityShop/controllers/categoryHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/controllers/categoryHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CharityShop/controllers/causeController.js" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/controllers/causeController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CharityShop/views/event/details.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/CharityShop/views/event/details.hbs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,20 +22,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="register.hbs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CharityShop/views/user/register.hbs">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CharityShop/config/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="15" column="85" selection-start-line="15" selection-start-column="85" selection-end-line="15" selection-end-column="85" />
+            <state relative-caret-position="174">
+              <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="site.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CharityShop/content/css/site.css">
+      <file leaf-file-name="causeController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CharityShop/controllers/causeController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="709" column="20" lean-forward="true" selection-start-line="709" selection-start-column="20" selection-end-line="709" selection-end-column="20" />
+            <state relative-caret-position="459">
+              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+              <folding>
+                <element signature="e#298#329#0" />
+                <element signature="e#370#797#0" />
+                <element signature="e#804#986#0" />
+                <element signature="e#1037#1224#0" />
+                <element signature="e#1267#1443#0" />
+                <element signature="e#1486#1641#0" />
+                <element signature="e#1682#1856#0" />
+                <element signature="e#1898#2236#0" />
+                <element signature="e#2285#2483#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cause.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CharityShop/models/Cause.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="81">
+              <caret line="3" column="48" lean-forward="true" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -54,10 +72,23 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>error</find>
-      <find>media</find>
       <find>event</find>
       <find>registe</find>
       <find>messages</find>
+      <find>single</find>
+      <find>single_event</find>
+      <find>align</find>
+      <find>align-items</find>
+      <find>card_inner_body</find>
+      <find>content_wrapper</find>
+      <find>d-flex</find>
+      <find>mr-25</find>
+      <find>media</find>
+      <find>.blog-deta</find>
+      <find>figure</find>
+      <find>count_time</find>
+      <find>catego</find>
+      <find>cause</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -73,7 +104,6 @@
         <option value="$PROJECT_DIR$/CharityShop/views/category/edit.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/views/blog/category/edit.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/views/blog/post/add.hbs" />
-        <option value="$PROJECT_DIR$/CharityShop/views/home/index.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/views/blog/post/all.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/controllers/commentController.js" />
         <option value="$PROJECT_DIR$/CharityShop/views/user/addAdmin.hbs" />
@@ -94,7 +124,6 @@
         <option value="$PROJECT_DIR$/CharityShop/views/blog/post/details.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/controllers/postController.js" />
         <option value="$PROJECT_DIR$/CharityShop/views/event/emailForm.hbs" />
-        <option value="$PROJECT_DIR$/CharityShop/views/event/details.hbs" />
         <option value="$PROJECT_DIR$/CharityShop/content/frontend/controllers/emailController.js" />
         <option value="$PROJECT_DIR$/CharityShop/content/frontend/email/hideHeader.js" />
         <option value="$PROJECT_DIR$/CharityShop/views/eventEmail.hbs" />
@@ -103,12 +132,17 @@
         <option value="$PROJECT_DIR$/CharityShop/utilities/emailSender.js" />
         <option value="$PROJECT_DIR$/CharityShop/controllers/eventController.js" />
         <option value="$PROJECT_DIR$/CharityShop/content/frontend/request.js" />
-        <option value="$PROJECT_DIR$/CharityShop/config/routes.js" />
         <option value="$PROJECT_DIR$/CharityShop/utilities/emailTemplates.js" />
         <option value="$PROJECT_DIR$/CharityShop/content/frontend/controllers/userController.js" />
         <option value="$PROJECT_DIR$/CharityShop/controllers/userController.js" />
         <option value="$PROJECT_DIR$/CharityShop/views/user/register.hbs" />
+        <option value="$PROJECT_DIR$/CharityShop/views/home/index.hbs" />
+        <option value="$PROJECT_DIR$/CharityShop/content/css/style.css" />
         <option value="$PROJECT_DIR$/CharityShop/content/css/site.css" />
+        <option value="$PROJECT_DIR$/CharityShop/views/event/details.hbs" />
+        <option value="$PROJECT_DIR$/CharityShop/config/routes.js" />
+        <option value="$PROJECT_DIR$/CharityShop/controllers/categoryHandler.js" />
+        <option value="$PROJECT_DIR$/CharityShop/controllers/causeController.js" />
       </list>
     </option>
   </component>
@@ -144,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -160,33 +195,18 @@
               <item name="ChsrityShop" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChsrityShop" type="462c0819:PsiDirectoryNode" />
               <item name="CharityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ChsrityShop" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChsrityShop" type="462c0819:PsiDirectoryNode" />
               <item name="CharityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChsrityShop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChsrityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="CharityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChsrityShop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChsrityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="CharityShop" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -239,22 +259,23 @@
       <workItem from="1553614943372" duration="12447000" />
       <workItem from="1553700255711" duration="13221000" />
       <workItem from="1553780147251" duration="6998000" />
+      <workItem from="1553795193087" duration="5222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71294000" />
+    <option name="totallyTimeSpent" value="76516000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1727672" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1727672" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.16693164" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.18124007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.290938" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -271,19 +292,19 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1727672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.14944357" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.07154213" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.29888713" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.13036565" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.290938" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -309,7 +330,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CharityShop/controllers/userController.js</url>
           <line>159</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
@@ -317,60 +337,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/cause/add.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="15" lean-forward="true" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/product/add.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="21" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="12" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/blog/post/add.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="68" selection-start-line="6" selection-start-column="68" selection-end-line="6" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/content/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11787" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/models/Comment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="12" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/controllers/commentController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/user/addAdmin.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="82" selection-start-line="7" selection-start-column="82" selection-end-line="7" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/home/index.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-810">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CharityShop/views/product/products.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -449,24 +415,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/models/Category.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="72" lean-forward="true" selection-start-line="4" selection-start-column="72" selection-end-line="4" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CharityShop/controllers/blogController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-96">
           <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/controllers/categoryHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -516,13 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/views/event/details.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CharityShop/content/frontend/controllers/emailController.js" />
     <entry file="file://$PROJECT_DIR$/CharityShop/views/eventEmail.hbs" />
     <entry file="file://$PROJECT_DIR$/CharityShop/utilities/entityHelper.js">
@@ -549,13 +494,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/content/frontend/email/hideHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/content/frontend/email/hideHeader.js" />
     <entry file="file://$PROJECT_DIR$/CharityShop/config/express.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
@@ -581,13 +520,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
           <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CharityShop/config/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
@@ -631,15 +563,115 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CharityShop/views/user/register.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="405">
           <caret line="15" column="85" selection-start-line="15" selection-start-column="85" selection-end-line="15" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/content/css/responsive.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1404">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/content/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/content/css/index.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/views/home/index.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="91" column="76" lean-forward="true" selection-start-line="91" selection-start-column="76" selection-end-line="91" selection-end-column="86" />
+          <folding>
+            <element signature="n#src#0;n#img#0;n#figure#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#section#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/content/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="946" column="21" lean-forward="true" selection-start-line="946" selection-start-column="21" selection-end-line="946" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CharityShop/content/css/site.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="709" column="20" lean-forward="true" selection-start-line="709" selection-start-column="20" selection-end-line="709" selection-end-column="20" />
+        <state relative-caret-position="130">
+          <caret line="444" column="1" selection-start-line="444" selection-start-column="1" selection-end-line="444" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/views/event/details.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/models/Category.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="72" lean-forward="true" selection-start-line="4" selection-start-column="72" selection-end-line="4" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/controllers/categoryHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="50" column="45" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
+          <folding>
+            <element signature="e#86#120#0" />
+            <element signature="e#161#410#0" />
+            <element signature="e#818#957#0" />
+            <element signature="e#998#1157#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/node_modules/express/lib/router/route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="201" selection-start-line="201" selection-end-line="201" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/config/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/models/Cause.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="48" lean-forward="true" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CharityShop/controllers/causeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="e#298#329#0" />
+            <element signature="e#370#797#0" />
+            <element signature="e#804#986#0" />
+            <element signature="e#1037#1224#0" />
+            <element signature="e#1267#1443#0" />
+            <element signature="e#1486#1641#0" />
+            <element signature="e#1682#1856#0" />
+            <element signature="e#1898#2236#0" />
+            <element signature="e#2285#2483#0" />
+          </folding>
         </state>
       </provider>
     </entry>

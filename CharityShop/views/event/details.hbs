@@ -35,14 +35,14 @@
                         <li>{{address}}</li>
                         <li>{{town}}</li>
                     </ul>
+                    {{#if isAdmin}}
+                        <div class="col-lg-12">
+                            <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">Редактирай</a>
+                            <a href="/event/delete/{{_id}}" class="primary_btn">Изтрий</a>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
-            {{#if isAdmin}}
-                <div class="col-lg-12">
-                    <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">Редактирай</a>
-                    <a href="/event/delete/{{_id}}" class="primary_btn">Изтрий</a>
-                </div>
-            {{/if}}
         </div>
     </div>
 </section>
