@@ -9,7 +9,7 @@ let request = (function () {
         }
     }
 
-    function post(module, endpoint, data) {
+    function post(endpoint, data) {
         let obj = makeRequest('POST', endpoint)
         if(data){
             obj.data = data;

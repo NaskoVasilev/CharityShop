@@ -57,6 +57,7 @@ module.exports = (app) => {
     app.post('/product/buy/:id', auth.isAuthenticated, handlers.product.buyPost)
 
     app.get('/user/register', handlers.user.registerGet)
+    app.post('/user/send/verification/email', handlers.user.sendVerificationEmail);
     app.post('/user/register', handlers.user.registerPost)
 
     app.get('/user/login', handlers.user.loginGet)

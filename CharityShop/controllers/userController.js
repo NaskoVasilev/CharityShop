@@ -9,6 +9,16 @@ module.exports.registerGet = (req, res) => {
 
 module.exports.registerPost = (req, res) => {
     let user = req.body
+    console.log(user)
+
+    if (user.verificationCode === ""
+        || user.generatedCode === ""
+        || user.verificationCode !== user.generatedCode) {
+        req.flash('error', 'Кодът за потвърждаване на имейла Ви е грешен!')
+        res.redirect('/user/register')
+        return
+    }
+
 
     if (!user.email) {
         req.flash('error', 'Email адреса е задължителен!')
@@ -131,4 +141,36 @@ module.exports.addAdminPost = async (req, res) => {
     let message = `${user.username} успешно беше направен администратор!`;
     req.flash('info', message);
     res.redirect('/');
+}
+
+module.exports.sendVerificationEmail = (req, res) => {
+    let number = Math.random();
+    let code = Math.floor(number * 10000);
+
+    let email = req.body.email;
+    let pattern = /(\W|^)[\w.+\-]*@gmail\.com(\W|$)/ig;
+    let result = email.match(pattern);
+    if (result === null) {
+        res.json('Error')
+        return;
+    }
+
+    let html = require('../utilities/emailTemplates').getVerificationEmail(code);
+
+    let emailSender = require('../utilities/emailSender.js');
+    let smtpTrans = emailSender.setEmailSender();
+    let mailOptions = {
+        to: email,
+        subject: 'Код за потвърждавене не емейл адрес!',
+        html: html
+    };
+
+    smtpTrans.sendMail(mailOptions, function (error, res) {
+        if (error) {
+            res.json('Error')
+            return;
+        }
+    });
+
+    res.json(code);
 }

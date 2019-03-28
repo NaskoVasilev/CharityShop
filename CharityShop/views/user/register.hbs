@@ -1,3 +1,5 @@
+<script src="/frontend/controllers/userController.js"></script>
+
 <div class="wrapper fadeInDown" id="register-form">
     <div id="formContent">
         <h2 class="active">Регисриране</h2>
@@ -9,6 +11,9 @@
         <form method="post">
             <input type="text" class="fadeIn second" name="username" placeholder="Потребителско име" required>
             <input type="email" class="fadeIn second" name="email" placeholder="Email" required>
+            <input type="text" class="fadeIn second" name="verificationCode" placeholder="Код за потвърждение" required>
+            <input type="hidden" class="fadeIn second" name="generatedCode" value="">
+            <input id="verify" type="button" class="fadeIn second" value="Изпрати код">
             <input type="password" class="fadeIn third" name="password" placeholder="Парола" required>
             <input type="password" class="fadeIn third" name="confirmedPassword" placeholder="Потвърждаване на парола" required>
             <input type="text" class="fadeIn third" name="firstName" placeholder="Име" required>
