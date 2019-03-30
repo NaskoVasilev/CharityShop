@@ -8,7 +8,9 @@
         <div class="col-lg-6 col-md-6">
             <div class="content_wrapper">
                 <h3 class="title">{{product.name}}</h3>
-                <p>{{product.description}}</p>
+                <p>Описание: {{product.description}}</p>
+                <p>Kатегория: {{product.category.name}}</p>
+                <p>Кауза: {{product.cause.name}}</p>
                 <h5 class="title">Цена: {{product.price}} лв</h5>
                 <a href="/product/edit/{{product._id}}" class="primary_btn">Редактиране</a>
                 <a href="/product/delete/{{product._id}}" class="primary_btn danger">Изтриване</a>

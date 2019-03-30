@@ -1,10 +1,10 @@
 <div class="wrapper fadeInDown" id="add-product-from">
     <div id="formContent">
-        <h2 class="active">Изпращане на емейли на всички регистрирани потребители за събитието</h2>
+        <h2 class="active">Изпращане на имейли на всички регистрирани потребители за събитието</h2>
 
         <form method="post">
-            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие" required>
-            <textarea type="text" class="fadeIn third" name="content" placeholder="Съдържание на емейла"></textarea>
+            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие" value="{{title}}" required>
+            <textarea type="text" class="fadeIn third" name="content" placeholder="Съдържание на емейла">{{content}}</textarea>
             <input type="submit" class="fadeIn fourth" value="Изпрати">
         </form>
     </div>

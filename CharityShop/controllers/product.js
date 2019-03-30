@@ -7,167 +7,180 @@ let errorMessage = 'Възникна грешка! Моля опитайте п�
 
 module.exports.addGet = (req, res) => {
     let categoriesPromise = Category.find();
-    let causesPromise = Cause.find().select('name')
+    let causesPromise = Cause.find({isCompleted: false}).select('name')
     Promise.all([categoriesPromise, causesPromise])
         .then(([categories, causes]) => {
             res.render('product/add', {categories: categories, causes: causes})
         }).catch(err => {
+        req.flash('error', errorMessage);
         res.redirect('/');
     });
 }
 
-module.exports.addPost = (req, res) => {
+module.exports.addPost = async (req, res) => {
     let productObj = req.body;
     productObj.creator = req.user._id;
 
+    let message = entityHelper.validateProduct(productObj);
+    if (message) {
+        await addCausesAndCategoriesToProduct(productObj);
+        productObj.error = message;
+        res.render('product/add', productObj)
+        return;
+    }
+
     if (!req.file || !req.file.path) {
-        res.render('product/add', {error: noChosenFileError})
+        await addCausesAndCategoriesToProduct(productObj);
+        productObj.error = noChosenFileError;
+        res.render('product/add', productObj)
         return;
     }
 
     entityHelper.addBinaryFileToEntity(req, productObj);
 
-    Product.create(productObj)
-        .then(product => {
-            req.user.createdProducts.push(product._id)
-            req.user.save()
-            Category.findById(product.category)
-                .then(category => {
-                    category.products.push(product._id)
-                    category.save()
-                }).catch(err => {
-                res.render('product/add', {error: errorMessage})
-                return
-            })
+    try {
+        let product = await Product.create(productObj)
+        req.user.createdProducts.push(product._id);
+        await req.user.save();
+
+        let category = await Category.findById(product.category)
+        category.products.push(product._id)
+        await category.save()
+
+        req.flash('info', 'Успешно беше добавен нов продукт!');
+        res.redirect('/products');
+    } catch (err) {
+        await addCausesAndCategoriesToProduct(productObj);
+        productObj.error = errorMessage;
+        res.render('product/add', productObj)
+    }
+}
+
+module.exports.editGet = async (req, res) => {
+    let id = req.params.id;
+    try {
+        let productObj = await Product.findById(id);
+
+        if (!isAuthorOrAdmin(req, productObj)) {
+            req.flash('error', 'Не си автор на този продукт!');
             res.redirect('/')
-        }).catch(err => {
-        res.render('product/add', {error: errorMessage})
-    })
+            return;
+        }
+
+        await addCausesAndCategoriesToProduct(productObj);
+        res.render('product/edit', productObj)
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/product/details/' + id)
+    }
 }
 
-module.exports.editGet = (req, res) => {
-    let id = req.params.id
-    let productPromise = Product.findById(id)
-    let categoriesPromise = Category.find()
+module.exports.editPost = async (req, res) => {
+    let id = req.params.id;
+    let editedProduct = req.body;
 
-    Promise.all([productPromise, categoriesPromise])
-        .then(([product, categories]) => {
-            if (!categories || !product) {
-                res.redirect('/')
+    let message = entityHelper.validateProduct(editedProduct);
+    if (message) {
+        await addCausesAndCategoriesToProduct(editedProduct);
+        editedProduct.error = message;
+        res.render('product/edit', editedProduct)
+        return;
+    }
+
+    try {
+        let product = await Product.findById(id);
+
+        product.name = editedProduct.name
+        product.description = editedProduct.description
+        product.price = editedProduct.price
+        product.cause = editedProduct.cause;
+
+        if (req.file && req.file.path) {
+            entityHelper.addBinaryFileToEntity(req, product)
+        }
+
+        if (product.category.toString() !== editedProduct.category) {
+            let oldCategory = await Category.findById(product.category)
+            let newCategory = await Category.findById(editedProduct.category)
+
+            let index = oldCategory.products.indexOf(product._id.toString())
+            if (index >= 0) {
+                oldCategory.products.splice(index, 1)
+                await oldCategory.save()
             }
-            if (isAuthorOrAdmin(req, product)) {
-                res.render('product/edit', {product: product, categories: categories})
-            }
-            else {
-                redirectToIndex(res)
-            }
-        })
-}
 
-module.exports.editPost = (req, res) => {
-    let id = req.params.id
-    let editedProduct = req.body
+            newCategory.products.push(product._id)
+            await newCategory.save()
+            product.category = editedProduct.category
+        }
 
-    Product.findById(id)
-        .then(product => {
-            if (isAuthorOrAdmin(req, product)) {
-                if (!product) {
-                    res.redirect('/')
-                    return
-                }
+        await product.save();
+        req.flash('info', 'Продуктът беше успешно редактиран!')
+        res.redirect('/product/details/' + id);
 
-                // if (!req.file || !req.file.path) {
-                //     res.render('product/add', {error: noChosenFileError})
-                //     return;
-                // }
-
-                product.name = editedProduct.name
-                product.description = editedProduct.description
-                product.price = editedProduct.price
-
-                if(req.file && req.file.path){
-                    entityHelper.addBinaryFileToEntity(req, product)
-                }
-
-                if (product.category.toString() !== editedProduct.category) {
-                    let oldCategoryPromise = Category.findById(product.category.toString())
-                    let newCategoryPromise = Category.findById(editedProduct.category)
-
-                    Promise.all([oldCategoryPromise, newCategoryPromise])
-                        .then(([oldCategory, newCategory]) => {
-                            let index = oldCategory.products.indexOf(product._id)
-                            if (index >= 0) {
-                                oldCategory.products.splice(index, 1)
-                                oldCategory.save()
-                            }
-
-                            newCategory.products.push(product._id)
-                            newCategory.save()
-
-                            product.category = editedProduct.category
-                            product.save().then(() => {
-                                console.log('Saving')
-                                res.redirect('/')
-                                return
-                            })
-                        })
-                } else {
-                    product.save().then(() => {
-                        res.redirect('/')
-                    })
-                }
-            }
-            redirectToIndex(res)
-            return
-
-        }).catch(err => {
-        res.render('product/add', {error: errorMessage})
-    })
+    } catch (e) {
+        await addCausesAndCategoriesToProduct(editedProduct);
+        editedProduct.error = errorMessage;
+        res.render('product/edit', editedProduct)
+    }
 }
 
 module.exports.deleteGet = (req, res) => {
-    let id = req.params.id
+    let id = req.params.id;
     Product.findById(id)
         .then((product) => {
             entityHelper.addImageToEntity(product)
             if (isAuthorOrAdmin(req, product)) {
                 if (!product) {
+                    req.flash('error', errorMessage)
                     res.redirect('/');
                     return
                 }
                 res.render('product/delete', {product: product})
             } else {
-                redirectToIndex(res)
+                req.flash('error', 'Не сте собственик на продукта!');
+                res.redirect('/')
             }
         }).catch(err => {
+        req.flash('error', errorMessage);
         res.redirect('/');
     })
 }
 
-module.exports.deletePost = (req, res) => {
-    let id = req.params.id
-    Product.findById(id)
-        .then(product => {
-            if (isAuthorOrAdmin(req, product)) {
-                Category.findById(product.category)
-                    .then(category => {
-                        let productIndex = category.products.indexOf(product._id)
-                        category.products.splice(productIndex, 1)
-                        category.save()
-                        let index = req.user.createdProducts.indexOf(product._id)
-                        if (index >= 0) {
-                            req.user.createdProducts.splice(index, 1)
-                            req.user.save()
-                        }
-                        product.remove()
-                            .then(() => {
-                                res.redirect('/')
-                            })
-                    })
-            }
-        });
+module.exports.deletePost = async (req, res) => {
+    let id = req.params.id;
 
-    res.redirect('/');
+    try {
+        let product = await Product.findById(id);
+
+        if(isAuthorOrAdmin(req, product)){
+            let category = await Category.findById(product.category);
+            let productIndex = category.products.indexOf(product._id);
+
+            if(productIndex > -1){
+                category.products.splice(productIndex, 1);
+                await category.save();
+            }
+
+            let index = req.user.createdProducts.indexOf(product._id)
+            if (index >= 0) {
+                req.user.createdProducts.splice(index, 1)
+                await req.user.save()
+            }
+
+            await product.remove();
+
+            req.flash('info', 'Продуктът успешно беше изтрит!');
+            res.redirect('/user/myProducts')
+        }
+        else{
+            req.flash('Не сте собственик на продукта!');
+            res.redirect('/')
+        }
+    }catch(err){
+        req.flash('error', errorMessage);
+        res.redirect('/products')
+    }
 }
 
 module.exports.buyGet = (req, res) => {
@@ -176,44 +189,52 @@ module.exports.buyGet = (req, res) => {
         .then((product) => {
             entityHelper.addImageToEntity(product)
             if (!product) {
+                req.flash('error', errorMessage);
                 res.redirect('/');
                 return
             }
-            if (req.user && product.creator === req.user._id) {
-                console.log("The creator of the product cannot buy it")
+            if (req.user && product.creator.toString() === req.user._id.toString()) {
+                req.flash('error', 'Не може да купите продукт дарен от Вас!');
                 res.redirect('/products');
                 return;
             }
             res.render('product/buy', {product: product})
-        }).catch(() =>{
-            res.redirect('/');
+        }).catch(() => {
+        req.flash('error', errorMessage);
+        res.redirect('/');
     })
 }
 
 module.exports.buyPost = async (req, res) => {
-    let productId = req.params.id
+    let productId = req.params.id;
 
-    let product = await Product.findById(productId).populate('cause');
-    if (product.buyer) {
-        console.log('The product has been already bought')
-        return;
-    }
+    try {
+        let product = await Product.findById(productId).populate('cause');
+        if (product.buyer) {
+            req.flash('error', 'Продуктът вече е купен!');
+            res.redirect('/products');
+            return;
+        }
 
-    product.buyer = req.user.id;
-    product.cause.raised += product.price;
+        product.buyer = req.user.id;
+        product.cause.raised += product.price;
 
-    if(product.cause.raised >= product.cause.goal){
-        product.cause.isCompleted = true;
+        if (product.cause.raised >= product.cause.goal) {
+            product.cause.isCompleted = true;
+        }
+
+        await product.save();
         await product.cause.save();
+
+        req.user.boughtProducts.push(product.id)
+        req.user.save();
+
+        req.flash('info', 'Успешно закупихте продукта!');
+        res.redirect('/products')
+    }catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/products')
     }
-
-    await product.save();
-    await product.cause.save();
-
-    req.user.boughtProducts.push(product.id)
-    req.user.save();
-
-    res.redirect('/products')
 }
 
 module.exports.getAllProducts = async (req, res) => {
@@ -231,15 +252,18 @@ module.exports.getProductDetails = (req, res) => {
     let productId = req.params.id;
 
     Product.findById(productId)
+        .populate('category', 'name')
+        .populate('cause', 'name')
+        .populate('creator', 'firstName lastName')
         .then(product => {
             entityHelper.addImageToEntity(product);
             if (req.user) {
                 product.isAuthorOrAdmin = isAuthorOrAdmin(req, product);
             }
-
             res.render('product/details', {product: product})
-        }).catch(() =>{
-            res.redirect('/');
+        }).catch((err) => {
+        req.flash('error', errorMessage);
+        res.redirect('/');
     })
 }
 
@@ -260,23 +284,24 @@ module.exports.search = async (req, res) => {
             .includes(productName.toLowerCase()))
     }
 
-
     if (category && productName) {
         products = products.filter(x => x.name.toLowerCase()
             .includes(productName.toLowerCase()))
     }
     entityHelper.addImagesToEntities(products);
     res.render('product/products', {products: products, categories: categories})
-
 }
 
 function isAuthorOrAdmin(req, product) {
-    return product.creator.equals(req.user._id)
+    return product.creator.equals(req.user._id.toString())
         || req.user.roles.indexOf('Admin') >= 0
 }
 
-function redirectToIndex(res) {
-    let error = `error=${encodeURIComponent('Не сте собственик на продукта!')}`
-    res.redirect(`/?${error}`)
+async function addCausesAndCategoriesToProduct(product) {
+    let categories = await Category.find();
+    let causes = await Cause.find({isCompleted: false});
+    entityHelper.addPropertyIsSelectedToCategory(categories, product, 'category');
+    entityHelper.addPropertyIsSelectedToCategory(causes, product, 'cause');
+    product.categories = categories;
+    product.causes = causes;
 }
-

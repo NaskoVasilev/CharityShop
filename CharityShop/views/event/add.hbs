@@ -3,12 +3,12 @@
         <h2 class="active">Добавяне на събитие</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" placeholder="Име на събитието" required>
-            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание"></textarea>
-            <input type="number" class="fadeIn third" name="placesCount" placeholder="Брой места" step="1" min="0" required>
-            <input type="date" class="fadeIn third" name="date" placeholder="Дата" required>
-            <input type="text" class="fadeIn third" name="address" placeholder="Адрес" required>
-            <input type="text" class="fadeIn third" name="town" placeholder="Град" required>
+            <input type="text" class="fadeIn second" name="name" placeholder="Име на събитието" value="{{name}}" required>
+            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание">{{description}}</textarea>
+            <input type="number" class="fadeIn third" name="placesCount" placeholder="Брой места" step="1" min="0" value="{{placesCount}}" required>
+            <input type="date" class="fadeIn third" name="date" placeholder="Дата" value="{{date}}" required>
+            <input type="text" class="fadeIn third" name="address" placeholder="Адрес" value="{{address}}" required>
+            <input type="text" class="fadeIn third" name="town" placeholder="Град" value="{{town}}" required>
             <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
             <label for="file" class="fadeIn third">Изберете снимка</label>
             <input type="submit" class="fadeIn fourth" value="Дoбави">

@@ -12,8 +12,7 @@ module.exports.addPost = (req, res) => {
     let cause = req.body
 
     if (!req.file || !req.file.path) {
-        req.flash('error', noChosenFileError)
-        res.redirect('/cause/add')
+        res.render('cause/add', {cause: cause, error: noChosenFileError})
         return;
     }
 
@@ -23,9 +22,7 @@ module.exports.addPost = (req, res) => {
         req.flash('info', "Каузата беше създадена успешно!")
         res.redirect('/cause/all')
     }).catch((err) => {
-        req.flash('error', errorMessage)
-        res.redirect('/cause/add')
-        return;
+        res.render('cause/add', {cause: cause, error: errorMessage})
     })
 }
 
@@ -105,8 +102,7 @@ module.exports.editPost = (req, res) => {
         req.flash('info', message)
         res.redirect('/cause/all')
     }).catch(err => {
-        body.error = errorMessage;
-        res.render('cause/edit', {cause: body});
+        res.render('cause/edit', {cause: body, error: errorMessage});
     })
 }
 

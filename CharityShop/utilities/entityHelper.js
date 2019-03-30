@@ -17,8 +17,33 @@ let addImagesToEntities = (entities) =>{
     }
 }
 
+function addPropertyIsSelectedToCategory(entities, product, property){
+    for (const entity of entities) {
+        if(entity.id.toString() === product[property].toString()){
+            entity.isSelected = true;
+        }
+        else{
+            entity.isSelected = false;
+        }
+    }
+}
+
+function validateProduct(product){
+    let message = null;
+    if(!product.name){
+        message = 'Името на продукта е задължително!'
+    }
+    else if(product.price <= 0){
+        message = 'Цената не може да бъде по-малка от нула!';
+    }
+
+    return message;
+}
+
 module.exports = {
     addBinaryFileToEntity,
     addImageToEntity,
-    addImagesToEntities
+    addImagesToEntities,
+    addPropertyIsSelectedToCategory,
+    validateProduct
 }

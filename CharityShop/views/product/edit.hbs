@@ -3,12 +3,25 @@
         <h2 class="active">Редактиране на продукт!</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" value="{{product.name}}" required>
-            <textarea type="text" class="fadeIn third" name="description">{{product.description}}</textarea>
-            <input type="number" class="fadeIn third" required name="price" value="{{product.price}}" step="0.1" min="0">
+            <input type="text" class="fadeIn second" name="name" value="{{name}}" required>
+            <textarea type="text" class="fadeIn third" name="description">{{description}}</textarea>
+            <input type="number" class="fadeIn third" required name="price" value="{{price}}" step="0.1" min="0">
             <select class="fadeIn third" name="category" id="category" required>
                 {{#each categories}}
+                       {{# if isSelected}}
+                           <option selected value="{{_id}}">{{name}}</option>
+                       {{else}}
+                           <option value="{{_id}}">{{name}}</option>
+                       {{/if}}
+                {{/each}}
+            </select>
+            <select class="fadeIn third" name="cause" id="cause" required>
+                {{#each causes}}
+                    {{#if isSelected}}
+                        <option selected value="{{_id}}">{{name}}</option>
+                    {{else}}
                         <option value="{{_id}}">{{name}}</option>
+                    {{/if}}
                 {{/each}}
             </select>
             <input id="file" type="file" name="image" accept=".jpg,.jpeg,.png">

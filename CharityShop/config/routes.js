@@ -70,6 +70,8 @@ module.exports = (app) => {
 
     app.get('/user/add/admin', auth.isInRole('Admin'), handlers.user.getAddAdminView);
     app.post('/user/add/admin', auth.isInRole('Admin'), handlers.user.addAdminPost);
+    app.get('/user/remove/admin', auth.isInRole('Admin'), handlers.user.removeAdminGet);
+    app.post('/user/remove/admin', auth.isInRole('Admin'), handlers.user.removeAdminPost);
 
     app.post('/product/search', handlers.product.search)
     app.get('/product/search', handlers.product.search)
@@ -100,5 +102,5 @@ module.exports = (app) => {
 
     //Commnets
     app.post('/blog/comment/add/:id', auth.isAuthenticated, handlers.comment.addPost);
-    app.get('/blog/post/comment/remove/:id', auth.isAuthenticated, handlers.comment.removeComment)
+    app.get('/blog/post/:postId/comment/remove/:id', auth.isAuthenticated, handlers.comment.removeComment)
 }

@@ -9,7 +9,6 @@ module.exports.registerGet = (req, res) => {
 
 module.exports.registerPost = (req, res) => {
     let user = req.body
-    console.log(user)
 
     if (user.verificationCode === ""
         || user.generatedCode === ""
@@ -21,7 +20,13 @@ module.exports.registerPost = (req, res) => {
 
 
     if (!user.email) {
-        req.flash('error', 'Email адреса е задължителен!')
+        req.flash('error', 'Имейл адреса е задължителен!')
+        res.redirect('/user/register')
+        return
+    }
+
+    if (user.password.length < 5) {
+        req.flash('error', 'Паролита трябва да бъде поне пет символа!')
         res.redirect('/user/register')
         return
     }
@@ -35,10 +40,8 @@ module.exports.registerPost = (req, res) => {
     let salt = encryption.generateSalt()
     user.salt = salt
 
-    if (user.password) {
-        let hashedPassword = encryption.generateHashedPassword(salt, user.password)
-        user.password = hashedPassword
-    }
+    let hashedPassword = encryption.generateHashedPassword(salt, user.password)
+    user.password = hashedPassword
 
     User.create(user)
         .then(user => {
@@ -51,7 +54,7 @@ module.exports.registerPost = (req, res) => {
                 res.redirect('/')
             })
         }).catch(err => {
-        let error = 'Вече има потребител със същото потребителско име или email адрес!'
+        let error = 'Вече има потребител със същото потребителско име или имейл адрес!'
         req.flash('error', error);
         res.redirect('/user/register')
     })
@@ -94,6 +97,10 @@ module.exports.getMyProducts = (req, res) => {
             entityHelper.addImagesToEntities(user.createdProducts)
             res.render('user/myProducts', {products: user.createdProducts})
         })
+        .catch(() => {
+            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            res.redirect('/')
+        })
 }
 
 module.exports.getBoughtProducts = (req, res) => {
@@ -102,15 +109,25 @@ module.exports.getBoughtProducts = (req, res) => {
             entityHelper.addImagesToEntities(user.boughtProducts)
             res.render('user/boughtProducts', {products: user.boughtProducts})
         })
+        .catch(() => {
+            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            res.redirect('/')
+        })
 }
 
 module.exports.getUserProductDetails = (req, res) => {
     let productId = req.params.id;
 
     Product.findById(productId)
+        .populate('category', 'name')
+        .populate('cause', 'name')
         .then(product => {
             entityHelper.addImageToEntity(product);
             res.render('user/myProductDetails', {product: product})
+        })
+        .catch(() => {
+            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            res.redirect('/')
         })
 }
 
@@ -124,28 +141,85 @@ module.exports.addAdminPost = async (req, res) => {
     let firstName = body.firstName;
     let lastName = body.lastName;
 
-    let users = await User.find({
-        username: username,
-        firstName: firstName,
-        lastName: lastName
-    });
+    try {
+        let users = await User.find({
+            username: username,
+            firstName: firstName,
+            lastName: lastName
+        });
 
-    if (users.length === 0 || users.length > 1) {
-        let error = 'Невалидно име, фамилия или потребителско име!';
-        res.render('user/addAdmin', {error: error});
+        if (users.length === 0 || users.length > 1) {
+            let error = 'Невалидно име, фамилия или потребителско име!';
+            res.render('user/addAdmin', {error: error});
+            return;
+        }
+
+        user = users[0];
+
+        if (user.roles.includes('Admin')) {
+            let error = `${user.username} вече е администратор!`;
+            res.render('user/addAdmin', {error: error});
+            return;
+        }
+
+        user.roles.push('Admin');
+        await user.save();
+
+        let message = `${user.username} успешно беше направен администратор!`;
+        req.flash('info', message);
+        res.redirect('/');
+    } catch (err) {
+        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        res.redirect('/')
     }
-    user = users[0];
-    user.roles.push('Admin');
-    await user.save();
+}
 
-    let message = `${user.username} успешно беше направен администратор!`;
-    req.flash('info', message);
-    res.redirect('/');
+module.exports.removeAdminGet = (req, res) => {
+    res.render('user/removeAdmin')
+}
+
+module.exports.removeAdminPost = async (req, res) => {
+    let body = req.body;
+    let username = body.username;
+    let firstName = body.firstName;
+    let lastName = body.lastName;
+
+    try {
+        let users = await User.find({
+            username: username,
+            firstName: firstName,
+            lastName: lastName
+        });
+
+        if (users.length === 0 || users.length > 1) {
+            let error = 'Невалидно име, фамилия или потребителско име!';
+            res.render('user/removeAdmin', {error: error});
+            return;
+        }
+
+        user = users[0];
+        let index = user.roles.indexOf('Admin');
+        if (index === -1) {
+            let error = user.username + ' не е адмиинистратор!';
+            res.render('user/removeAdmin', {error: error});
+            return;
+        }
+
+        user.roles.splice(index, 1);
+        await user.save();
+
+        let message = `${user.username} успешно беше премахнат като администратор!`;
+        req.flash('info', message);
+        res.redirect('/');
+    } catch (err) {
+        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        res.redirect('/')
+    }
 }
 
 module.exports.sendVerificationEmail = (req, res) => {
     let number = Math.random();
-    let code = Math.floor(number * 10000);
+    let code = Math.floor(number * 100000);
 
     let email = req.body.email;
     let pattern = /(\W|^)[\w.+\-]*@gmail\.com(\W|$)/ig;
@@ -165,12 +239,18 @@ module.exports.sendVerificationEmail = (req, res) => {
         html: html
     };
 
-    smtpTrans.sendMail(mailOptions, function (error, res) {
+    let sendEmailSuccessfully = true;
+    smtpTrans.sendMail(mailOptions, function (error) {
         if (error) {
-            res.json('Error')
-            return;
+            sendEmailSuccessfully = false;
         }
     });
+
+    if (!sendEmailSuccessfully) {
+        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        res.redirect('/user/register');
+        return;
+    }
 
     res.json(code);
 }

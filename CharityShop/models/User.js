@@ -67,7 +67,7 @@ module.exports.seedAdminUser = () => {
                 salt: salt,
                 password: hashedPass,
                 age: 17,
-                email: 'admin@admin.abv.bg',
+                email: 'charityShopAppJS@gmail.com',
                 roles: ['Admin']
             }).then(()=>{
                 console.log('Admin user created!')   
@@ -88,7 +88,7 @@ module.exports.seedAdminUser = () => {
                 salt: salt,
                 password: hashedPass,
                 age: 17,
-                email: 'admin@admin.yahoo.com',
+                email: 'naskoAdmin@gmail.com',
                 roles: ['Admin']
             }).then(()=>{
                 console.log('Admin user created!')   

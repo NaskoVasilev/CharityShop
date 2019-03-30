@@ -63,6 +63,7 @@ async function removeComment(event){
         target = target.parentElement;
     }
     let id = target.dataset.id;
+    let postId = document.getElementById('postId').value;
     $(target.parentElement).hide();
-    await request.get('/blog/post/comment/remove/' + id)
+    await request.get('/blog/post/' + postId + '/comment/remove/' + id)
 }

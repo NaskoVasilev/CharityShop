@@ -8,24 +8,29 @@ module.exports.addGet = (req, res) => {
 }
 
 module.exports.addPost = (req, res) => {
-    let event = req.body
+    let event = req.body;
 
     if (!req.file || !req.file.path) {
-        res.render('event/add', {error: noChosenFileError})
+        event.error = noChosenFileError;
+        res.render('event/add', event);
         return;
     }
 
     entityHelper.addBinaryFileToEntity(req, event);
 
     if (new Date(event.date) < Date.now()) {
-        res.render('event/add', {error: "Дата на събитието не може да бъде в миналото!"})
+
+        event.error = "Дата на събитието не може да бъде в миналото!";
+        res.render('event/add', event)
         return;
     }
 
     Event.create(event).then(() => {
-        res.redirect('/')
+        req.flash('info', 'Ново събитие беше създадено успешно!')
+        res.redirect('/event/all');
     }).catch(err => {
-        res.render('event/add', {error: errorMessage})
+        event.error = errorMessage;
+        res.render('event/add', event);
     })
 }
 
@@ -37,6 +42,7 @@ module.exports.deleteGet = (req, res) => {
         event.formatedDate = date;
         res.render('event/delete', event)
     }).catch(err => {
+        req.flash('error', errorMessage)
         res.redirect('/');
     })
 }
@@ -45,11 +51,12 @@ module.exports.deletePost = (req, res) => {
     let id = req.params.id
 
     Event.findByIdAndDelete(id).then(() => {
-        res.redirect('/')
+        req.flash('info', 'Събитието беше изтрито успешно!')
+        res.redirect('/event/all')
     }).catch(err => {
-        res.redirect('/');
+        req.flash('error', errorMessage);
+        res.redirect('/event/delete/' + id);
     })
-
 }
 
 module.exports.editGet = (req, res) => {
@@ -58,13 +65,34 @@ module.exports.editGet = (req, res) => {
     Event.findById(id).then(event => {
         res.render('event/edit', event)
     }).catch(err => {
+        req.flash('error', errorMessage);
         res.redirect('/');
     })
 }
 
 module.exports.editPost = (req, res) => {
-    let id = req.params.id
-    let event = req.body
+    let id = req.params.id;
+    let event = req.body;
+
+    let message = null;
+    if (!event.name) {
+        message = "Името на събитието е задължително!"
+    }
+    else if (event.placesCount <= 0) {
+        message = "Местата на събитието трябва да бъде положително число!"
+    }
+    else if (!event.address) {
+        message = "Адреса на събитието е задължително!"
+    }
+    else if (!event.town) {
+        message = "Града на събитието е задължително!"
+    }
+
+    if (message) {
+        event.error = message;
+        res.render('event/edit', event);
+        return;
+    }
 
     if (new Date(event.date) < Date.now()) {
         event.error = "Дата на събитието не може да бъде в миналото!";
@@ -77,9 +105,11 @@ module.exports.editPost = (req, res) => {
     }
 
     Event.findByIdAndUpdate(id, event).then(() => {
-        res.redirect('/')
+        req.flash('info', 'Събитието беше редактирано успешно!');
+        res.redirect('/event/details/' + id);
     }).catch((err) => {
-        res.redirect('/');
+        event.error = errorMessage
+        res.render('event/edit', event);
     })
 }
 
@@ -102,6 +132,7 @@ module.exports.getDetails = (req, res) => {
             }
             res.render('event/details', event)
         }).catch(err => {
+        req.flash('error', errorMessage);
         res.redirect('/')
     })
 }
@@ -112,7 +143,8 @@ module.exports.getAllEvents = (req, res) => {
         entityHelper.addImagesToEntities(events);
         res.render('event/all', {events: events})
     }).catch((err) => {
-        res.redirect('/');
+        req.flash('error', errorMessage);
+        res.redirect('/')
     })
 }
 
@@ -123,14 +155,17 @@ module.exports.registerForEvent = (req, res) => {
     Event.findById(eventId).then(event => {
         if (event.placesCount <= event.users.length ||
             event.users.includes(userId.toString())) {
+            req.flash('error', 'Няма повече свободни места за това събитие!');
             res.redirect('/event/details/' + eventId)
             return
         }
 
         event.users.push(userId)
         event.save().then(() => {
+            req.flash('info', 'Успешно се регистрирахте за събитието!');
             res.redirect('/event/details/' + eventId)
         }).catch(err => {
+            req.flash('error', errorMessage);
             res.redirect('/event/details/' + eventId)
         })
     })
@@ -144,15 +179,17 @@ module.exports.unregisterFromEvent = (req, res) => {
         let index = event.users.indexOf(userId)
 
         if (index === -1) {
-            console.log('the user is not registered')
+            req.flash('error', 'Не сте регистрирани за това събитие!');
             res.redirect('event/details/' + eventId)
             return
         }
 
         event.users.splice(index, 1)
         event.save().then(() => {
+            req.flash('info', 'Успешно се отписахте от събитието!');
             res.redirect('/event/details/' + eventId)
         }).catch(err => {
+            req.flash('error', errorMessage);
             res.redirect('/event/details/' + eventId)
         })
     })
@@ -161,10 +198,14 @@ module.exports.unregisterFromEvent = (req, res) => {
 module.exports.getRegisteredUsers = async (req, res) => {
     let id = req.params.id;
 
-    let event = await Event.findById(id)
-        .populate('users');
-
-    res.render('event/registeredUsers', {users: event.users});
+    try {
+        let event = await Event.findById(id)
+            .populate('users');
+        res.render('event/registeredUsers', {users: event.users});
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/event/details/' + id);
+    }
 }
 
 module.exports.renderEmailForm = (req, res) => {
@@ -173,12 +214,27 @@ module.exports.renderEmailForm = (req, res) => {
 
 module.exports.sendEmails = async (req, res) => {
     let id = req.params.id;
-    let event = await Event.findById(id);
+    let event;
+    try {
+        event = await Event.findById(id)
+            .populate('users', 'email');
+    }catch(err){
+        req.flash('error', errorMessage);
+        res.redirect('/event/details/' + id);
+        return;
+    }
 
-    const environment = process.env.NODE_environment || 'development'
+    const environment = require('../config/config.js').environment;
     let url = require('../config/config.js')[environment].url;
     const eventDetailsUrl = url + '/event/details/' + id;
     let body = req.body;
+
+    if(!body.title || !body.content){
+        body.error = 'Всички полета са задължитени!';
+        res.render(`event/emailForm`, body);
+        return;
+    }
+
     body.address = event.address;
     body.town = event.town;
     body.description = event.description;
@@ -186,22 +242,27 @@ module.exports.sendEmails = async (req, res) => {
     body.eventDetailsUrl = eventDetailsUrl;
 
     let html = require('../utilities/emailTemplates.js').getEventEmail(body);
-
+    let userEmails = event.users.map(u => u.email).join(', ');
     let emailSender = require('../utilities/emailSender.js');
     let smtpTrans = emailSender.setEmailSender();
     let mailOptions = {
-        to: 'nasko01vasilev@gmail.com',
+        to: userEmails,
         subject: 'Информазия за предстоящото събитие ' + event.name,
         html: html
     };
 
-    smtpTrans.sendMail(mailOptions, function (error, res) {
+    let successfullySent = true;
+    smtpTrans.sendMail(mailOptions, function (error) {
         if (error) {
-            req.flash('error', 'Възникна грешка!');
-            res.redirect('/event/details/' + id)
-            return;
+            successfullySent = false;
         }
     });
+
+    if(!successfullySent){
+        req.flash('error', 'Възникна грешка!');
+        res.redirect('/event/details/' + id);
+        return;
+    }
 
     req.flash('info', 'Успешно бяха изпратени имейли на всички регистрирани потребители!')
     res.redirect('/event/details/' + id)

@@ -471,11 +471,6 @@ div.admin-buttons{
         width: 95%;
     }
 
-    body .post-details > p{
-        text-align: left;
-    }
-
-
     body #comments article p{
         border: none;
         width: calc(100% - 30px);
