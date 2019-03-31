@@ -4,11 +4,11 @@
              data-background=""></div>
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Изпълнени каузи</h2>
-                <p>Това са каузите , които успяхме да изпълним с Вашата помощ.</p>
-                <p>Успяхме да направим много хора щастливи!</p>
+                <h2>Accomplished causes</h2>
+                <p>These are the causes we have been able to accomplish with your help.</p>
+                <p>We have been able to make many people happy!</p>
                 <div class="text-center">
-                    <a href="/cause/all" class="primary_btn">Настоящи каузи</a>
+                    <a href="/cause/all" class="primary_btn">Current causes</a>
                 </div>
             </div>
         </div>
@@ -23,18 +23,18 @@
                     <div class="card">
                         <div class="card-body">
                             <figure>
-                                <img class="card-img-top img-fluid" src="data:{{this.image.contentType}};base64,{{this.image.data}}" alt="Снимка на каузата">
+                                <img class="card-img-top img-fluid" src="data:{{this.image.contentType}};base64,{{this.image.data}}" alt="Photo of the cause">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>
                                 <p class="card-text">{{description}}</p>
                                 <div class="d-flex justify-content-between raised_goal">
-                                    <p>Събрани: {{raised}} лв</p>
+                                    <p>Collected: {{raised}} lv.</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between donation align-items-center">
                                 {{#if ../isAdmin}}
-                                    <a href="/cause/delete/{{this._id}}" class="primary_btn">Изтрий</a>
+                                    <a href="/cause/delete/{{this._id}}" class="primary_btn">Delete</a>
                                 {{/if}}
                             </div>
                         </div>

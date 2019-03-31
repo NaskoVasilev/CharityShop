@@ -1,8 +1,8 @@
 const Cause = require('../models/Cause');
 const Product = require('../models/Product');
 const entityHelper = require('../utilities/entityHelper');
-let noChosenFileError = 'Трябва да изберете снимка!';
-let errorMessage = 'Възникна грешка! Моля опитайте пак!';
+let noChosenFileError = 'Please choose a photo!';
+let errorMessage = 'Error occurred! Please try again!';
 
 module.exports.addGet = (req, res) => {
     res.render('cause/add')
@@ -19,7 +19,7 @@ module.exports.addPost = (req, res) => {
     entityHelper.addBinaryFileToEntity(req, cause);
 
     Cause.create(cause).then(() => {
-        req.flash('info', "Каузата беше създадена успешно!")
+        req.flash('info', "New cause was created  successfully !")
         res.redirect('/cause/all')
     }).catch((err) => {
         res.render('cause/add', {cause: cause, error: errorMessage})
@@ -56,7 +56,7 @@ module.exports.deletePost = (req, res) => {
     let id = req.params.id
 
     Cause.findByIdAndDelete(id).then(() => {
-        let message = `Каузата беше успешно изтрита!`;
+        let message = `The cause was deleted successfully!`;
         req.flash('info', message)
         res.redirect('/');
     }).catch(err => {
@@ -86,10 +86,10 @@ module.exports.editPost = (req, res) => {
 
     let message = null;
     if (!body.name) {
-        message = "Името е задължително!"
+        message = "The name is required!"
     }
     else if (body.goal <= 0) {
-        message = "Нужните пари трябва да са положително число!"
+        message = "Goal money must be positive number!"
     }
 
     if (message) {
@@ -98,7 +98,7 @@ module.exports.editPost = (req, res) => {
     }
 
     Cause.findByIdAndUpdate(id, body).then(() => {
-        let message = `Каузата беше успешно редактирана!`;
+        let message = `The cause was edited successfully!`;
         req.flash('info', message)
         res.redirect('/cause/all')
     }).catch(err => {

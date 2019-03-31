@@ -1,17 +1,19 @@
-<section class="product-details">
-    <figure>
-        <img id="product-img" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="">
+<section id="product-info" class="product-details">
+    <h3 class="title">{{product.name}}</h3>
+    <figure class="responsive-figure">
+        <img class="responsive-img" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="">
     </figure>
+    <p>{{product.description}}</p>
     <div class="content_wrapper">
-        <h3 class="title">{{product.name}}</h3>
-        <p>Описание: {{product.description}}</p>
-        <p>Собственик: {{product.creator.firstName}} {{product.creator.lastName}}</p>
-        <p>Kатегория: {{product.category.name}}</p>
-        <p>Кауза: {{product.cause.name}}</p>
-        <h5 class="title">Цена: {{product.price}} лв</h5>
+        <p>Owner: {{product.creator.firstName}} {{product.creator.lastName}}</p>
+        <p>Category: {{product.category.name}}</p>
+        <p>Cause: {{product.cause.name}}</p>
+        <p>Price: {{product.price}} лв</p>
+    </div>
+    <div class="button-area">
         {{#if product.isAuthorOrAdmin}}
-            <a href="/product/delete/{{product._id}}" class="primary_btn">Изтрий</a>
+            <a href="/product/delete/{{product._id}}" class="primary_btn">Delete</a>
         {{/if}}
-        <a href="/product/buy/{{product._id}}" class="primary_btn">Купи</a>
+        <a href="/product/buy/{{product._id}}" class="primary_btn">Buy</a>
     </div>
 </section>

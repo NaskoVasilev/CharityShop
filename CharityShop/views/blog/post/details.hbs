@@ -35,26 +35,26 @@
             <span data-index="0" id="likesCount-0" class="likesCount">{{likesCount}}</span>
         </div>
         <div id="author-buttons">
-            <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Редактиране</a>
-            <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Изтриване</a>
+            <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Edit</a>
+            <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Delete</a>
         </div>
         <form method="post" id="add-comment" action="/blog/comment/add/{{_id}}">
-            <input name="content" class="form-control" type="text" placeholder="Съдържание на коментара">
+            <input name="content" class="form-control" type="text" placeholder="Content of the comment">
             <input type="hidden" id="postId" value="{{_id}}">
-            <input type="submit" value="Коментиране">
+            <input type="submit" value="Comment">
         </form>
     </div>
 </article>
 <div id="comments">
     {{#each userComments}}
         <article>
-            <span><i class="fas fa-user-circle"></i> {{authorName}}</span>
-            <p>{{content}}</p>
-            {{#if isAuthor}}
+			{{#if isAuthor}}
                 <button class="remove-comment" data-id="{{id}}">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             {{/if}}
+            <span><i class="fas fa-user-circle"></i> {{authorName}}</span>
+            <p>{{content}}</p>
         </article>
     {{/each}}
 </div>

@@ -1,7 +1,7 @@
 const Event = require('../models/Event')
 const entityHelper = require('../utilities/entityHelper')
-let noChosenFileError = 'Трябва да изберете снимка!';
-let errorMessage = 'Възникна грешка! Моля опитайте пак!';
+let noChosenFileError = 'Please choose a photo!';
+let errorMessage = 'Error occurred! Please try again!';
 
 module.exports.addGet = (req, res) => {
     res.render('event/add')
@@ -20,13 +20,13 @@ module.exports.addPost = (req, res) => {
 
     if (new Date(event.date) < Date.now()) {
 
-        event.error = "Дата на събитието не може да бъде в миналото!";
+        event.error = "The event's date cannot be in the past!";
         res.render('event/add', event)
         return;
     }
 
     Event.create(event).then(() => {
-        req.flash('info', 'Ново събитие беше създадено успешно!')
+        req.flash('info', 'New event was created successfully!')
         res.redirect('/event/all');
     }).catch(err => {
         event.error = errorMessage;
@@ -51,7 +51,7 @@ module.exports.deletePost = (req, res) => {
     let id = req.params.id
 
     Event.findByIdAndDelete(id).then(() => {
-        req.flash('info', 'Събитието беше изтрито успешно!')
+        req.flash('info', 'The event was deleted successfully!!')
         res.redirect('/event/all')
     }).catch(err => {
         req.flash('error', errorMessage);
@@ -76,16 +76,16 @@ module.exports.editPost = (req, res) => {
 
     let message = null;
     if (!event.name) {
-        message = "Името на събитието е задължително!"
+        message = "The event's name is required!"
     }
     else if (event.placesCount <= 0) {
-        message = "Местата на събитието трябва да бъде положително число!"
+        message = "The event's places should be positive number!"
     }
     else if (!event.address) {
-        message = "Адреса на събитието е задължително!"
+        message = "The event's address is required!"
     }
     else if (!event.town) {
-        message = "Града на събитието е задължително!"
+        message = "The event's town is required!"
     }
 
     if (message) {
@@ -95,7 +95,7 @@ module.exports.editPost = (req, res) => {
     }
 
     if (new Date(event.date) < Date.now()) {
-        event.error = "Дата на събитието не може да бъде в миналото!";
+        event.error = "The event's date cannot be in the past!";
         res.render('event/edit', event);
         return;
     }
@@ -105,7 +105,7 @@ module.exports.editPost = (req, res) => {
     }
 
     Event.findByIdAndUpdate(id, event).then(() => {
-        req.flash('info', 'Събитието беше редактирано успешно!');
+        req.flash('info', 'The event was edited successfully!');
         res.redirect('/event/details/' + id);
     }).catch((err) => {
         event.error = errorMessage
@@ -155,14 +155,14 @@ module.exports.registerForEvent = (req, res) => {
     Event.findById(eventId).then(event => {
         if (event.placesCount <= event.users.length ||
             event.users.includes(userId.toString())) {
-            req.flash('error', 'Няма повече свободни места за това събитие!');
+            req.flash('error', 'No more free places for this event!');
             res.redirect('/event/details/' + eventId)
             return
         }
 
         event.users.push(userId)
         event.save().then(() => {
-            req.flash('info', 'Успешно се регистрирахте за събитието!');
+            req.flash('info', 'Successfully registered for the event!');
             res.redirect('/event/details/' + eventId)
         }).catch(err => {
             req.flash('error', errorMessage);
@@ -179,14 +179,14 @@ module.exports.unregisterFromEvent = (req, res) => {
         let index = event.users.indexOf(userId)
 
         if (index === -1) {
-            req.flash('error', 'Не сте регистрирани за това събитие!');
+            req.flash('error', 'You are not registered for this event!');
             res.redirect('event/details/' + eventId)
             return
         }
 
         event.users.splice(index, 1)
         event.save().then(() => {
-            req.flash('info', 'Успешно се отписахте от събитието!');
+            req.flash('info', 'Successfully unregistered from this event!');
             res.redirect('/event/details/' + eventId)
         }).catch(err => {
             req.flash('error', errorMessage);
@@ -230,7 +230,7 @@ module.exports.sendEmails = async (req, res) => {
     let body = req.body;
 
     if(!body.title || !body.content){
-        body.error = 'Всички полета са задължитени!';
+        body.error = 'All fields are required!';
         res.render(`event/emailForm`, body);
         return;
     }
@@ -247,7 +247,7 @@ module.exports.sendEmails = async (req, res) => {
     let smtpTrans = emailSender.setEmailSender();
     let mailOptions = {
         to: userEmails,
-        subject: 'Информазия за предстоящото събитие ' + event.name,
+        subject: 'Information about the upcoming event ' + event.name,
         html: html
     };
 
@@ -259,11 +259,11 @@ module.exports.sendEmails = async (req, res) => {
     });
 
     if(!successfullySent){
-        req.flash('error', 'Възникна грешка!');
+        req.flash('error', 'Error occurred. Please try again!');
         res.redirect('/event/details/' + id);
         return;
     }
 
-    req.flash('info', 'Успешно бяха изпратени имейли на всички регистрирани потребители!')
+    req.flash('info', 'Emails were successfully sent to all registered users for this event!')
     res.redirect('/event/details/' + id)
 }

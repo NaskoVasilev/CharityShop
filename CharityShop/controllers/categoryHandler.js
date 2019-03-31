@@ -8,12 +8,12 @@ module.exports.addPost = (req, res) => {
     let categoryObj = req.body;
     Category.create(categoryObj)
         .then((category) => {
-            let message = `Категория ${category.name} успешно беше създадена!`;
+            let message = `Category ${category.name} successfully created!`;
             req.flash('info', message)
             res.redirect('/category/all')
         })
         .catch(err => {
-            req.flash('error', "Името на категорията е задължиделно и уникално!")
+            req.flash('error', "Category's name is unique and required!")
             res.redirect('/category/add')
         })
 }
@@ -43,11 +43,11 @@ module.exports.editPost = (req, res) => {
             category.name = editedProduct.name;
             category.save()
                 .then(() => {
-                    let message = `Категория ${category.name} успешно беше редактирана!`;
+                    let message = `Category ${category.name} was successfully edited!`;
                     req.flash('info', message)
                     res.redirect('/category/all')
                 }).catch(err => {
-                req.flash('error', "Името на категорията е задължиделно и уникално!")
+                req.flash('error', "Category's name is unique and required!")
                 res.redirect('/category/edit/' + category.id)
             })
         })

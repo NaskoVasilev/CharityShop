@@ -13,26 +13,26 @@ module.exports.registerPost = (req, res) => {
     if (user.verificationCode === ""
         || user.generatedCode === ""
         || user.verificationCode !== user.generatedCode) {
-        req.flash('error', 'Кодът за потвърждаване на имейла Ви е грешен!')
+        req.flash('error', 'The verification code is wrong!')
         res.redirect('/user/register')
         return
     }
 
 
     if (!user.email) {
-        req.flash('error', 'Имейл адреса е задължителен!')
+        req.flash('error', 'The email is required!')
         res.redirect('/user/register')
         return
     }
 
     if (user.password.length < 5) {
-        req.flash('error', 'Паролита трябва да бъде поне пет символа!')
+        req.flash('error', 'The password should be at least 5 characters long!')
         res.redirect('/user/register')
         return
     }
 
     if (user.password && user.password !== user.confirmedPassword) {
-        req.flash('error', 'Паролите трябва да съвпадат!')
+        req.flash('error', 'The passwords should match!')
         res.redirect('/user/register')
         return
     }
@@ -47,14 +47,14 @@ module.exports.registerPost = (req, res) => {
         .then(user => {
             req.logIn(user, (error, user) => {
                 if (error) {
-                    res.render('user/register', {error: 'Не успяхте да влезнете моля опитайте пак!'})
+                    res.render('user/register', {error: 'Error occurred! Please try again!!'})
                     return
                 }
-                req.flash('info', 'Успешно се регистрирахте!')
+                req.flash('info', 'Register successfully!')
                 res.redirect('/')
             })
         }).catch(err => {
-        let error = 'Вече има потребител със същото потребителско име или имейл адрес!'
+        let error = 'Please use other username or email!'
         req.flash('error', error);
         res.redirect('/user/register')
     })
@@ -70,15 +70,15 @@ module.exports.loginPost = (req, res) => {
     User.findOne({username: userToLogin.username})
         .then(user => {
             if (!user || !user.authenticate(userToLogin.password)) {
-                res.render('user/login', {error: 'Вашата парола или потербителско име са грешни!'})
+                res.render('user/login', {error: 'Your password or username are wrong!'})
             } else {
                 req.logIn(user, (error, user) => {
                     if (error) {
-                        res.render('user/login', {error: 'Вашата парола или потербителско име са грешни!'})
+                        res.render('user/login', {error: 'Your password or username are wrong!!'})
                         return
                     }
 
-                    req.flash('info', 'Успешено влезнахте в системата!');
+                    req.flash('info', 'Login successfully!');
                     res.redirect('/')
                 })
             }
@@ -87,7 +87,7 @@ module.exports.loginPost = (req, res) => {
 
 module.exports.logout = (req, res) => {
     req.logout()
-    req.flash('info', 'Успешно излезнахте от системата!');
+    req.flash('info', 'Logout successfully!');
     res.redirect('/')
 }
 
@@ -98,7 +98,7 @@ module.exports.getMyProducts = (req, res) => {
             res.render('user/myProducts', {products: user.createdProducts})
         })
         .catch(() => {
-            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            req.flash('error', 'Error occurred! Please try again!')
             res.redirect('/')
         })
 }
@@ -110,7 +110,7 @@ module.exports.getBoughtProducts = (req, res) => {
             res.render('user/boughtProducts', {products: user.boughtProducts})
         })
         .catch(() => {
-            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            req.flash('error', 'Error occurred! Please try again!')
             res.redirect('/')
         })
 }
@@ -126,7 +126,7 @@ module.exports.getUserProductDetails = (req, res) => {
             res.render('user/myProductDetails', {product: product})
         })
         .catch(() => {
-            req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+            req.flash('error', 'Error occurred! Please try again!')
             res.redirect('/')
         })
 }
@@ -149,7 +149,7 @@ module.exports.addAdminPost = async (req, res) => {
         });
 
         if (users.length === 0 || users.length > 1) {
-            let error = 'Невалидно име, фамилия или потребителско име!';
+            let error = 'Invalid name, surname or username!';
             res.render('user/addAdmin', {error: error});
             return;
         }
@@ -157,7 +157,7 @@ module.exports.addAdminPost = async (req, res) => {
         user = users[0];
 
         if (user.roles.includes('Admin')) {
-            let error = `${user.username} вече е администратор!`;
+            let error = `${user.username} is admin yet`;
             res.render('user/addAdmin', {error: error});
             return;
         }
@@ -165,11 +165,11 @@ module.exports.addAdminPost = async (req, res) => {
         user.roles.push('Admin');
         await user.save();
 
-        let message = `${user.username} успешно беше направен администратор!`;
+        let message = `${user.username} became administrator successfully!`;
         req.flash('info', message);
         res.redirect('/');
     } catch (err) {
-        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        req.flash('error', 'Error occurred! Please try again!!')
         res.redirect('/')
     }
 }
@@ -192,7 +192,7 @@ module.exports.removeAdminPost = async (req, res) => {
         });
 
         if (users.length === 0 || users.length > 1) {
-            let error = 'Невалидно име, фамилия или потребителско име!';
+            let error = 'Invalid name, surname or username!';
             res.render('user/removeAdmin', {error: error});
             return;
         }
@@ -200,7 +200,7 @@ module.exports.removeAdminPost = async (req, res) => {
         user = users[0];
         let index = user.roles.indexOf('Admin');
         if (index === -1) {
-            let error = user.username + ' не е адмиинистратор!';
+            let error = user.username + ' is not admin!';
             res.render('user/removeAdmin', {error: error});
             return;
         }
@@ -208,11 +208,11 @@ module.exports.removeAdminPost = async (req, res) => {
         user.roles.splice(index, 1);
         await user.save();
 
-        let message = `${user.username} успешно беше премахнат като администратор!`;
+        let message = `${user.username} was removed as administrator successfully!`;
         req.flash('info', message);
         res.redirect('/');
     } catch (err) {
-        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        req.flash('error', 'Error occurred! Please try again!')
         res.redirect('/')
     }
 }
@@ -247,7 +247,7 @@ module.exports.sendVerificationEmail = (req, res) => {
     });
 
     if (!sendEmailSuccessfully) {
-        req.flash('error', 'Възникна грешка. Моля опитайте пак!')
+        req.flash('error', 'Error occurred! Please try again!!')
         res.redirect('/user/register');
         return;
     }

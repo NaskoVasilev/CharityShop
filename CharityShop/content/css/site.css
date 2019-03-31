@@ -626,12 +626,12 @@ body > main > article > div{
     margin-left: 10px;
     padding-left: 20px;
     margin-bottom: 0px;
-    width: calc(100% - 170px);
+    /*width: calc(100% - 170px);*/
 }
 
 #comments article span{
     float: left;
-    width: 125px;
+    /*width: 125px;*/
 }
 
 #posts .blog-title{
@@ -712,11 +712,97 @@ input#verify{
     height: 100%;
 }
 
+.figure-fix-height{
+    height: 250px;
+}
+
 #event-figure{
     height: 250px;
 }
 
+#formContent figure{
+    padding-bottom: 20px;
+}
 
+#formContent figure img{
+    padding-bottom: 10px;
+}
+
+#formContent figure p#cause-name{
+    color: black;
+    font-weight: bold;
+}
+
+#add-product-from #formContent{
+    padding-top: 20px;
+}
+
+@media(max-width: 420px){
+    img.responsive-img{
+        width: 90%;
+        height: 100%;
+    }
+}
+
+#product-info{
+    width: 80%;
+    text-align: center;
+}
+
+#formContent h2{
+    padding-bottom: 15px;
+}
+
+
+#product-info figure{
+    width: 100%;
+    height: 300px;
+    text-align: center;
+}
+
+#product-info .title{
+    padding: 15px 0;
+}
+#product-info .content_wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#product-info p{
+    color: black;
+    font-size: 18px;
+}
+
+@media(max-width:  550px){
+    #product-info{
+        width: 95%;
+    }
+
+    #product-info figure{
+        height: auto;
+    }
+
+    #product-info figure img{
+        width: 90%;
+        height: auto;
+    }
+}
+
+#product-info p{
+    padding: 0px 10px;
+}
+
+@media(max-width: 767px){
+    body > main > section.home_banner_area > div > div > div > a:nth-child(4){
+        margin-right: 15px;
+    }
+}
+
+#language{
+	width: 30px;
+	margin-left: 20px;
+}
 
 
 

@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const passport = require('passport')
 const handlebars = require('express-handlebars')
+//const mailer = require('express-mailer');
 const charityShopMail = 'charityShopAppJS@gmail.com';
 const password = 'charity-js-app-secret';
 

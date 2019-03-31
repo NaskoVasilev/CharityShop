@@ -1,6 +1,6 @@
 let request = (function () {
 
-    const baseUrl = 'http://localhost:8000';
+    const baseUrl = 'https://charity-shop.herokuapp.com';
 
     function makeRequest(method, endpoint) {
         return {

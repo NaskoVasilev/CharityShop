@@ -395,7 +395,6 @@ button:focus {
 
 @media (max-width: 767px) {
     .home_banner_area .banner_inner .banner_content .mr-20 {
-        margin-right: 0;
         margin-bottom: 15px;
     }
 }

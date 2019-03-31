@@ -8,8 +8,8 @@
             <div class="banner_content text-center">
                 <h2>Блог</h2>
                 <p id="blog-info">
-                    Можеш да задаваш въпроси, да намериш интересни статии, <br>
-                    да предложиш събитие или кауза, да харесаш и коментираш статии!
+                   You can ask questions, find interesting articles, <br>
+                    offer an event or cause, like and comment about articles!
                 </p>
             </div>
         </div>
@@ -19,13 +19,13 @@
 <section id="posts">
     <div id="search-container">
         <form action="/blog/post/search" method="post">
-            <input type="text" name="postName" placeholder="Име на публикация">
+            <input type="text" name="postName" placeholder="Name of a post">
             <select class="fadeIn third" name="category" id="category">
                 {{#each categories}}
                     <option value="{{_id}}">{{name}}</option>
                 {{/each}}
             </select>
-            <input type="submit" value="Търси">
+            <input type="submit" value="Search">
         </form>
     </div>
     {{#each posts}}

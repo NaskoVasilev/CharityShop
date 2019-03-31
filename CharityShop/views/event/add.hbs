@@ -1,17 +1,17 @@
 <div class="wrapper fadeInDown" id="add-product-from">
     <div id="formContent">
-        <h2 class="active">Добавяне на събитие</h2>
+        <h2 class="active">Add an event</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" placeholder="Име на събитието" value="{{name}}" required>
-            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание">{{description}}</textarea>
-            <input type="number" class="fadeIn third" name="placesCount" placeholder="Брой места" step="1" min="0" value="{{placesCount}}" required>
-            <input type="date" class="fadeIn third" name="date" placeholder="Дата" value="{{date}}" required>
-            <input type="text" class="fadeIn third" name="address" placeholder="Адрес" value="{{address}}" required>
-            <input type="text" class="fadeIn third" name="town" placeholder="Град" value="{{town}}" required>
+            <input type="text" class="fadeIn second" name="name" placeholder="Name of the event" value="{{name}}" required>
+            <textarea type="text" class="fadeIn third" name="description" placeholder="Description">{{description}}</textarea>
+            <input type="number" class="fadeIn third" name="placesCount" placeholder="Number of seats" step="1" min="0" value="{{placesCount}}" required>
+            <input type="date" class="fadeIn third" name="date" placeholder="Date" value="{{date}}" required>
+            <input type="text" class="fadeIn third" name="address" placeholder="Adress" value="{{address}}" required>
+            <input type="text" class="fadeIn third" name="town" placeholder="City/Town" value="{{town}}" required>
             <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
-            <label for="file" class="fadeIn third">Изберете снимка</label>
-            <input type="submit" class="fadeIn fourth" value="Дoбави">
+            <label for="file" class="fadeIn third">Choose photo</label>
+            <input type="submit" class="fadeIn fourth" value="Add">
         </form>
     </div>
 </div>

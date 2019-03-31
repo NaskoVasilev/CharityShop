@@ -2,18 +2,18 @@
     <div class="row align-items-center">
         <div class="col-lg-6 col-md-6">
             <figure>
-                <img id="product-img" class="img-fluid w-100" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="Снимка на продукта">
+                <img id="product-img" class="img-fluid w-100" src="data:{{product.image.contentType}};base64,{{product.image.data}}" alt="Photo of the product">
             </figure>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="content_wrapper">
                 <h3 class="title">{{product.name}}</h3>
-                <p>Описание: {{product.description}}</p>
-                <p>Kатегория: {{product.category.name}}</p>
-                <p>Кауза: {{product.cause.name}}</p>
-                <h5 class="title">Цена: {{product.price}} лв</h5>
-                <a href="/product/edit/{{product._id}}" class="primary_btn">Редактиране</a>
-                <a href="/product/delete/{{product._id}}" class="primary_btn danger">Изтриване</a>
+                <p>Description: {{product.description}}</p>
+                <p>Category: {{product.category.name}}</p>
+                <p>Cause: {{product.cause.name}}</p>
+                <h5 class="title">Price: {{product.price}} lv.</h5>
+                <a href="/product/edit/{{product._id}}" class="primary_btn">Edit</a>
+                <a href="/product/delete/{{product._id}}" class="primary_btn danger">Delete</a>
             </div>
         </div>
     </div>

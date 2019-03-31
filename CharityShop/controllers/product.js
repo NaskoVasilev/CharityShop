@@ -2,8 +2,8 @@ const Product = require('../models/Product')
 const Category = require('../models/Category')
 const Cause = require('../models/Cause')
 const entityHelper = require('../utilities/entityHelper')
-let noChosenFileError = 'Трябва да добавите снимка!';
-let errorMessage = 'Възникна грешка! Моля опитайте пак!';
+let noChosenFileError = 'Please choose a photo!';
+let errorMessage = 'Error occurred! Please try again!';
 
 module.exports.addGet = (req, res) => {
     let categoriesPromise = Category.find();
@@ -47,7 +47,7 @@ module.exports.addPost = async (req, res) => {
         category.products.push(product._id)
         await category.save()
 
-        req.flash('info', 'Успешно беше добавен нов продукт!');
+        req.flash('info', 'New product was created successfully!');
         res.redirect('/products');
     } catch (err) {
         await addCausesAndCategoriesToProduct(productObj);
@@ -62,7 +62,7 @@ module.exports.editGet = async (req, res) => {
         let productObj = await Product.findById(id);
 
         if (!isAuthorOrAdmin(req, productObj)) {
-            req.flash('error', 'Не си автор на този продукт!');
+            req.flash('error', 'You are no owner of the product!');
             res.redirect('/')
             return;
         }
@@ -115,7 +115,7 @@ module.exports.editPost = async (req, res) => {
         }
 
         await product.save();
-        req.flash('info', 'Продуктът беше успешно редактиран!')
+        req.flash('info', 'The product was edited successfully!!')
         res.redirect('/product/details/' + id);
 
     } catch (e) {
@@ -138,7 +138,7 @@ module.exports.deleteGet = (req, res) => {
                 }
                 res.render('product/delete', {product: product})
             } else {
-                req.flash('error', 'Не сте собственик на продукта!');
+                req.flash('error', 'You are not owner of the product!');
                 res.redirect('/')
             }
         }).catch(err => {
@@ -170,11 +170,11 @@ module.exports.deletePost = async (req, res) => {
 
             await product.remove();
 
-            req.flash('info', 'Продуктът успешно беше изтрит!');
+            req.flash('info', 'The product was deleted successfully!');
             res.redirect('/user/myProducts')
         }
         else{
-            req.flash('Не сте собственик на продукта!');
+            req.flash('You are not owner of the product!');
             res.redirect('/')
         }
     }catch(err){
@@ -194,7 +194,7 @@ module.exports.buyGet = (req, res) => {
                 return
             }
             if (req.user && product.creator.toString() === req.user._id.toString()) {
-                req.flash('error', 'Не може да купите продукт дарен от Вас!');
+                req.flash('error', 'You cannot buy your own products!');
                 res.redirect('/products');
                 return;
             }
@@ -211,7 +211,7 @@ module.exports.buyPost = async (req, res) => {
     try {
         let product = await Product.findById(productId).populate('cause');
         if (product.buyer) {
-            req.flash('error', 'Продуктът вече е купен!');
+            req.flash('error', 'The product has been already bought!');
             res.redirect('/products');
             return;
         }
@@ -229,7 +229,7 @@ module.exports.buyPost = async (req, res) => {
         req.user.boughtProducts.push(product.id)
         req.user.save();
 
-        req.flash('info', 'Успешно закупихте продукта!');
+        req.flash('info', `You successfully bought ${product.name}!`);
         res.redirect('/products')
     }catch (e) {
         req.flash('error', errorMessage);

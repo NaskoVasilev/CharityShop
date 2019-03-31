@@ -1,14 +1,14 @@
 <div class="wrapper fadeInDown" id="add-product-from">
     <div id="formContent">
-        <h2 class="active">Добавяане на кауза</h2>
+        <h2 class="active">Add a cause</h2>
 
         <form method="post" enctype="multipart/form-data">
-            <input type="text" class="fadeIn second" name="name" placeholder="Име на кауза"  value="{{cause.name}}" required>
-            <textarea type="text" class="fadeIn third" name="description" placeholder="Описание" required>{{cause.description}}</textarea>
-            <input type="number" class="fadeIn third" name="goal" placeholder="Нужи пари" step="1" min="0" value="{{cause.goal}}" required>
+            <input type="text" class="fadeIn second" name="name" placeholder="Name of the cause"  value="{{cause.name}}" required>
+            <textarea type="text" class="fadeIn third" name="description" placeholder="Description" required>{{cause.description}}</textarea>
+            <input type="number" class="fadeIn third" name="goal" placeholder="Needed money" step="1" min="0" value="{{cause.goal}}" required>
             <input id="file" type="file"  name="image" accept=".jpg,.jpeg,.png" required>
-            <label for="file" class="fadeIn third">Избери снимка</label>
-            <input type="submit" class="fadeIn fourth" value="Добави">
+            <label for="file" class="fadeIn third">Choose a photo</label>
+            <input type="submit" class="fadeIn fourth" value="Add">
         </form>
     </div>
 </div>

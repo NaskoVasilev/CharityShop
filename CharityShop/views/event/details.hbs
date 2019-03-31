@@ -4,12 +4,12 @@
              data-background=""></div>
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Детайли за събитие</h2>
-                <p>Заети места / Свободни места</p>
+                <h2>Event details</h2>
+                <p>Taken seats / Free seats</p>
                 <h3>{{occupiedPlaces}} / {{placesCount}}</h3>
                 {{#if isAdmin}}
-                    <a href="/event/registered/users/{{_id}}" class="btn btn-info">Регистрирани потребители</a>
-                    <a href="/event/{{_id}}/send/emails" class="btn btn-success">Изпрати емейли</a>
+                    <a href="/event/registered/users/{{_id}}" class="btn btn-info">Signed up users</a>
+                    <a href="/event/{{_id}}/send/emails" class="btn btn-success">Send emails</a>
                 {{/if}}
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="condition-left">
-                    <img class="img-fluid" src="data:{{image.contentType}};base64,{{image.data}}" alt="Снимка за събитието">
+                    <img class="img-fluid" src="data:{{image.contentType}};base64,{{image.data}}" alt="Photo of the event">
                 </div>
             </div>
             <div class="offset-lg-1 col-lg-5">
@@ -37,8 +37,8 @@
                     </ul>
                     {{#if isAdmin}}
                         <div class="col-lg-12">
-                            <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">Редактирай</a>
-                            <a href="/event/delete/{{_id}}" class="primary_btn">Изтрий</a>
+                            <a href="/event/edit/{{_id}}" class="primary_btn yellow_btn rounded">Edit</a>
+                            <a href="/event/delete/{{_id}}" class="primary_btn">Delete</a>
                         </div>
                     {{/if}}
                 </div>
@@ -53,12 +53,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7">
-                <h1>Стани част от това събитие</h1>
-                <p>Можеш да се включиш в събитието и да си запазиш място като натиснеш бутона долу.</p>
+                <h1>Become part of the event</h1>
+                <p>You can take a part in the event and reserve a seat by pressing the button.</p>
                 {{#if currentUserIsRegistered}}
-                    <a href="/event/unregister/{{_id}}" class="primary_btn yellow_btn rounded">Отписване</a>
+                    <a href="/event/unregister/{{_id}}" class="primary_btn yellow_btn rounded">Sign out</a>
                 {{else}}
-                    <a href="/event/register/{{_id}}" class="primary_btn yellow_btn rounded">Записване</a>
+                    <a href="/event/register/{{_id}}" class="primary_btn yellow_btn rounded">Sign up</a>
                 {{/if}}
             </div>
         </div>

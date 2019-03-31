@@ -31,10 +31,10 @@ function addPropertyIsSelectedToCategory(entities, product, property){
 function validateProduct(product){
     let message = null;
     if(!product.name){
-        message = 'Името на продукта е задължително!'
+        message = `The product's name is required!`
     }
     else if(product.price <= 0){
-        message = 'Цената не може да бъде по-малка от нула!';
+        message = `The product's price must be positive number!`;
     }
 
     return message;

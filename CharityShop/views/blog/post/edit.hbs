@@ -1,10 +1,10 @@
 <div class="wrapper fadeInDown" id="add-product-from">
     <div id="formContent">
-        <h2 class="active">Редактиране на публикация</h2>
+        <h2 class="active">Edit a post</h2>
 
         <form method="post">
-            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие на публикацията" value="{{post.title}}" required>
-            <textarea type="text" class="fadeIn third" name="content" placeholder="Съдържание" required>{{post.content}}</textarea>
+            <input type="text" class="fadeIn second" name="title" placeholder="Title of the post" value="{{post.title}}" required>
+            <textarea type="text" class="fadeIn third" name="content" placeholder="Content" required>{{post.content}}</textarea>
             <select class="fadeIn third" name="category" id="category" required>
                 {{#each categories}}
                     {{#if isSelected}}
@@ -14,7 +14,7 @@
                     {{/if}}
                 {{/each}}
             </select>
-            <input type="submit" class="fadeIn fourth" value="Редактиране">
+            <input type="submit" class="fadeIn fourth" value="Edit">
         </form>
     </div>
 </div>

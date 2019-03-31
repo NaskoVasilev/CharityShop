@@ -1,14 +1,14 @@
 <section id="all-categories">
     <table>
         <tr>
-            <th>Категория на пубикация</th>
-            <th>Бутони</th>
+            <th>Category of a post</th>
+            <th>Buttons</th>
         </tr>
         {{#each postCategories}}
             <tr>
                 <td>{{name}}</td>
                 <td>
-                    <a href="/blog/category/edit/{{_id}}" class="circle category-edit">Редактиране</a>
+                    <a href="/blog/category/edit/{{_id}}" class="circle category-edit">Edit</a>
                 </td>
             </tr>
         {{/each}}

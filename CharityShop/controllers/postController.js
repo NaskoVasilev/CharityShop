@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 const PostCategory = require('../models/PostCategory');
 const postUtils = require('../utilities/postUtils')
+let errorMessage = 'Error occurred! Please try again!!'
 
 module.exports.addGet = async (req, res) => {
     let categories = await PostCategory.find();
@@ -13,11 +14,10 @@ module.exports.addPost = async (req, res) => {
     let title = body.title;
     let content = body.content;
     let categoryId = body.category;
-    console.log(body);
 
     if (!title || !content || !categoryId) {
         let categories = await PostCategory.find();
-        let error = 'Всички полета са задължителни!';
+        let error = 'All fields are required!';
         res.render('blog/post/add', {categories: categories, post: body, error: error});
         return;
     }
@@ -29,20 +29,26 @@ module.exports.addPost = async (req, res) => {
         category: categoryId
     }
     await Post.create(post);
+    req.flash('info', 'New post was created successfully!')
     res.redirect('/blog/index');
 }
 
 module.exports.getAll = async (req, res) => {
-    let posts = await Post.find()
-        .sort({creationDate: -1})
-        .populate('author')
-        .populate('category');
+    try {
+        let posts = await Post.find()
+            .sort({creationDate: -1})
+            .populate('author')
+            .populate('category');
 
-    postUtils.normalizePosts(req, posts);
-    let categories = await PostCategory.find();
-    categories.unshift({_id: '', name: ''})
+        postUtils.normalizePosts(req, posts);
+        let categories = await PostCategory.find();
+        categories.unshift({_id: '', name: ''})
 
-    res.render('blog/index', {posts: posts, categories: categories});
+        res.render('blog/index', {posts: posts, categories: categories});
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/')
+    }
 }
 
 module.exports.mostLiked = async (req, res) => {
@@ -50,8 +56,6 @@ module.exports.mostLiked = async (req, res) => {
         .sort({likesCount: -1})
         .populate('author')
         .populate('category');
-
-    console.log(posts)
 
     postUtils.normalizePosts(req, posts);
     let categories = await PostCategory.find();
@@ -62,116 +66,154 @@ module.exports.mostLiked = async (req, res) => {
 
 module.exports.likePost = async (req, res) => {
     let id = req.params.id;
-    let post = await Post.findById(id);
 
-    if(!post.likes.map(l => l.toString())
-        .includes(req.user._id.toString())){
-        post.likes.push(req.user._id);
-        post.likesCount++;
+    try {
+        let post = await Post.findById(id);
+
+        if (!post.likes.map(l => l.toString())
+            .includes(req.user._id.toString())) {
+            post.likes.push(req.user._id);
+            post.likesCount++;
+        }
+
+        post.save();
+        res.redirect('/blog/post/all')
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/details/' + id)
     }
-
-    post.save();
-    res.redirect('/blog/post/all')
 }
 
 module.exports.dislikePost = async (req, res) => {
     let id = req.params.id;
-    let post = await Post.findById(id);
 
-    let index = post.likes.indexOf(req.user._id);
-    if (index > -1) {
-        post.likes.splice(index, 1);
-        post.likesCount--;
+    try {
+        let post = await Post.findById(id);
+
+        let index = post.likes.indexOf(req.user._id);
+        if (index > -1) {
+            post.likes.splice(index, 1);
+            post.likesCount--;
+        }
+        post.save();
+        res.redirect('/blog/post/all')
     }
-    post.save();
-    res.redirect('/blog/post/all')
+    catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/details/' + id)
+    }
 }
 
 module.exports.getPostDetails = async (req, res) => {
-    let id = req.params.id;
-    let post = await Post.findById(id)
-        .populate('author')
-        .populate('category')
-        .populate({
-            path: 'comments',
-            populate: {path: 'author'},
-            options: { sort: { creationDate: -1 } }
-        })
-        .sort({ 'comments.creationDate': 1 })
-    post.date = post.creationDate.toDateString();
-    post.creator = post.author.firstName + ' ' + post.author.lastName;
-    post.likesCount = post.likes.length;
-    postUtils.checkPostIsLiked(req, post);
-    post.userComments = [];
+    try {
+        let id = req.params.id;
+        let post = await Post.findById(id)
+            .populate('author')
+            .populate('category')
+            .populate({
+                path: 'comments',
+                populate: {path: 'author'},
+                options: {sort: {creationDate: -1}}
+            })
 
-    for (const comment of post.comments) {
-        let isAuthor = req.user != null && comment.author._id.toString() === req.user._id.toString();
+        post.date = post.creationDate.toDateString();
+        post.creator = post.author.firstName + ' ' + post.author.lastName;
+        post.likesCount = post.likes.length;
+        postUtils.checkPostIsLiked(req, post);
+        post.userComments = [];
 
-        post.userComments.push({
-            content: comment.content,
-            authorName: comment.author.firstName + ' ' + comment.author.lastName,
-            isAuthor: isAuthor,
-            id: comment.id
-        })
+        for (const comment of post.comments) {
+            let isAuthor = req.user != null && comment.author._id.toString() === req.user._id.toString();
+
+            post.userComments.push({
+                content: comment.content,
+                authorName: comment.author.firstName + ' ' + comment.author.lastName,
+                isAuthor: isAuthor,
+                id: comment.id
+            })
+        }
+
+        res.render('blog/post/details', post)
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/all')
     }
-
-    res.render('blog/post/details' , post)
 }
 
-module.exports.editGet = async (req, res) =>{
+module.exports.editGet = async (req, res) => {
     let id = req.params.id;
-    let post = await Post.findById(id);
-    let categories = await getCategoriesAndFindSelctedCategory(post);
-    res.render('blog/post/edit', {post, categories})
+    try {
+        let post = await Post.findById(id);
+        let categories = await getCategoriesAndFindSelctedCategory(post);
+        res.render('blog/post/edit', {post, categories})
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/details/' + id)
+    }
 }
 
-
-module.exports.editPost = async (req, res) =>{
+module.exports.editPost = async (req, res) => {
     let id = req.params.id;
     let body = req.body;
-    let post = await Post.findById(id);
+    try {
+        let post = await Post.findById(id);
 
-    if(!body.title || !body.content || !body.category){
+        if (!body.title || !body.content || !body.category) {
+            post.title = body.title;
+            post.content = body.content;
+            post.categoty = body.category;
+            let error = "All fields are required!";
+            let categories = await getCategoriesAndFindSelctedCategory(post);
+            res.render('blog/post/edit', {post, categories, error: error})
+        }
+
         post.title = body.title;
         post.content = body.content;
-        post.categoty = body.category;
-        let error = "Всички полета са задължителни!"
-        let categories = await getCategoriesAndFindSelctedCategory(post);
-        res.render('blog/post/edit', {post, categories, error: error})
+        post.category = body.category;
+        await post.save();
+
+        req.flash('info', 'The post was edited successfully!')
+        res.redirect('/blog/post/details/' + post._id);
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/edit/' + id)
     }
-
-    post.title = body.title;
-    post.content = body.content;
-    post.category = body.category;
-    console.log(body.category)
-    await post.save();
-
-    res.redirect('/blog/post/details/' + post._id);
 }
 
-module.exports.deleteGet = async (req, res) =>{
+module.exports.deleteGet = async (req, res) => {
     let id = req.params.id;
-    let post = await Post.findById(id);
-    let categories = await getCategoriesAndFindSelctedCategory(post);
+    try {
+        let post = await Post.findById(id);
+        let categories = await getCategoriesAndFindSelctedCategory(post);
 
-    res.render('blog/post/delete', {post, categories})
+        res.render('blog/post/delete', {post, categories})
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/details/' + id)
+    }
 }
 
-module.exports.deletePost = async(req, res) =>{
+module.exports.deletePost = async (req, res) => {
     let id = req.params.id;
-    await Post.findByIdAndRemove(id);
-    await Comment.remove({ post: id})
+    try {
+        await Post.findByIdAndRemove(id);
+        await Comment.remove({post: id})
 
-    res.redirect('/blog/post/all');
+        req.flash('info', 'The post was deleted successfully!')
+        res.redirect('/blog/post/all');
+    } catch (e) {
+        req.flash('error', errorMessage);
+        res.redirect('/blog/post/details/' + id)
+    }
 }
 
 async function getCategoriesAndFindSelctedCategory(post) {
     let categories = await PostCategory.find();
     for (const category of categories) {
-        if(category._id.toString() === post.category.toString()){
+        if (category._id.toString() === post.category.toString()) {
             category.isSelected = true;
         }
-        else{
+        else {
             category.isSelected = false;
         }
     }

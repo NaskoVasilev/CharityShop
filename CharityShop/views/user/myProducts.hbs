@@ -6,17 +6,17 @@
                     <div class="card">
                         <div class="card-body">
                             <figure>
-                                <img class="card-img-top img-fluid" src="data:{{image.contentType}};base64,{{image.data}}" alt="Снимка на продукта">
+                                <img class="card-img-top img-fluid" src="data:{{image.contentType}};base64,{{image.data}}" alt="Photo of the product">
                             </figure>
                             <div class="card_inner_body">
                                 <h4 class="card-title">{{name}}</h4>
                                 <div class="d-flex justify-content-between raised_goal">
-                                    <p><span>Цена: {{price}}лв</span></p>
+                                    <p><span>Price: {{price}}lv.</span></p>
                                 </div>
                                 <div class="d-flex justify-content-between donation align-items-center">
-                                    <a href="/product/delete/{{_id}}" class="primary_btn danger">Изтрий</a>
-                                    <a href="/user/product/details/{{_id}}" class="primary-btn blue">Детайли</a>
-                                    <a href="/product/edit/{{_id}}" class="primary_btn">Редактирай</a>
+                                    <a href="/product/delete/{{_id}}" class="primary_btn danger">Delete</a>
+                                    <a href="/user/product/details/{{_id}}" class="primary-btn blue">Details</a>
+                                    <a href="/product/edit/{{_id}}" class="primary_btn">Edit</a>
                                 </div>
                             </div>
                         </div>

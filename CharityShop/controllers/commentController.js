@@ -7,7 +7,7 @@ module.exports.addPost = async (req, res) =>{
 
     try {
         if(content.length < 2){
-            req.flash('error', 'Съдържанието на коментара не може да е по-малко от два символа!')
+            req.flash('error', 'The content cannot be less than 2 characters!')
             res.redirect('/blog/post/details/' + postId)
             return;
         }
@@ -26,7 +26,7 @@ module.exports.addPost = async (req, res) =>{
         res.redirect('/blog/post/details/' + postId);
     }
     catch (err){
-        req.flash('error', 'Вазникна грешка, моля опитайте пак!')
+        req.flash('error', 'Error occurred! Please try again!')
         res.redirect('/blog/post/details/' + postId)
     }
 }
@@ -45,7 +45,7 @@ module.exports.removeComment = async (req, res) =>{
             await post.save();
         }
     }catch (e) {
-        req.flash('error', 'Вазникна грешка, моля опитайте пак!')
+        req.flash('error', 'Error occurred! Please try again!')
         res.redirect('/blog/post/details/' + postId)
     }
 }
