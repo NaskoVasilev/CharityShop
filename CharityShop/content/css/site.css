@@ -804,5 +804,19 @@ input#verify{
 	margin-left: 20px;
 }
 
+@media(max-width: 550px){
+    body #products div#search-container form input,  #products div#search-container form select{
+        display: block !important;
+        width: 90% !important;
+        margin: 10px auto;
+    }
 
+    body #products div#search-container form{
+        height: auto;
+    }
+
+    body #products div#search-container form input[type=submit]{
+        width: 80px !important;
+    }
+}
 
