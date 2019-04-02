@@ -1,0 +1,28 @@
+<section class="condition-area event-details-area section_gap">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="condition-left">
+                    <img class="img-fluid" src="data:{{image.contentType}};base64,{{image.data}}"
+                         alt="Photo of the event">
+                </div>
+            </div>
+            <div class="offset-lg-1 col-lg-5">
+                <div class="condition-right">
+                    <h2 class="mb-20">{{name}}</h2>
+                    <p>{{description}}</p>
+                    <ul>
+                        <li id="raised-money">Collected: {{raised}} lv</li>
+                        <li id="needed-money">Needed: {{goal}} lv</li>
+                    </ul>
+                    {{#if isAdmin}}
+                        <div class="col-lg-12">
+                            <a href="/cause/edit/{{_id}}" class="primary_btn yellow_btn rounded">Edit</a>
+                            <a href="/cause/delete/{{_id}}" class="primary_btn">Delete</a>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

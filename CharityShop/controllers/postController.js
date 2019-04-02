@@ -121,6 +121,7 @@ module.exports.getPostDetails = async (req, res) => {
         post.likesCount = post.likes.length;
         postUtils.checkPostIsLiked(req, post);
         post.userComments = [];
+        post.isCreator = req.user != null && post.author._id.toString() === req.user._id.toString();
 
         for (const comment of post.comments) {
             let isAuthor = req.user != null && comment.author._id.toString() === req.user._id.toString();

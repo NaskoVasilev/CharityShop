@@ -8,6 +8,7 @@ const postController = require('./postController')
 const commentController = require('./commentController')
 const blogController = require('./blogController')
 const postCategoryController = require('./postCategoryController')
+const notificationController = require('./notificationController')
 
 module.exports = {
     home: homeHandler,
@@ -19,5 +20,6 @@ module.exports = {
     post: postController,
     comment: commentController,
     blog: blogController,
-    postCategory: postCategoryController
+    postCategory: postCategoryController,
+    notification: notificationController
 }

@@ -3,7 +3,7 @@
         <h2 class="active">Add a post</h2>
 
         <form method="post">
-            <input type="text" class="fadeIn second" name="title" placeholder="Заглавие на публикацията" value="{{post.title}}" required>
+            <input type="text" class="fadeIn second" name="title" placeholder="Title" value="{{post.title}}" required>
             <textarea type="text" class="fadeIn third" name="content" placeholder="Content" required>{{post.content}}</textarea>
             <select class="fadeIn third" name="category" id="category" required>
                 {{#each categories}}

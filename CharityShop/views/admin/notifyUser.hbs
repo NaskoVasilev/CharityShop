@@ -1,0 +1,15 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h2 class="active">Notify user</h2>
+
+        <form method="post" class="form">
+            <select class="fadeIn second" name="username" required>
+                {{#each usernames}}
+                    <option value="{{username}}">{{username}}</option>
+                {{/each}}
+            </select>
+            <textarea class="fadeIn third" name="message" placeholder="Message" required>{{content}}</textarea>
+            <input type="submit" class="fadeIn fourth" value="Send">
+        </form>
+    </div>
+</div>

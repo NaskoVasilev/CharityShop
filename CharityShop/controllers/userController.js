@@ -254,3 +254,7 @@ module.exports.sendVerificationEmail = (req, res) => {
 
     res.json(code);
 }
+
+module.exports.getProfile = (req, res) =>{
+    res.render('user/profile', req.user);
+}

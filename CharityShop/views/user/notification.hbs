@@ -1,0 +1,11 @@
+<div id="notifications">
+    <h2>Your notifications</h2>
+    {{#each notifications}}
+        <article>
+            <p>{{content}}</p>
+            <a href="/user/notification/delete/{{_id}}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </article>
+    {{/each}}
+</div>

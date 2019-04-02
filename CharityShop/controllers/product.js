@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const Notification = require('../models/Notifications')
 const Category = require('../models/Category')
 const Cause = require('../models/Cause')
 const entityHelper = require('../utilities/entityHelper')
@@ -228,6 +229,15 @@ module.exports.buyPost = async (req, res) => {
 
         req.user.boughtProducts.push(product.id)
         req.user.save();
+
+        let message = `Your product "${product.name}" was bought by 
+        ${req.user.firstName} ${req.user.lastName}`;
+        let notification = {
+            userId: product.creator,
+            content: message
+        };
+
+        await Notification.create(notification);
 
         req.flash('info', `You successfully bought ${product.name}!`);
         res.redirect('/products')

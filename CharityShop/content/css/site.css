@@ -797,6 +797,16 @@ input#verify{
     body > main > section.home_banner_area > div > div > div > a:nth-child(4){
         margin-right: 15px;
     }
+
+    .count_time{
+        justify-content: space-evenly;
+    }
+}
+
+@media(max-width: 460px){
+    body > main > section.home_banner_area > div > div > div > a:nth-child(4){
+        margin-right: 0;
+    }
 }
 
 #language{
@@ -804,19 +814,62 @@ input#verify{
 	margin-left: 20px;
 }
 
-@media(max-width: 550px){
-    body #products div#search-container form input,  #products div#search-container form select{
-        display: block !important;
-        width: 90% !important;
-        margin: 10px auto;
-    }
+/*Notifications css*/
+/*Notification*/
+#notifications h2{
+    text-align: center;
+}
 
-    body #products div#search-container form{
-        height: auto;
-    }
+#notifications article{
+    width: 95%;
+    margin: 10px auto;
+    border: 2px solid lightgray;
+    background-color: #fff6ef;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
 
-    body #products div#search-container form input[type=submit]{
-        width: 80px !important;
-    }
+#notifications article p{
+    text-align: left;
+    margin-bottom: 0;
+}
+
+#notifications article a{
+    float: right;
+}
+
+
+/*Profile page css*/
+#profile{
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    width: 350px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 29px 0px rgba(184,147,186,1);
+    padding: 20px;
+}
+
+#profile h2{
+    padding-top: 20px;
+}
+#profile p{
+    font-weight: bold;
+}
+
+#profile-img{
+    width: 200px;
+}
+#profile p span{
+    font-weight: normal;
+}
+
+#raised-money::before{
+    content: '';
+}
+
+#needed-money::before{
+    content: '';
 }
 

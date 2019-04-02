@@ -34,10 +34,12 @@
             <span class="likes">Likes</span>:
             <span data-index="0" id="likesCount-0" class="likesCount">{{likesCount}}</span>
         </div>
-        <div id="author-buttons">
-            <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Edit</a>
-            <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Delete</a>
-        </div>
+        {{#if isCreator}}
+            <div id="author-buttons">
+                <a href="/blog/post/edit/{{_id}}" class="btn btn-success">Edit</a>
+                <a href="/blog/post/delete/{{_id}}" class="btn btn-danger">Delete</a>
+            </div>
+        {{/if}}
         <form method="post" id="add-comment" action="/blog/comment/add/{{_id}}">
             <input name="content" class="form-control" type="text" placeholder="Content of the comment">
             <input type="hidden" id="postId" value="{{_id}}">

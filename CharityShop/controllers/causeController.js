@@ -113,3 +113,17 @@ module.exports.viewProducts = async (req, res) => {
     entityHelper.addImagesToEntities(products);
     res.render('product/products', {products: products})
 }
+
+module.exports.getDetails = async (req, res) =>{
+    let id = req.params.id;
+
+    try {
+        let cause = await Cause.findById(id);
+        entityHelper.addImageToEntity(cause);
+        res.render('cause/details', cause);
+    }catch(err){
+        let errorMessage = 'Error occurred! Please try again!';
+        req.flash('error', errorMessage);
+        res.redirect('/cause/all')
+    }
+}

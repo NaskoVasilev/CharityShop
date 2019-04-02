@@ -19,6 +19,7 @@ module.exports = (app) => {
     app.get('/cause/edit/:id', auth.isInRole('Admin'), handlers.cause.editGet)
     app.post('/cause/edit/:id', upload.single('image'), auth.isInRole('Admin'), handlers.cause.editPost)
     app.get('/cause/donate/:id', handlers.cause.viewProducts)
+    app.get('/cause/details/:id', handlers.cause.getDetails)
 
     app.get('/event/add', auth.isInRole('Admin'), handlers.event.addGet)
     app.post('/event/add', auth.isInRole('Admin'), upload.single('image'), handlers.event.addPost)
@@ -103,4 +104,12 @@ module.exports = (app) => {
     //Commnets
     app.post('/blog/comment/add/:id', auth.isAuthenticated, handlers.comment.addPost);
     app.get('/blog/post/:postId/comment/remove/:id', auth.isAuthenticated, handlers.comment.removeComment)
+
+    //Admin routes
+    app.get('/admin/notify', auth.isInRole('Admin'), handlers.notification.notifyUserGet)
+    app.post('/admin/notify', auth.isInRole('Admin'), handlers.notification.notifyUserPost)
+    app.get('/user/notification/all', auth.isAuthenticated, handlers.notification.getAll)
+    app.get('/user/notification/delete/:id', auth.isAuthenticated, handlers.notification.deleteNotification)
+
+    app.get('/user/profile', auth.isAuthenticated, handlers.user.getProfile)
 }

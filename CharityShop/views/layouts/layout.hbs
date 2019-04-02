@@ -63,9 +63,24 @@
 
                             <!--<li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>-->
                             {{#if user}}
-                                <li class="nav-item"><a class="nav-link" href="/user/myProducts">Donated products</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                       role="button"
+                                       aria-haspopup="true" aria-expanded="false">User</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/user/profile">Profile</a>
+                                        <a class="dropdown-item" href="/user/notification/all">Notifications</a>
+                                    </div>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="/user/boughtProducts">Bought</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                       role="button"
+                                       aria-haspopup="true" aria-expanded="false">Products</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/user/myProducts">Donated</a>
+                                        <a class="dropdown-item" href="/user/boughtProducts">Bought</a>
+                                    </div>
+                                </li>
                                 <li class="nav-item"><span class="nav-link">Welcome, {{user.username}}!</span></li>
                                 {{#if isAdmin}}
                                     <li class="nav-item dropdown">
@@ -81,6 +96,7 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/user/add/admin">Add administrator</a>
                                             <a class="dropdown-item" href="/user/remove/admin">Delete administrator</a>
+                                            <a class="dropdown-item" href="/admin/notify">Notify user</a>
                                         </div>
                                     </li>
                                 {{/if}}
